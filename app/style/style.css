@@ -1,0 +1,19 @@
+.input-wrapper {
+    margin-bottom: 6;
+}
+
+.input {
+    height: 30;
+    font-size: 18;
+    border: 1px solid #E8E8E8;
+    border-radius: 25;
+    padding: 0 12;
+    background-color: #FFFFFF;
+    vertical-align: center;
+}
+
+.input__title {
+    font-size: 14;
+    width: 72;
+    color: #636363;
+}
