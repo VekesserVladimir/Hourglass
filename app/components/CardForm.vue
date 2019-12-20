@@ -1,10 +1,10 @@
 <template>
-    <FlexboxLayout flexDirection='column' justifyContent='flex-end' v-if='isActive'
-        class='card-wrapper'>
+    <AbsoluteLayout class='card-wrapper' v-if='isActive'>
+    <FlexboxLayout top='0' left='0' class='card' flexDirection='column' justifyContent='flex-end'>
         <Gradient class='card__gradient' borderRadius="25"
             direction='to bottom' colors="#F8FBFF, #E7F2FF">
             <FlexboxLayout flexDirection='column' alignItems='flex-start'
-                class='card'>
+                class='card-form'>
                 <FlexboxLayout alignItems='center' class='card__close-area' v-on:tap='closeCard'>
                     <WrapLayout class='card__line'></WrapLayout>
                 </FlexboxLayout>
@@ -14,16 +14,20 @@
                     <TextField class='input card__task-name' v-model='taskName'/>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
-                    <Label text='Дата' class='input__title' marginRight="16"/>
-                    <Label v-model='date' class='input card__date' />
+                    <Label text='Дата' class='input__title'/>
+                    <DatePickerField v-bind:minDate="currentDate" pickerTitle='Дата' class='input card__date'></DatePickerField>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Начало' class='input__title' />
-                    <TextField class='input card__time' />
+                    <TimePickerField class='input card__time' pickerTitle='Время начала'></TimePickerField>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Конец' class='input__title' />
-                    <TextField class='input card__time' />
+                    <TimePickerField class='input card__time' pickerTitle='Время окончания'></TimePickerField>
+                </FlexboxLayout>
+                <FlexboxLayout class='input-wrapper' alignItems='center'>
+                    <Label text='Категория' class='input__title' />
+                    <Label text='' class='input card-category' />
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Повторять' class='input__title' />
@@ -39,12 +43,14 @@
             </FlexboxLayout>
         </Gradient>
     </FlexboxLayout>
+    </AbsoluteLayout>
 </template>
 
 <script>
     export default {
         data() {
             return {
+                currentDate: new Date(),
                 isActive: false,
                 title: "Добавить задачу",
                 taskName: "",
@@ -80,6 +86,10 @@
 </script>
 
 <style>
+    .card-wrapper {
+        width: 380;
+    }
+
     .complete-button {
         width: 40;
         height: 40;
@@ -105,8 +115,14 @@
     }
 
     .card {
+        width: 100%;
+    }
+
+    .card-form {
         height: 400;
+        width: 100%;
         padding: 0 20 0 20;
+        background-color: #eee;
     }
 
     .card__time {
@@ -115,11 +131,14 @@
 
     .card__date {
         width: 150;
-        padding: 5 20 0 20;
     }
 
     .card__task-name {
         width: 232;
+    }
+    
+    .card-category {
+        width: 150;
     }
 
     .card__title {
@@ -146,6 +165,7 @@
     }
 
     .card__gradient {
+        width: 100%;
         margin-bottom: -20;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
-	<Page actionBarHidden="true">
-		<AbsoluteLayout>
+	<Page actionBarHidden="true" class='page'>
+		<AbsoluteLayout class='app'>
 			<StackLayout class='content'>
 				<FlexboxLayout justifyContent="space-between" class='header'
 					height="70">
@@ -64,7 +64,7 @@
 							</WrapLayout>
 							<AbsoluteLayout class='task-list'>
 								<WrapLayout class='task'
-									v-for='task in day.tasks'
+									v-for='task in day.taskList'
 									v-bind:key='task.id'
 									v-bind:height='getDuration(task)'
 									v-bind:top='getTaskOffsetY(task)'
@@ -218,9 +218,9 @@
 	}
 
 	.card-wrapper {
-		width: 100%;
+		width: 380;
 		height: 100%;
-		top: 0;
+		top: 280;
 		left: 0;
 	}
 

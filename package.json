@@ -15,6 +15,7 @@
     }
   },
   "dependencies": {
+    "nativescript-datetimepicker": "^1.2.2",
     "nativescript-gradient": "^2.0.1",
     "nativescript-vue": "^2.4.0",
     "tns-core-modules": "^6.0.0",

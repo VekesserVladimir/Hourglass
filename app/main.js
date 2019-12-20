@@ -1,12 +1,12 @@
 import Vue from 'nativescript-vue'
 import App from './components/App'
-import "./style/style.css";
-
-
 import store from './store'
+import DateTimePicker from "nativescript-datetimepicker/vue";
+import "./style/style.css";
+console.log(DateTimePicker.install);
 
-  
-// Prints Vue logs when --env.production is *NOT* set while building
+Vue.use(DateTimePicker);
+
 Vue.config.silent = (TNS_ENV === 'production')
 Vue.registerElement('Gradient', () => require('nativescript-gradient').Gradient);
 

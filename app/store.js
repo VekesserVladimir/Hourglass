@@ -1,121 +1,111 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Day from './entities/Day';
+import Task from './entities/Task';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		day: {
-			date: new Date(2019, 12, 19),
-			tasks: [
-				{
-					name: "Покакать",
-					date: null,
-					startTime: new Date(2019, 11, 15, 3,15),
-					endTime: new Date(2019, 11, 15, 4,15),
-					repeat: false,
-					color: "#0070DA",
-					row: 2
-				}
-			]
-		},
+		day: new Day(new Date(2019, 11, 20), [
+			new Task(
+				"Покушать 2",
+				new Date(2019, 11, 20),
+				new Date(2019, 11, 20, 1, 15),
+				new Date(2019, 11, 20, 2, 15),
+				false,
+				"#D6DA00",
+				1
+			)
+		]),
 		days: [
-			{
-				date: new Date(2019, 12, 19),
-				tasks: [
-					{
-						name: "Покушать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 1,15),
-						endTime: new Date(2019, 11, 15, 2,15),
-						repeat: false,
-						color: "#D6DA00",
-						row: 1
-					},
-					{
-						name: "Покакать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#0070DA",
-						row: 2
-					},
-					{
-						name: "Поспать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#AE00DA",
-						row: 3
-					}
-				]
-			},
-			{
-				date: new Date(2019, 12, 20),
-				tasks: [
-					{
-						name: "Покушать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 1,15),
-						endTime: new Date(2019, 11, 15, 2,15),
-						repeat: false,
-						color: "#D6DA00",
-						row: 1
-					},
-					{
-						name: "Покакать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#0070DA",
-						row: 2
-					},
-					{
-						name: "Поспать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#AE00DA",
-						row: 3
-					}
-				]
-			},
-			{
-				date: new Date(2019, 12, 21),
-				tasks: [
-					{
-						name: "Покушать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 1,15),
-						endTime: new Date(2019, 11, 15, 2,15),
-						repeat: false,
-						color: "#D6DA00",
-						row: 1
-					},
-					{
-						name: "Покакать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#0070DA",
-						row: 2
-					},
-					{
-						name: "Поспать",
-						date: null,
-						startTime: new Date(2019, 11, 15, 3,15),
-						endTime: new Date(2019, 11, 15, 4,15),
-						repeat: false,
-						color: "#AE00DA",
-						row: 3
-					}
-				]
-			}			
+			new Day(new Date(2019, 11, 20), [
+				new Task(
+					"Покушать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 1, 15),
+					new Date(2019, 11, 20, 2, 15),
+					false,
+					"#D6DA00",
+					1
+				),
+				new Task(
+					"Покакать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#0070DA",
+					2
+				),
+				new Task(
+					"Поспать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#AE00DA",
+					3
+				)
+			]),
+			new Day(new Date(2019, 11, 20), [
+				new Task(
+					"Покушать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 1, 15),
+					new Date(2019, 11, 20, 2, 15),
+					false,
+					"#D6DA00",
+					1
+				),
+				new Task(
+					"Покакать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#0070DA",
+					2
+				),
+				new Task(
+					"Поспать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#AE00DA",
+					3
+				)
+			]),
+			new Day(new Date(2019, 11, 20), [
+				new Task(
+					"Покушать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 1, 15),
+					new Date(2019, 11, 20, 2, 15),
+					false,
+					"#D6DA00",
+					1
+				),
+				new Task(
+					"Покакать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#0070DA",
+					2
+				),
+				new Task(
+					"Поспать 2",
+					new Date(2019, 11, 20),
+					new Date(2019, 11, 20, 3, 15),
+					new Date(2019, 11, 20, 4, 15),
+					false,
+					"#AE00DA",
+					3
+				)
+			])			
 		]
 	},
 	mutations: {
