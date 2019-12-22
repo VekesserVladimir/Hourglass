@@ -15,8 +15,10 @@
     }
   },
   "dependencies": {
+    "nativescript-couchbase-plugin": "^0.9.5",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-gradient": "^2.0.1",
+    "nativescript-local-notifications": "^4.1.4",
     "nativescript-vue": "^2.4.0",
     "tns-core-modules": "^6.0.0",
     "vue": "^2.6.11",

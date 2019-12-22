@@ -1,6 +1,6 @@
 <template>
     <AbsoluteLayout class='card-wrapper' v-if='isActive'>
-    <FlexboxLayout top='0' left='0' class='card' flexDirection='column' justifyContent='flex-end'>
+    <FlexboxLayout class='card' flexDirection='column' justifyContent='flex-end'>
         <Gradient class='card__gradient' borderRadius="25"
             direction='to bottom' colors="#F8FBFF, #E7F2FF">
             <FlexboxLayout flexDirection='column' alignItems='flex-start'
@@ -15,26 +15,26 @@
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Дата' class='input__title'/>
-                    <DatePickerField v-bind:minDate="currentDate" pickerTitle='Дата' class='input card__date'></DatePickerField>
+                    <DatePickerField v-bind:minDate="currentDate" pickerTitle='Дата' class='input card__date' v-model='date'></DatePickerField>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Начало' class='input__title' />
-                    <TimePickerField class='input card__time' pickerTitle='Время начала'></TimePickerField>
+                    <TimePickerField class='input card__time' pickerTitle='Время начала' v-model='startTime'></TimePickerField>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Конец' class='input__title' />
-                    <TimePickerField class='input card__time' pickerTitle='Время окончания'></TimePickerField>
+                    <TimePickerField class='input card__time' pickerTitle='Время окончания' v-model='endTime'></TimePickerField>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Категория' class='input__title' />
-                    <Label text='' class='input card-category' />
+                    <Label v-bind:text='category ? category.name : ""' class='input card-category' v-on:tap='chooseCategory'/>
                 </FlexboxLayout>
                 <FlexboxLayout class='input-wrapper' alignItems='center'>
                     <Label text='Повторять' class='input__title' />
-                    <Switch />
+                    <Switch v-model='repeat'/>
                 </FlexboxLayout>
                 <FlexboxLayout flexDirection='column' justifyContent='center'
-                    alignItems='center' class='complete-button'>
+                    alignItems='center' class='complete-button' v-on:tap='validate'>
                     <WrapLayout class='complete-button__first-line'>
                     </WrapLayout>
                     <WrapLayout class='complete-button__second-line'>
@@ -47,6 +47,9 @@
 </template>
 
 <script>
+    import { mapActions, mapGetters } from "vuex";
+    import Task from "../entities/Task";
+
     export default {
         data() {
             return {
@@ -57,10 +60,13 @@
                 date: null,
                 startTime: null,
                 endTime: null,
+                repeat: false,
+                category: null,
                 isCreating: true
             };
         },
         methods: {
+            ...mapActions(["addTask"]),
             closeCard() {
                 this.isActive = false;
                 this.title = "Добавить задачу";
@@ -68,19 +74,44 @@
                 this.date = null;
                 this.startTime = null;
                 this.endTime = null;
+                this.repeat = false;
+                this.category = null;
                 this.isCreating = true;
             },
             openCard(task = null) {
-                this.taskName = task.name;
+                this.title = task.name;
                 if(task) {
-                    this.title = task.name;
+                    this.taskName = task.name;
                     this.date = task.date;
                     this.startTime = task.startTime;
                     this.endTime = task.endTime;
                     this.isActive = true;
                     this.isCreating = false
                 } else this.isCreating = true;
+            },
+            chooseCategory() {
+                let categories = this.getCategories;
+                let categoriesNames = categories.map((item) => item.name);
+                action("Категория", "Отмены", categoriesNames)
+                    .then(result => {
+                        this.category = categories.find(item => item.name == result);
+                    });
+            },
+            validate() {
+                if(this.taskName && this.date && this.startTime) {
+                    if(!this.category) {
+                        this.category = {
+                            name: "Без категории",
+                            color: "#555555"
+                        }
+                    }
+                    this.addTask(new Task(this.taskName, this.date.value, this.startTime.value, this.endTime.value, this.repeat, this.category, 3));
+                }
+                this.closeCard();
             }
+        },
+        computed: {
+            ...mapGetters(["getCategories"])
         }
     };
 </script>
@@ -96,6 +127,8 @@
         border-radius: 50%;
         background-color: #93DB1F;
         align-self: flex-end;
+        margin: 0 15 0 0;
+        /* transform: translateY(-15); */
     }
 
     .complete-button__first-line {
@@ -116,13 +149,14 @@
 
     .card {
         width: 100%;
+        left: 0;
+        top:0;
     }
 
     .card-form {
         height: 400;
         width: 100%;
         padding: 0 20 0 20;
-        background-color: #eee;
     }
 
     .card__time {
@@ -134,11 +168,14 @@
     }
 
     .card__task-name {
-        width: 232;
+        width: 247;
     }
     
     .card-category {
         width: 150;
+        padding-top: 2;
+        padding-left: 12;
+        color: #262626;
     }
 
     .card__title {

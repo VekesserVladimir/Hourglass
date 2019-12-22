@@ -3,7 +3,6 @@ import App from './components/App'
 import store from './store'
 import DateTimePicker from "nativescript-datetimepicker/vue";
 import "./style/style.css";
-console.log(DateTimePicker.install);
 
 Vue.use(DateTimePicker);
 

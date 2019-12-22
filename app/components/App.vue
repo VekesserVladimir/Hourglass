@@ -67,7 +67,7 @@
 									v-for='task in day.taskList'
 									v-bind:key='task.id'
 									v-bind:height='getDuration(task)'
-									v-bind:top='getTaskOffsetY(task)'
+									v-bind:top='task.offset'
 									v-bind:left='getTaskOffsetX(task.row)'
 									v-bind:backgroundColor='task.color'
 									v-on:tap='openCard(task)' />
@@ -104,7 +104,7 @@
 
 <script>
 	import Card from "./CardForm";
-	import { mapGetters, mapMutations } from "vuex";
+	import { mapGetters, mapActions, mapMutations } from "vuex";
 
 	export default {
 		components: {
@@ -123,8 +123,6 @@
 				this.times.push((i < 10 ? "0" + i : i) + ":00");
 			}
 		},
-		mounted() {
-		},
 		methods: {
 			...mapMutations(["addDayBefore", "addDayAfter"]),
 			openCard(task = null) {
@@ -135,11 +133,6 @@
 				let timeDiff =
 					Math.abs(task.startTime - task.endTime) / 1000 / 60 / 60;
 				return timeDiff * 203;
-			},
-			getTaskOffsetY(task) {
-				let hour = task.startTime.getHours();
-				let minutes = task.startTime.getMinutes();
-				return (hour + minutes / 60) * 203 + 2;
 			},
 			getTaskOffsetX(row) {
 				return (row - 1) * 60;
@@ -158,12 +151,14 @@
 						row: 1
 					}]
 				};
-				if (e.scrollY >= 12000) {
+				if (e.scrollY >= 9745) {
+					this.date = this.getDays[2].date;
 					this.addDayAfter();
 					e.object.scrollToVerticalOffset((e.scrollY - 9744) + 4872, false);
 					console.log("AddedAfter");
 				}
-				if (e.scrollY <= 2000) {
+				if (e.scrollY <= 4871) {
+					this.date = this.getDays[0].date;
 					this.addDayBefore();
 					e.object.scrollToVerticalOffset(e.scrollY + 4872, false);
 					console.log("AddedBefore");

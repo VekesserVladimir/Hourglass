@@ -7,5 +7,8 @@ export default class Task {
         this.repeat = repeat;
         this.color = color;
         this.row = row;
+        let hour = startTime.getHours();
+        let minutes = startTime.getMinutes();
+        this.offset = (hour + minutes / 60) * 203 + 2;
     }
 }
