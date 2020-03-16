@@ -1,0 +1,31 @@
+<ScrollView class='tasks' scrollBarIndicatorVisible='false' #scroll>
+    <StackLayout class='tasks__days-wrapper' #wrap>
+        <WrapLayout class='timeline' *ngFor="let day of taskService.getDays()">
+            <StackLayout class='times'>
+                <WrapLayout *ngFor="let time of times">
+                    <Label class='times__time' [text]='time'>
+                    </Label>
+                    <Gradient direction="to right" class='times__quarter' borderRadius='5' colors="rgba(77, 77, 77, 0), #9A9A9A">
+                    </Gradient>
+                    <Gradient direction="to right" class='times__half' borderRadius='5' colors="rgba(77, 77, 77, 0), #9A9A9A">
+                    </Gradient>
+                    <Gradient direction="to right" class='times__quarter' borderRadius='5' colors="rgba(77, 77, 77, 0), #9A9A9A">
+                    </Gradient>
+                </WrapLayout>
+            </StackLayout>
+            <WrapLayout class='timeline__line'>
+            </WrapLayout>
+            <AbsoluteLayout class='task-list'>
+                <WrapLayout 
+                    class='task' 
+                    *ngFor='let task of day.taskList'
+                    [height]='task | duration' 
+                    [top]='task.offset' 
+                    [left]='task | offset'
+                    [backgroundColor]='task.category.color' 
+                    (tap)='openCard(task)' 
+                ></WrapLayout>
+            </AbsoluteLayout>
+        </WrapLayout>
+    </StackLayout>
+</ScrollView>

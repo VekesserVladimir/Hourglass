@@ -1,0 +1,19 @@
+<Page class='page'>
+    <AbsoluteLayout class='main-page'>
+        <StackLayout class='main-page__content'>
+            <FlexboxLayout justifyContent="space-between" class='header'
+                height="70" ref='header'>
+                <StackLayout class='date'>
+                    <Label [text]='date | date:"d EEEE"' class='header__date'>
+                    </Label>
+                    <Label [text]='date | date:"yyyy"' class='header__year'>
+                    </Label>
+                </StackLayout>
+            </FlexboxLayout>
+            <scroll></scroll>
+        </StackLayout>
+        <menu></menu>
+        <main-page-controls [date]='date'></main-page-controls>
+        <!-- <Card ref='card' class='card-wrapper' /> -->
+    </AbsoluteLayout>
+</Page>

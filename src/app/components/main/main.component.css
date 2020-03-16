@@ -1,0 +1,33 @@
+.main-page {
+
+}
+
+.main-page__content {
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.main-page__header {
+}
+
+.header {
+    margin: 40 0;
+    padding: 0 20;
+}
+
+.header__date {
+    font-family: Maven Pro;
+    font-weight: bold;
+    line-height: 32;
+    color: #262626;
+    font-size: 27;
+}
+
+.header__year {
+    font-size: 22;
+    font-family: Maven Pro;
+    line-height: 27;
+    font-weight: 500;
+    color: #262626;
+}

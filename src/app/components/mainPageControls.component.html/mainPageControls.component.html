@@ -1,0 +1,20 @@
+<FlexboxLayout flexDirection="column" class='buttons-wrapper'>
+    <WrapLayout class='button calendar-button'>
+        <StackLayout class='calendar-button__icon'>
+            <FlexboxLayout class='calendar-button__upper'>
+                <Label [text]='date | date:"d"'></Label>
+            </FlexboxLayout>
+            <FlexboxLayout class='calendar-button__bottom'>
+                <Label [text]='date | date:"EEE"'></Label>
+            </FlexboxLayout>
+        </StackLayout>
+    </WrapLayout>
+    <WrapLayout class='button add-button' v-on:tap='openCard()'>
+        <FlexboxLayout class='add-button__icon'>
+            <WrapLayout class='add-button__first-line'>
+            </WrapLayout>
+            <WrapLayout class='add-button__second-line'>
+            </WrapLayout>
+        </FlexboxLayout>
+    </WrapLayout>
+</FlexboxLayout>

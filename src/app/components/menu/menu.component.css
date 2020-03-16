@@ -1,0 +1,99 @@
+.menu {
+    width: 62;
+    height: 251;
+    left: 278;
+    top: 46;
+}
+
+.menu__main-button {
+    width: 62;
+    height: 62;
+    background-color: rgb(17, 140, 255);
+    border-radius: 50%;
+}
+
+.menu__item1, .menu__item2, .menu__item3 {
+    background-color: rgb(17, 140, 255);
+    border-radius: 50%;
+    height: 46;
+    width: 46;
+}
+
+.menu__item1_active, .menu__item2_active, .menu__item3_active {
+    background-color: rgb(17, 140, 255);
+    border-radius: 50%;
+    height: 46;
+    width: 46;
+}
+
+.menu__item1 {
+    animation-duration: .25;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem1;
+}
+
+.menu__item1_active {
+    animation-duration: .2;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem1;
+    animation-direction: reverse;
+}
+
+@keyframes raiseItem1 {
+    from {
+        transform: translate(7, 30);
+    }
+    to {
+        transform: translate(7, -146);
+    }
+}
+
+.menu__item2 {
+    animation-duration: .25;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem2;
+}
+
+.menu__item2_active {
+    animation-duration: .2;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem2;
+    animation-direction: reverse;
+}
+
+@keyframes raiseItem2 {
+    from {
+        transform: translate(7, 20);
+    }
+    to {
+        transform: translate(7, -100);
+    }
+}
+
+.menu__item3 {
+    animation-duration: .25;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem3;
+}
+
+.menu__item3_active {
+    animation-duration: .2;
+    animation-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    animation-fill-mode: forwards;
+    animation-name: raiseItem3;
+    animation-direction: reverse;
+}
+
+@keyframes raiseItem3 {
+    from {
+        transform: translate(7, 10);
+    }
+    to {
+        transform: translate(7, -55);
+    }
+}
