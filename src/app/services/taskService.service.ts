@@ -11,7 +11,7 @@ export default class TaskService {
         {
             date: new Date(),
             taskList: [
-                new Task("Add", new Date(), new Date(), new Date(new Date().getTime() + 1000000), false, new Category("Home", "#eeeeee"), 2)
+                new Task("Add", new Date(), new Date(), new Date(new Date().getTime() + 1000000), false, new Category("Home", "red"), 2)
             ]
         }
     ];

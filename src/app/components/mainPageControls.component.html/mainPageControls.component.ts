@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "main-page-controls",
@@ -6,8 +6,14 @@ import { Component, Input, OnInit } from "@angular/core";
     styleUrls: ["./mainPageControls.component.css"]
 })
 export default class MainPageControlsComponent {
-    // @Input() date: Date = new Date();
     private date: Date = new Date();
+
+    @Output() onOpenCard: EventEmitter<void> = new EventEmitter()
+    
     constructor() {
+    }
+
+    openCard(e) {
+        this.onOpenCard.emit();
     }
 }

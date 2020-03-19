@@ -10,6 +10,9 @@ import MainPageControlsComponent from "./components/mainPageControls.component.h
 import DurationPipe from "./pipes/duration.pipe";
 import { registerElement } from "nativescript-angular";
 import OffsetPipe from "./pipes/offset.pipe";
+import CardFormComponent from "./components/cardForm/cardForm.component";
+import { NgShadowModule } from 'nativescript-ng-shadow';
+import {TNSFontIconModule} from "nativescript-ng2-fonticon";
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
 @NgModule({
@@ -18,7 +21,9 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
     ],
     imports: [
         NativeScriptModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NgShadowModule,
+        // TNSFontIconModule.forRoot({ fa: require("./assets/fontawesome.css") })
     ],
     declarations: [
         AppComponent,
@@ -27,7 +32,8 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         MenuComponent,
         MainPageControlsComponent,
         DurationPipe,
-        OffsetPipe
+        OffsetPipe,
+        CardFormComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

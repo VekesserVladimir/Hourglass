@@ -9,7 +9,7 @@
             </FlexboxLayout>
         </StackLayout>
     </WrapLayout>
-    <WrapLayout class='button add-button' v-on:tap='openCard()'>
+    <WrapLayout class='button add-button' (tap)='openCard($event)'>
         <FlexboxLayout class='add-button__icon'>
             <WrapLayout class='add-button__first-line'>
             </WrapLayout>

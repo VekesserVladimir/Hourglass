@@ -13,7 +13,7 @@
             <scroll></scroll>
         </StackLayout>
         <menu></menu>
-        <main-page-controls [date]='date'></main-page-controls>
-        <!-- <Card ref='card' class='card-wrapper' /> -->
+        <main-page-controls [date]='date' (onOpenCard)='openCard()'></main-page-controls>
+        <card-form [isActive]='cardIsActive'></card-form>
     </AbsoluteLayout>
 </Page>
