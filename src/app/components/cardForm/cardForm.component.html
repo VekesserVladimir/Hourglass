@@ -1,6 +1,38 @@
-<FlexboxLayout class='card-wrapper'>
-    <WrapLayout class='card' shadow='20' cornerRadius='24' [style.transform]="'translateY(' + position + ')'">
-        <Gradient direction="to bottom" class='card__gradient' borderRadius='24' colors="#F8FBFF, #E7F2FF">
+<WrapLayout class='card-wrapper'>
+    <WrapLayout #card class='card' shadow='20' cornerRadius='24' (loaded)='loaded()'>
+        <Gradient direction="to bottom" class='card__gradient' borderRadius='24' colors="#F2F8FF, #F6FAFF">
+            <WrapLayout class='card__line-wrapper' (tap)='closeCard()'>
+                <WrapLayout class='card__line'></WrapLayout>
+            </WrapLayout>
+            <Label text='Add task' class='card__title'></Label>
+            <FlexboxLayout class='input'>
+                <Label class='input__title' text='Name'></Label>
+                <TextField class='input__value'></TextField>
+            </FlexboxLayout>
+            <FlexboxLayout class='card__row'>
+                <FlexboxLayout class='input input_short'>
+                    <Label class='input__title' text='Start date'></Label>
+                    <DatePickerField class='input__value'></DatePickerField>
+                </FlexboxLayout>
+                <FlexboxLayout class='input input_short'>
+                    <Label class='input__title' text='End date'></Label>
+                    <TimePickerField class='input__value'></TimePickerField>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout class='card__row'>
+                <FlexboxLayout class='input input_short'>
+                    <Label class='input__title' text='Start time'></Label>
+                    <DatePickerField class='input__value'></DatePickerField>
+                </FlexboxLayout>
+                <FlexboxLayout class='input input_short'>
+                    <Label class='input__title' text='End time'></Label>
+                    <TimePickerField class='input__value'></TimePickerField>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout class='checkbox'>
+                <Label text='Without time' class='checkbox__title'></Label>
+                <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
+            </FlexboxLayout>
         </Gradient>
     </WrapLayout>
-</FlexboxLayout>
+</WrapLayout>

@@ -1,10 +1,9 @@
 <Page class='page'>
     <AbsoluteLayout class='main-page'>
         <StackLayout class='main-page__content'>
-            <FlexboxLayout justifyContent="space-between" class='header'
-                height="70" ref='header'>
+            <FlexboxLayout justifyContent="space-between" class='header' ref='header'>
                 <StackLayout class='date'>
-                    <Label [text]='date | date:"d EEEE"' class='header__date'>
+                    <Label [text]='date | date:"d MMMM"' class='header__date'>
                     </Label>
                     <Label [text]='date | date:"yyyy"' class='header__year'>
                     </Label>
@@ -14,6 +13,6 @@
         </StackLayout>
         <menu></menu>
         <main-page-controls [date]='date' (onOpenCard)='openCard()'></main-page-controls>
-        <card-form [isActive]='cardIsActive'></card-form>
+        <card-form #card></card-form>
     </AbsoluteLayout>
 </Page>

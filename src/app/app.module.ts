@@ -8,11 +8,12 @@ import ScrollComponent from "./components/scroll/scroll.component";
 import MenuComponent from "./components/menu/menu.component";
 import MainPageControlsComponent from "./components/mainPageControls.component.html/mainPageControls.component";
 import DurationPipe from "./pipes/duration.pipe";
-import { registerElement } from "nativescript-angular";
+import { registerElement, NativeScriptCommonModule } from "nativescript-angular";
 import OffsetPipe from "./pipes/offset.pipe";
 import CardFormComponent from "./components/cardForm/cardForm.component";
 import { NgShadowModule } from 'nativescript-ng-shadow';
-import {TNSFontIconModule} from "nativescript-ng2-fonticon";
+import { NativeScriptDateTimePickerModule } from "nativescript-datetimepicker/angular";
+import { ReactiveFormsModule } from "@angular/forms";
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
 @NgModule({
@@ -23,7 +24,9 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         NativeScriptModule,
         AppRoutingModule,
         NgShadowModule,
-        // TNSFontIconModule.forRoot({ fa: require("./assets/fontawesome.css") })
+        NativeScriptCommonModule,
+        NativeScriptDateTimePickerModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,

@@ -1,5 +1,6 @@
-import { Component, OnInit, ContentChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ContentChild, ElementRef, ViewChild } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page/page";
+import CardFormComponent from "../cardForm/cardForm.component";
 
 @Component({
     selector: "main-page",
@@ -8,8 +9,9 @@ import { Page } from "tns-core-modules/ui/page/page";
 })
 export default class MainPageComponent implements OnInit {
     private date: Date = new Date();
-    private firstLoad: boolean = true;   
-    private cardIsActive: boolean = false;
+    private firstLoad: boolean = true;
+
+    @ViewChild("card", { static: false }) card: CardFormComponent;
     
 
     constructor(private _page: Page) {}
@@ -20,7 +22,6 @@ export default class MainPageComponent implements OnInit {
     }
 
     openCard() {
-        this.cardIsActive = true;
-        // console.log(this.cardRef);
+        this.card.openCard();
     }
 }

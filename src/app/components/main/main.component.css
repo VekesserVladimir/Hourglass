@@ -12,22 +12,21 @@
 }
 
 .header {
-    margin: 40 0;
+    margin: 40 0 25 0;
     padding: 0 20;
 }
 
 .header__date {
-    font-family: Maven Pro;
-    font-weight: bold;
-    line-height: 32;
+    font-family: Archivo;
+    font-weight: 900;
+    height: 40;
     color: #262626;
-    font-size: 27;
+    font-size: 32;
 }
 
 .header__year {
-    font-size: 22;
-    font-family: Maven Pro;
-    line-height: 27;
+    font-family: Archivo;
+    font-size: 28;
     font-weight: 500;
     color: #262626;
 }
