@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
     styleUrls: ["./cardForm.component.css"]
 })
 export default class CardFormComponent {
-    private position: number;
+    private previosY: number;
 
     private cardForm = new FormGroup(
         {
@@ -24,7 +24,7 @@ export default class CardFormComponent {
     }
 
     openCard() {
-        if(!this.isActive) {
+        // if(!this.isActive) {
             this.card.nativeElement.animate({
                 translate: {
                     x: 0, y: 0
@@ -34,7 +34,7 @@ export default class CardFormComponent {
             }).then(target => {
                 this.isActive = true;
             });
-        }
+        // }
     }
 
     closeCard() {
@@ -49,6 +49,26 @@ export default class CardFormComponent {
             }).then(target => {
                 this.isActive = false;
             });
+        }
+    }
+
+    touch(e) {
+        if(e.state === 1) {
+            this.previosY = 0;
+        } else if(e.state === 2 && this.card.nativeElement.translateY >= 0) {
+            let delta = e.deltaY - this.previosY;
+            if(this.card.nativeElement.translateY + delta >= 0) {
+                this.card.nativeElement.translateY += delta;
+                this.previosY = e.deltaY;
+            } else {
+                this.card.nativeElement.translateY = 0;
+            }
+        } else if(e.state === 3) {
+            if(this.card.nativeElement.translateY > this.card.nativeElement.height / 4) {
+                this.closeCard();
+            } else {
+                this.openCard();
+            }
         }
     }
 
