@@ -7,7 +7,7 @@ import * as Rotatation from "nativescript-orientation";
 })
 export class AppComponent { 
     constructor() {
-        Rotatation.setFullScreen(true);
+        // Rotatation.setFullScreen(true);
         Rotatation.disableRotation();
     }
 }

@@ -1,44 +1,51 @@
 <WrapLayout class='card-wrapper'>
-    <WrapLayout #card class='card' shadow='20' cornerRadius='24' (loaded)='loaded()' (pan)='touch($event)'>
-        <Gradient direction="to bottom" class='card__gradient' borderRadius='24' colors="#F2F8FF, #F6FAFF">
-            <WrapLayout class='card__line-wrapper' (tap)='closeCard()'>
-                <WrapLayout class='card__line'></WrapLayout>
-            </WrapLayout>
-            <FlexboxLayout class='card__row'>
-                <Label text='Add task' class='card__title'></Label>
-                <FlexboxLayout class='checkbox'>
-                    <Label text='Repeat' class='checkbox__title'></Label>
-                    <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
-                </FlexboxLayout>
+    <WrapLayout #card class='card' (loaded)='loaded()' (pan)='touch($event)'
+        [formGroup]="cardForm">
+        <FlexboxLayout class='card__row'>
+            <Label text='Add task' class='card__title'></Label>
+            <FlexboxLayout class='button card__complete-button' (tap)='complete()'>
+                <Label class='fas' text='&#xf0c7;'></Label>
             </FlexboxLayout>
-            <FlexboxLayout class='input'>
-                <Label class='input__title' text='Name'></Label>
-                <TextField class='input__value'></TextField>
-            </FlexboxLayout>
-            <FlexboxLayout class='card__row'>
-                <FlexboxLayout class='input input_short'>
-                    <Label class='input__title' text='Start date'></Label>
-                    <DatePickerField class='input__value'></DatePickerField>
-                </FlexboxLayout>
-                <FlexboxLayout class='input input_short'>
-                    <Label class='input__title' text='End date'></Label>
-                    <TimePickerField class='input__value'></TimePickerField>
-                </FlexboxLayout>
-            </FlexboxLayout>
-            <FlexboxLayout class='card__row'>
-                <FlexboxLayout class='input input_short'>
-                    <Label class='input__title' text='Start time'></Label>
-                    <DatePickerField class='input__value'></DatePickerField>
-                </FlexboxLayout>
-                <FlexboxLayout class='input input_short'>
-                    <Label class='input__title' text='End time'></Label>
-                    <TimePickerField class='input__value'></TimePickerField>
-                </FlexboxLayout>
-            </FlexboxLayout>
-            <FlexboxLayout class='checkbox'>
-                <Label text='Without time' class='checkbox__title'></Label>
-                <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
-            </FlexboxLayout>
-        </Gradient>
+        </FlexboxLayout>
+        <WrapLayout class='card__underline'></WrapLayout>
+        <StackLayout class='input'>
+            <Label class='input__title' text='Name'></Label>
+            <TextField class='input__value' formControlName="name" hint='Task name'></TextField>
+        </StackLayout>
+        <WrapLayout class='card__underline'></WrapLayout>
+        <FlexboxLayout class='card__row'>
+            <StackLayout class='input input_short'>
+                <Label class='input__title' text='Start date'></Label>
+                <DatePickerField class='input__value' hint='Select date'></DatePickerField>
+            </StackLayout>
+            <StackLayout class='input input_short'>
+                <Label class='input__title' text='End date'></Label>
+                <DatePickerField class='input__value' hint='Select date'></DatePickerField>
+            </StackLayout>
+        </FlexboxLayout>
+        <FlexboxLayout class='card__row'>
+            <StackLayout class='input input_short'>
+                <Label class='input__title' text='Start time'></Label>
+                <TimePickerField class='input__value' hint='Select time'></TimePickerField>
+            </StackLayout>
+            <StackLayout class='input input_short'>
+                <Label class='input__title' text='End time'></Label>
+                <TimePickerField class='input__value' hint='Select time'></TimePickerField>
+            </StackLayout>
+        </FlexboxLayout>
+        <FlexboxLayout class='checkbox'>
+            <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
+            <Label text='Without time' class='checkbox__title'></Label>
+        </FlexboxLayout>
+        <WrapLayout class='card__underline'></WrapLayout>
+        <StackLayout class='input'>
+            <Label class='input__title' text='Category'></Label>
+            <Label class='input__value' [text]='selectedCategory.name' (tap)='openCategorySelect()'></Label>
+        </StackLayout>
+        <WrapLayout class='card__underline'></WrapLayout>
+        <FlexboxLayout class='checkbox'>
+            <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
+            <Label text='Repeat' class='checkbox__title'></Label>
+        </FlexboxLayout>
     </WrapLayout>
 </WrapLayout>

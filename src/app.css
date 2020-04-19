@@ -3,25 +3,20 @@
 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
-
-.far {
-    font-family: "Font Awesome 5 Free", "fa-regular-400";
-    font-weight: 400;
+.fas {
+  font-family: "FontAwesomeSolid";
 }
 
-.fas {
-    font-family: "Font Awesome 5 Free", "fa-solid-900";
-    font-weight: 900;
+.far {
+  font-family: "FontAwesomeRegular";
 }
 
 .input {
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 25;
+  margin-top: 15;
 }
 
 .input_short {
-  width: 47%;
+  width: 50%;;
 }
 
 .input_short .input__value {
@@ -31,12 +26,16 @@ This is where the vast majority of your CSS code goes. */
 .input__title {
   font-size: 16;
   font-weight: 500;
-  margin-bottom: 2;
 }
 
 .input__value {
   width: 100%;
   margin: 0;
-  border-bottom: 1 solid #D3D3D3;
-  font-size: 18;
+  border-width: 0;
+  font-size: 16;
+  placeholder-color: #DCDEDF;
+}
+
+.button {
+  border-radius: 50%;
 }

@@ -5,11 +5,22 @@
     top: 53;
 }
 
+.menu FlexboxLayout {
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 .menu__main-button {
     width: 62;
     height: 62;
     background-color: rgb(17, 140, 255);
     border-radius: 50%;
+    z-index: 6;
+}
+
+.menu__main-button Label {
+    font-size: 30;
 }
 
 .menu__item1, .menu__item2, .menu__item3 {
@@ -17,6 +28,7 @@
     border-radius: 50%;
     height: 46;
     width: 46;
+    z-index: 6;
 }
 
 .menu__item1_active, .menu__item2_active, .menu__item3_active {
@@ -24,6 +36,11 @@
     border-radius: 50%;
     height: 46;
     width: 46;
+    z-index: 6;
+}
+
+.menu__item Label {
+    font-size: 16;
 }
 
 .menu__item1 {

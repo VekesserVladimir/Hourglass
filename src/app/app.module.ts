@@ -8,7 +8,7 @@ import ScrollComponent from "./components/scroll/scroll.component";
 import MenuComponent from "./components/menu/menu.component";
 import MainPageControlsComponent from "./components/mainPageControls.component.html/mainPageControls.component";
 import DurationPipe from "./pipes/duration.pipe";
-import { registerElement, NativeScriptCommonModule } from "nativescript-angular";
+import { registerElement, NativeScriptCommonModule, NativeScriptFormsModule } from "nativescript-angular";
 import OffsetPipe from "./pipes/offset.pipe";
 import CardFormComponent from "./components/cardForm/cardForm.component";
 import { NgShadowModule } from 'nativescript-ng-shadow';
@@ -24,6 +24,7 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         NativeScriptModule,
         AppRoutingModule,
         NgShadowModule,
+        NativeScriptFormsModule,
         NativeScriptCommonModule,
         NativeScriptDateTimePickerModule,
         ReactiveFormsModule

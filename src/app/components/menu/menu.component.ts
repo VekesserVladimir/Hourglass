@@ -11,7 +11,7 @@ export default class MenuComponent {
     constructor() {
     }
 
-    toggleMenu() {
+    toggleMenu(): void {
         this.isActive = !this.isActive;
     }
 }

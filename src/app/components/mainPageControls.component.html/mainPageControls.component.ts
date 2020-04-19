@@ -13,7 +13,7 @@ export default class MainPageControlsComponent {
     constructor() {
     }
 
-    openCard(e) {
+    openCard(e): void {
         this.onOpenCard.emit();
     }
 }

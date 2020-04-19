@@ -9,7 +9,7 @@
                     </Label>
                 </StackLayout>
             </FlexboxLayout>
-            <scroll></scroll>
+            <scroll [days]='days' (onDayChange)='changeDate($event)'></scroll>
         </StackLayout>
         <menu></menu>
         <main-page-controls [date]='date' (onOpenCard)='openCard()'></main-page-controls>

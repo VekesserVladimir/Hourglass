@@ -5,54 +5,56 @@
 
 .card {
   width: 100%;
-  height: 500;
-  transition: margin 2.25s ease-in-out;
-  font-family: Archivo;
-  /* margin-top: 40%; */
-  /* transform: translateY(100); */
-}
-
-.card__gradient {
-  width: 100%;
   height: 100%;
-  padding: 10 30 0 30;
-}
-
-.card__line-wrapper {
-  width: 40%;
-  height: 24;
-}
-
-.card__line {
-  width: 50;
-  height: 4;
-  background-color: #c8e0ff;
-  border-radius: 24;
-  transform: translateX(50% - 25);
+  padding: 20 20;
+  font-family: Archivo;
+  background-color: white;
+  border-radius: 24 24 0 0;
 }
 
 .card__title {
-  font-size: 28;
+  font-size: 24;
   font-weight: 500;
   color: #262626;
+  margin-bottom: 5;
 }
 
 .card__row {
+  width: 100%;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center;
+}
+
+.card__underline {
+  height: 1;
+  width: 100%;
+  margin-top: 10;
+  border-radius: 5;
+  background-color: #DCDEDF;
+}
+
+.card__complete-button {
+  height: 46;
+  width: 46;
+  border-width: 0;
+  z-index: 4;
+  background-color: rgb(67, 224, 24);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 16;
 }
 
 .checkbox {
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 15;
+  margin-top: 25;
 }
 
 .checkbox__title {
   font-size: 16;
   margin-bottom: 2;
+  font-weight: 500;
 }
 
 .checkbox__value {
-  margin: 0 -10 0 10;
+  margin: 0;
 }

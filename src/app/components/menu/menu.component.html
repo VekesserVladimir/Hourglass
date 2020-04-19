@@ -1,8 +1,14 @@
 <FlexboxLayout flexDirection="column-reverse" justifyContent="flex-end" class='header__menu menu' #menu>
-    <WrapLayout alignSelf="center" [class.menu__item1_active]='isActive' [class.menu__item1]='!isActive'></WrapLayout>
-    <WrapLayout alignSelf="center" [class.menu__item2_active]='isActive' [class.menu__item2]='!isActive'></WrapLayout>
-    <WrapLayout alignSelf="center" [class.menu__item3_active]='isActive' [class.menu__item3]='!isActive'></WrapLayout>
-    <WrapLayout class='menu__main-button' (tap)='toggleMenu()'>
-        <!-- <Label class="far" text="\uf293"></Label> -->
-    </WrapLayout>
+    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item1_active]='isActive' [class.menu__item1]='!isActive'>
+        <Label class='fas' text='&#xf013;'></Label>
+    </FlexboxLayout>
+    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item2_active]='isActive' [class.menu__item2]='!isActive'>
+        <Label class='fas' text='&#xf080;'></Label>
+    </FlexboxLayout>
+    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item3_active]='isActive' [class.menu__item3]='!isActive'>
+        <Label class='fas' text='&#xf49e;'></Label>
+    </FlexboxLayout>
+    <FlexboxLayout class='menu__main-button' (tap)='toggleMenu()'>
+        <Label class='fas' text="&#xf0c9;"></Label>
+    </FlexboxLayout>
 </FlexboxLayout>

@@ -1,6 +1,6 @@
-<ScrollView class='tasks' scrollBarIndicatorVisible='false' #scroll>
-    <StackLayout class='tasks__days-wrapper' #wrap>
-        <WrapLayout class='timeline' *ngFor="let day of taskService.getDays()">
+<ScrollView class='tasks' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)">
+    <StackLayout class='tasks__days-wrapper' #wrap >
+        <WrapLayout class='timeline' *ngFor="let day of days">
             <StackLayout class='times'>
                 <WrapLayout *ngFor="let time of times">
                     <Label class='times__time' [text]='time'>
@@ -23,7 +23,7 @@
                     [top]='task.offset' 
                     [left]='task | offset'
                     [backgroundColor]='task.category.color' 
-                    (tap)='openCard(task)' 
+                    (tap)='openCard(task)'
                 ></WrapLayout>
             </AbsoluteLayout>
         </WrapLayout>
