@@ -9,12 +9,7 @@
             </FlexboxLayout>
         </StackLayout>
     </WrapLayout>
-    <WrapLayout class='button add-button' (tap)='openCard($event)'>
-        <FlexboxLayout class='add-button__icon'>
-            <WrapLayout class='add-button__first-line'>
-            </WrapLayout>
-            <WrapLayout class='add-button__second-line'>
-            </WrapLayout>
-        </FlexboxLayout>
-    </WrapLayout>
+    <FlexboxLayout class='button add-button' (tap)='openCard($event)'>
+        <Label class='fas add-button__icon' text='&#xf067;'></Label>
+    </FlexboxLayout>
 </FlexboxLayout>

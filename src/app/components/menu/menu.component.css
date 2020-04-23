@@ -8,7 +8,6 @@
 .menu FlexboxLayout {
     justify-content: center;
     align-items: center;
-    color: white;
 }
 
 .menu__main-button {
@@ -17,10 +16,12 @@
     background-color: rgb(17, 140, 255);
     border-radius: 50%;
     z-index: 6;
+    
 }
 
 .menu__main-button Label {
     font-size: 30;
+    color: white;
 }
 
 .menu__item1, .menu__item2, .menu__item3 {
@@ -41,6 +42,7 @@
 
 .menu__item Label {
     font-size: 16;
+    color: white;
 }
 
 .menu__item1 {

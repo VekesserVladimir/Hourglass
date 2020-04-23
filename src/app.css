@@ -3,6 +3,10 @@
 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
+* {
+    color: #262626;
+}
+
 .fas {
   font-family: "FontAwesomeSolid";
 }
@@ -13,6 +17,7 @@ This is where the vast majority of your CSS code goes. */
 
 .input {
   margin-top: 15;
+  /* background-color: red; */
 }
 
 .input_short {

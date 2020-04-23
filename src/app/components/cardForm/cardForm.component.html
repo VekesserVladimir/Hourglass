@@ -1,13 +1,16 @@
 <WrapLayout class='card-wrapper'>
-    <WrapLayout #card class='card' (loaded)='loaded()' (pan)='touch($event)'
+    <WrapLayout 
+        #card 
+        class='card' 
+        (loaded)='loaded()' 
+        (pan)='touch($event)'
         [formGroup]="cardForm">
         <FlexboxLayout class='card__row'>
             <Label text='Add task' class='card__title'></Label>
             <FlexboxLayout class='button card__complete-button' (tap)='complete()'>
-                <Label class='fas' text='&#xf0c7;'></Label>
+                <Label class='card__complete-button-text' text='SAVE'></Label>
             </FlexboxLayout>
         </FlexboxLayout>
-        <WrapLayout class='card__underline'></WrapLayout>
         <StackLayout class='input'>
             <Label class='input__title' text='Name'></Label>
             <TextField class='input__value' formControlName="name" hint='Task name'></TextField>
@@ -16,26 +19,38 @@
         <FlexboxLayout class='card__row'>
             <StackLayout class='input input_short'>
                 <Label class='input__title' text='Start date'></Label>
-                <DatePickerField class='input__value' hint='Select date'></DatePickerField>
+                <DatePickerField class='input__value' hint='Select date' formControlName="startDate"></DatePickerField>
             </StackLayout>
-            <StackLayout class='input input_short'>
-                <Label class='input__title' text='End date'></Label>
-                <DatePickerField class='input__value' hint='Select date'></DatePickerField>
-            </StackLayout>
+            <ng-container *ngIf="!withoutDate">
+                <StackLayout class='input input_short'>
+                    <Label class='input__title' text='End date'></Label>
+                    <DatePickerField class='input__value' hint='Select date' formControlName="endDate"></DatePickerField>
+                </StackLayout>
+            </ng-container>
         </FlexboxLayout>
-        <FlexboxLayout class='card__row'>
-            <StackLayout class='input input_short'>
-                <Label class='input__title' text='Start time'></Label>
-                <TimePickerField class='input__value' hint='Select time'></TimePickerField>
-            </StackLayout>
-            <StackLayout class='input input_short'>
-                <Label class='input__title' text='End time'></Label>
-                <TimePickerField class='input__value' hint='Select time'></TimePickerField>
-            </StackLayout>
-        </FlexboxLayout>
+        <ng-container *ngIf="!withoutDate">
+            <FlexboxLayout class='card__row'>
+                <StackLayout class='input input_short'>
+                    <Label class='input__title' text='Start time'></Label>
+                    <TimePickerField class='input__value' hint='Select time' formControlName="startTime"></TimePickerField>
+                </StackLayout>
+                <StackLayout class='input input_short'>
+                    <Label class='input__title' text='End time'></Label>
+                    <TimePickerField class='input__value' hint='Select time' formControlName="endTime"></TimePickerField>
+                </StackLayout>
+            </FlexboxLayout>
+        </ng-container>
         <FlexboxLayout class='checkbox'>
-            <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
-            <Label text='Without time' class='checkbox__title'></Label>
+            <Switch 
+                class='checkbox__value' 
+                color='#EDEDED' 
+                backgroundColor='#9CF70B' 
+                offBackgroundColor='#B8B8B8'
+                [(ngModel)]="withoutDate"
+                [ngModelOptions]="{standalone: true}"
+                (checkedChange)='onWithoutDateChange($event)'
+            ></Switch>
+            <Label text='Without date' class='checkbox__title'></Label>
         </FlexboxLayout>
         <WrapLayout class='card__underline'></WrapLayout>
         <StackLayout class='input'>
@@ -44,7 +59,12 @@
         </StackLayout>
         <WrapLayout class='card__underline'></WrapLayout>
         <FlexboxLayout class='checkbox'>
-            <Switch class='checkbox__value' color='#EDEDED' backgroundColor='#9CF70B' offBackgroundColor='#B8B8B8'></Switch>
+            <Switch 
+                class='checkbox__value' 
+                color='#EDEDED' 
+                backgroundColor='#9CF70B' 
+                offBackgroundColor='#B8B8B8' 
+                formControlName="repeat"></Switch>
             <Label text='Repeat' class='checkbox__title'></Label>
         </FlexboxLayout>
     </WrapLayout>

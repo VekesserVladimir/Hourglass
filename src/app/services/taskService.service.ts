@@ -3,9 +3,12 @@ import Day from "../entities/Day";
 import Category from "../entities/Category";
 import Task from "../entities/Task";
 import { Couchbase } from "nativescript-couchbase-plugin";
-import { Observable, generate } from "rxjs";
+import { Observable, generate, from } from "rxjs";
 import { reduce, map, switchMap, take } from "rxjs/operators";
 import * as moment from "moment";
+import NotificationService from "./notificationService.service";
+import * as hash from "hash.js";
+import { TaskHelperService } from "./taskHelperService.service";
 
 @Injectable({
     providedIn: "root"
@@ -13,11 +16,12 @@ import * as moment from "moment";
 export default class TaskService {
     private database: Couchbase;
 
-    constructor() {
+    constructor(private taskHelper: TaskHelperService, private notificationService: NotificationService) {
         this.database = new Couchbase('hourglass');
     }
 
     getSetupDays(): Observable<Day[]> {
+        // this.database.destroyDatabase();
         let date = moment().startOf('day').subtract(1, 'day');
         return generate<moment.Moment>(date, x => x <= moment(date).add(2, 'day'), x => moment(x).add(1, 'day'))
             .pipe(
@@ -29,46 +33,41 @@ export default class TaskService {
 
     getDay(date: Date): Observable<Day> {
         return new Observable<Day>(observer => {
-            let tasksArr = this.database.query({
+            let taskList = this.database.query({
                 select: [],
-                where: [{ property: "date", comparison: 'equalTo', value: date }]
-            })
-            
-            let stack = [];
-            tasksArr.forEach((task, index) => {
-                if(index == 0) {
-                    tasksArr[index].row = 1;
-                    stack.push(tasksArr[index]);
-                    return;
-                }
-                let count = 1;
-                stack.forEach(item => {
-                    let itemStart = new Date(item.startTime), 
-                        itemEnd = new Date(item.endTime),
-                        taskStart = new Date(tasksArr[index].startTime), 
-                        taskEnd = new Date(tasksArr[index].endTime);
-
-                    if (itemStart > taskStart) {
-                        if (itemStart < taskEnd) {
-                            count += 1;
-                        }
-                    }
-    
-                    if (itemEnd > taskStart && itemStart < taskEnd) {
-                        count += 1;
-                    }
-                });
-                tasksArr[index].row = count;
-                stack.push(tasksArr[index]);
+                where: [{ property: "startDate", comparison: 'equalTo', value: date }]
             });
-            observer.next(new Day(date, tasksArr));
+            taskList = taskList.map(task => {
+                return new Task(
+                    task.id, 
+                    task.scheduleId, 
+                    task.name, 
+                    new Date(task.startDate), 
+                    new Date(task.endDate),
+                    new Date(task.startTime),
+                    new Date(task.endTime),
+                    task.repeat,
+                    new Category(task.category.name, task.category.color),
+                    task.row);
+            });
+            taskList = this.taskHelper.distributeRows(taskList);
+            observer.next(new Day(date, taskList));
         }).pipe(
             take(1)
         )
     }
 
-    addTask(task: Task): void {
-
+    addTask(task: Task): Observable<string> {
+        return from(this.notificationService.createNotification(task))
+            .pipe(
+                map(scheduleId => {
+                    const id = hash.sha256().update(task).digest('hex');
+                    task.id = id;
+                    task.scheduleId = scheduleId[0];
+                    return this.database.createDocument({...task}, id);
+                }),
+                take(1)
+            )
     }
 
     deleteTask(): void {

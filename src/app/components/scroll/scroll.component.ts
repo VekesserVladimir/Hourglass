@@ -3,6 +3,8 @@ import TaskService from "~/app/services/taskService.service";
 import Day from "~/app/entities/Day";
 import { ScrollView, ScrollEventData } from "@nativescript/core/ui/scroll-view"
 import * as moment from "moment";
+import * as platformModule from "tns-core-modules/platform";
+import Task from "~/app/entities/Task";
 
 @Component({
     selector: "scroll",
@@ -16,6 +18,7 @@ export default class ScrollComponent implements OnInit, AfterViewChecked {
     @Input() days: Day[];
     @ViewChild("scroll", { read: ElementRef, static: true }) scroll: ElementRef;
     @Output() onDayChange: EventEmitter<Date> = new EventEmitter<Date>();
+    @Output() onTaskChoiced: EventEmitter<Task> = new EventEmitter<Task>();
 
     constructor(private taskService: TaskService) { }
 
@@ -23,10 +26,11 @@ export default class ScrollComponent implements OnInit, AfterViewChecked {
         for (let i = 0; i < 24; i++) {
             this.times.push((i < 10 ? "0" + i : i) + ":00");
         }
+        this.scroll.nativeElement.height = platformModule.screen.mainScreen.heightDIPs - 196;
     }
 
     ngAfterViewChecked() {
-        if (this.firstRun && this.scroll.nativeElement.height > 0) {
+        if (this.firstRun) {
             setTimeout(() => {
                 this.scrollToCurrentPosition();
                 this.firstRun = false;
@@ -59,5 +63,13 @@ export default class ScrollComponent implements OnInit, AfterViewChecked {
         let currentDate = new Date();
         let offset = (currentDate.getHours() + currentDate.getMinutes() / 60) * 203 + 2;
         this.scroll.nativeElement.scrollToVerticalOffset(4872 + offset, false);
+    }
+
+    openTaskInfo(task): void {
+        this.onTaskChoiced.emit(task);
+    }
+
+    trackByFn(index: number, el: any): number {
+        return el.id;
     }
 }

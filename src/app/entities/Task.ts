@@ -1,25 +1,29 @@
 import Category from "./Category";
 
 export default class Task {
+    id: string | null;
+    scheduleId: number | null;
     name: string;
-    date: Date;
-    startTime: Date;
-    endTime: Date;
+    startDate: Date;
+    endDate: Date | null;
+    startTime: Date | null;
+    endTime: Date | null;
     repeat: boolean;
     category: Category;
-    row: number;
+    row: number | null;
     offset: number;
 
-    constructor(name: string, date: Date, startTime: Date, endTime: Date, repeat: boolean, category: Category, row: number) {
+    constructor(id: string, scheduleId: number, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: boolean, category: Category, row: number) {
+        this.id = id;
+        this.scheduleId = scheduleId;
         this.name = name;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.repeat = repeat;
         this.category = category;
         this.row = row;
-        let hour = startTime.getHours();
-        let minutes = startTime.getMinutes();
-        this.offset = (hour + minutes / 60) * 203 + 2;
+        this.offset = (startTime.getHours() + startTime.getMinutes() / 60) * 203 + 2;
     }
 }

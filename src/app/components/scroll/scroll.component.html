@@ -1,8 +1,8 @@
-<ScrollView class='tasks' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)">
-    <StackLayout class='tasks__days-wrapper' #wrap >
-        <WrapLayout class='timeline' *ngFor="let day of days">
+<ScrollView class='scroll' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)">
+    <StackLayout class='scroll__days-wrapper'>
+        <WrapLayout class='timeline' *ngFor="let day of days; trackBy: trackByFn">
             <StackLayout class='times'>
-                <WrapLayout *ngFor="let time of times">
+                <WrapLayout *ngFor="let time of times; trackBy: trackByFn">
                     <Label class='times__time' [text]='time'>
                     </Label>
                     <Gradient direction="to right" class='times__quarter' borderRadius='5' colors="rgba(77, 77, 77, 0), #9A9A9A">
@@ -23,7 +23,7 @@
                     [top]='task.offset' 
                     [left]='task | offset'
                     [backgroundColor]='task.category.color' 
-                    (tap)='openCard(task)'
+                    (tap)='openTaskInfo(task)'
                 ></WrapLayout>
             </AbsoluteLayout>
         </WrapLayout>
