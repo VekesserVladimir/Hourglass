@@ -12,7 +12,7 @@ import { CategoryService } from "~/app/services/categoryService.service";
 @Component({
     selector: "card-form",
     templateUrl: "./cardForm.component.html",
-    styleUrls: ["./cardForm.component.css"]
+    styleUrls: ["./cardForm.component.scss"]
 })
 export default class CardFormComponent implements OnInit {
     private previosY: number;

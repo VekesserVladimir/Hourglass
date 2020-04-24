@@ -9,7 +9,7 @@ import Task from "~/app/entities/Task";
 @Component({
     selector: "scroll",
     templateUrl: "./scroll.component.html",
-    styleUrls: ["./scroll.component.css"]
+    styleUrls: ["./scroll.component.scss"]
 })
 export default class ScrollComponent implements OnInit, AfterViewChecked {
     private times: string[] = new Array<string>();

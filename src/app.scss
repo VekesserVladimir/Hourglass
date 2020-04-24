@@ -1,0 +1,60 @@
+// @import "~@nativescript/theme/css/core.css";
+// @import "~@nativescript/theme/css/blue.css";
+
+/* Place any CSS rules you want to apply on both iOS and Android here.
+This is where the vast majority of your CSS code goes. */
+* {
+  color: #262626;
+}
+
+.fas {
+  font-family: "FontAwesomeSolid";
+}
+
+.far {
+  font-family: "FontAwesomeRegular";
+}
+
+.input {
+  margin-top: 15;
+
+  &_short {
+    width: 50%;
+
+    .input__value {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-size: 16;
+    font-weight: 500;
+  }
+
+  &__value {
+    width: 100%;
+    margin: 0;
+    border-width: 0;
+    font-size: 16;
+    placeholder-color: #dcdedf;
+  }
+}
+
+.button {
+  border-radius: 50%;
+}
+
+.checkbox {
+
+  &__title {
+    font-size: 16;
+    margin-bottom: 2;
+    font-weight: 500;
+  }
+
+  &__value {
+    margin: 0;
+  }
+}
+
+

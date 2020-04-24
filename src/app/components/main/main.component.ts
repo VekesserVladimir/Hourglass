@@ -10,7 +10,7 @@ import * as moment from "moment";
 @Component({
     selector: "main-page",
     templateUrl: './main.component.html',
-    styleUrls: ["./main.component.css"]
+    styleUrls: ["./main.component.scss"]
 })
 export default class MainPageComponent implements OnInit {
     private date: Date = new Date();

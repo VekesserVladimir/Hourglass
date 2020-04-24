@@ -1,0 +1,53 @@
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .card {
+    width: 100%;
+    height: 100%;
+    padding: 20 20;
+    font-family: Archivo;
+    background-color: white;
+    border-radius: 24 24 0 0;
+
+    &__title {
+      height: 30;
+      font-size: 24;
+      font-weight: 500;
+      color: #262626;
+      margin-bottom: 5;
+    }
+
+    &__row {
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__underline {
+      height: 1;
+      width: 100%;
+      margin-top: 10;
+      border-radius: 5;
+      background-color: #dcdedf;
+    }
+
+    &__complete-button {
+      height: 35;
+      padding: 0 25;
+      border-width: 1;
+      border-color: #dcdedf;
+      justify-content: center;
+      align-items: center;
+      font-size: 16;
+
+      &__complete-button-text {
+        font-weight: 500;
+      }
+    }
+
+    .checkbox {
+      margin-top: 15;
+    }
+  }
+}

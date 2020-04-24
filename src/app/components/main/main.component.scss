@@ -1,0 +1,28 @@
+.main-page {
+    &__content {
+        flex-direction: column;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .header {
+        margin: 40 0;
+        padding: 0 20;
+
+        &__date {
+            font-family: Archivo;
+            font-weight: 900;
+            height: 45;
+            color: #262626;
+            font-size: 32;
+        }
+
+        &__year {
+            font-family: Archivo;
+            font-size: 28;
+            font-weight: 500;
+            color: #262626;
+        }
+    }
+}
