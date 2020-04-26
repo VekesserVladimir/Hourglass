@@ -6,7 +6,7 @@
         (pan)='touch($event)'
         [formGroup]="cardForm">
         <FlexboxLayout class='card__row'>
-            <Label text='Add task' class='card__title'></Label>
+            <Label [text]='task ? task.name : "Add task"' class='card__title'></Label>
             <FlexboxLayout class='button card__complete-button' (tap)='complete()'>
                 <Label class='card__complete-button-text' text='SAVE'></Label>
             </FlexboxLayout>
@@ -42,7 +42,7 @@
         </ng-container>
         <FlexboxLayout class='checkbox'>
             <Switch 
-                class='checkbox__value' 
+                class='checkbox__value checkbox_margin' 
                 color='#EDEDED' 
                 backgroundColor='#9CF70B' 
                 offBackgroundColor='#B8B8B8'
@@ -53,10 +53,7 @@
             <Label text='Without date' class='checkbox__title'></Label>
         </FlexboxLayout>
         <WrapLayout class='card__underline'></WrapLayout>
-        <StackLayout class='input'>
-            <Label class='input__title' text='Category'></Label>
-            <Label class='input__value' [text]='selectedCategory.name' (tap)='openCategorySelect()'></Label>
-        </StackLayout>
+        <select-dialog formControlName="selectedCategory" [valueList]='categoryList'></select-dialog>
         <WrapLayout class='card__underline'></WrapLayout>
         <FlexboxLayout class='checkbox'>
             <Switch 

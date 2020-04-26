@@ -1,13 +1,12 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit } from "@angular/core";
-import { AnimationCurve } from "tns-core-modules/ui/enums";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import * as dialogs from "tns-core-modules/ui/dialogs";
 import Category from "~/app/entities/Category";
-import { Color } from "tns-core-modules/ui/page/page";
 import { CardStates } from "~/app/entities/enums/CardStates";
 import TaskService from "~/app/services/taskService.service";
 import Task from "~/app/entities/Task";
 import { CategoryService } from "~/app/services/categoryService.service";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { Color } from "@nativescript/core/color"
 
 @Component({
     selector: "card-form",
@@ -20,19 +19,22 @@ export default class CardFormComponent implements OnInit {
     private selectedCategory: Category;
     private withoutDate: boolean;
     private cardForm: FormGroup;
+    private task: Task;
 
     @Input() state: CardStates;
     @Output() onTaskAdd: EventEmitter<Task> = new EventEmitter<Task>();
+    @Output() onTaskChange: EventEmitter<Task> = new EventEmitter<Task>();
     @ViewChild("card", { read: ElementRef, static: false }) card: ElementRef;
 
     constructor(private taskService: TaskService, private categoryService: CategoryService) {
     }
 
     ngOnInit() {
+        this.categoryList = this.categoryService.getAllCategories();
         this.cardForm = new FormGroup(
             {
                 name: new FormControl(null, {
-                    validators: [Validators.required] 
+                    validators: [Validators.required]
                 }),
                 startDate: new FormControl(null, {
                     validators: [Validators.required]
@@ -46,28 +48,30 @@ export default class CardFormComponent implements OnInit {
                 endTime: new FormControl(null, {
                     validators: [Validators.required]
                 }),
+                selectedCategory: new FormControl(this.categoryList[0].name, {
+                    validators: [Validators.required]
+                }),
                 repeat: new FormControl(false)
             }
         );
-        this.categoryList = this.categoryService.getAllCategories();
-        this.selectedCategory = this.categoryList[0];
         this.withoutDate = false;
     }
 
     switchCardState(mode: CardStates, task?: Task) {
         let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
-
-        if(task) {
+        if (task) {
             this.cardForm.setValue({
                 name: task.name,
                 startDate: task.startDate,
                 endDate: task.endDate,
                 startTime: task.startTime,
                 endTime: task.endTime,
-                repeat: task.repeat
-            })
+                selectedCategory: task.category.name,
+                repeat: task.repeat,
+            });
+            this.task = task;
         }
-        
+
         this.card.nativeElement.parent.animate({
             backgroundColor: backgroundColor,
             duration: 350,
@@ -81,6 +85,9 @@ export default class CardFormComponent implements OnInit {
             curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
         }).then(target => {
             this.state = mode;
+            if(mode == CardStates.Closed) {
+                this.task = null;
+            }
         });
     }
 
@@ -128,45 +135,45 @@ export default class CardFormComponent implements OnInit {
         this.state = CardStates.Closed;
     }
 
-    openCategorySelect() {
-        console.log(this.withoutDate);
-        let options = {
-            title: "Choose category",
-            message: "Choose category",
-            cancelButtonText: "Cancel",
-            actions: this.categoryList.map(item => item.name)
-        };
-        dialogs.action(options).then((result) => {
-            this.selectedCategory = this.categoryList.find(category => category.name == result);
-        });
-    }
-
     complete() {
         if(this.cardForm.valid) {
-            const task = new Task(
-                null,
-                null,
-                this.cardForm.get('name').value,
-                this.cardForm.get('startDate').value,
-                this.cardForm.get('endDate').value,
-                this.cardForm.get('startTime').value,
-                this.cardForm.get('endTime').value,
-                this.cardForm.get('repeat').value,
-                this.selectedCategory,
-                null);
-            this.taskService.addTask(task).subscribe(res => {
-                this.onTaskAdd.emit(task);
-                this.switchCardState(CardStates.Closed);
-            });
+            if(this.task) {
+                for(let control in this.cardForm.controls) {
+                    if(this.cardForm.get(control).dirty) {
+                        this.task[control] = this.cardForm.get(control).value;
+                    }
+                }
+                this.taskService.changeTask(this.task).subscribe(res => {
+                    this.onTaskChange.emit(this.task);
+                    this.switchCardState(CardStates.Closed);
+                });
+            } else {
+                const task = new Task(
+                    null,
+                    null,
+                    this.cardForm.get('name').value,
+                    this.cardForm.get('startDate').value,
+                    this.cardForm.get('endDate') != null ? this.cardForm.get('endDate').value : null,
+                    this.cardForm.get('startTime') != null ? this.cardForm.get('startTime').value : null,
+                    this.cardForm.get('endTime') != null ? this.cardForm.get('endTime').value : null,
+                    this.cardForm.get('repeat').value,
+                    this.cardForm.get('selectedCategory').value,
+                    null);
+                this.taskService.addTask(task).subscribe(res => {
+                    this.onTaskAdd.emit(task);
+                    this.switchCardState(CardStates.Closed);
+                });
+            }
         }
     }
 
     clearCard() {
         this.cardForm.reset();
+        this.cardForm.get('selectedCategory').setValue(this.categoryList[0].name);
     }
 
     onWithoutDateChange(e) {
-        if(e.object.checked) {
+        if (e.object.checked) {
             this.cardForm.removeControl('endDate');
             this.cardForm.removeControl('startTime');
             this.cardForm.removeControl('endTime');

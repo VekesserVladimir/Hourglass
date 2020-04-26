@@ -6,6 +6,8 @@ import { CardStates } from "~/app/entities/enums/CardStates";
 import Task from "~/app/entities/Task";
 import { TaskHelperService } from "~/app/services/taskHelperService.service";
 import * as moment from "moment";
+import * as equal from "deep-equal";
+import { EventData, Page } from "tns-core-modules/ui/page/page";
 
 @Component({
     selector: "main-page",
@@ -19,7 +21,9 @@ export default class MainPageComponent implements OnInit {
     @ViewChild("card", { static: false }) card: CardFormComponent;
 
 
-    constructor(private taskService: TaskService, private taskHelper: TaskHelperService) { }
+    constructor(private taskService: TaskService, private taskHelper: TaskHelperService, private _page: Page) {
+        _page.actionBarHidden = true;
+    }
 
     ngOnInit() {
         this.taskService.getSetupDays()
@@ -47,5 +51,28 @@ export default class MainPageComponent implements OnInit {
                 this.days[index].taskList = taskList;
             }
         })
+    }
+
+    deleteTask(task: Task) {
+        let dayIndex = this.days.findIndex(day => {
+            return moment(day.date).isSame(moment(task.startDate))
+        });
+        let taskIndex = this.days[dayIndex].taskList.findIndex(item => item.id == task.id);
+        this.days[dayIndex].taskList.splice(taskIndex, 1);
+        this.days[dayIndex].taskList = this.taskHelper.distributeRows(this.days[dayIndex].taskList);
+    }
+
+    changeTask(task: Task) {
+        this.taskService.getSetupDays().subscribe(res => {
+            this.days = res;
+        });
+        // let day = this.days.findIndex(day => {
+        //     return day.date.getTime() == task.startDate.getTime();
+        // });
+        // let findedIndex = this.days[day].taskList.findIndex(item => equal(item, task));
+        // this.days[day].taskList[findedIndex] = task;
+        // Object.keys(findedTask).forEach(key => {
+        //     findedTask[key] = task[key];
+        // });
     }
 }

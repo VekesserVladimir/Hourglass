@@ -1,0 +1,30 @@
+<AbsoluteLayout
+    class='task-wrapper'  
+    [top]='task | verticaloffset' 
+    [left]='task | horizontaloffset'
+    (loaded)='loaded()'
+    #taskWrapper
+    >
+    <WrapLayout 
+        class='task'
+        [height]='task | duration'
+        (longPress)='openTaskMenu($event)'
+        [backgroundColor]='task.category.color'
+        #taskView
+    ></WrapLayout>
+    <FlexboxLayout class='task-controls' #taskControls>
+        <FlexboxLayout 
+            class='task-controls__item task-controls__edit'
+            #taskMenuItem
+            (tap)='openTaskInfo($event)'>
+            <Label class='fas' text="&#xf303;"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout 
+            class='task-controls__item task-controls__delete' 
+            top='56' 
+            #taskMenuItem
+            (tap)='deleteTask($event)'>
+            <Label class='fas' text="&#xf2ed;"></Label>
+        </FlexboxLayout>
+    </FlexboxLayout>
+</AbsoluteLayout>

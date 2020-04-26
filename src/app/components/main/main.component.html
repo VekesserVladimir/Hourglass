@@ -1,4 +1,4 @@
-<Page class='page'>
+<Page class='page' [actionBarHidden]='true'>
     <AbsoluteLayout class='main-page'>
         <FlexboxLayout class='main-page__content'>
             <FlexboxLayout justifyContent="space-between" class='header' #header>
@@ -9,10 +9,19 @@
                     </Label>
                 </StackLayout>
             </FlexboxLayout>
-            <scroll [days]='days' (onDayChange)='changeDate($event)' (onTaskChoiced)='openCard($event)'></scroll>
+            <scroll 
+                [days]='days' 
+                (onDayChange)='changeDate($event)' 
+                (onTaskChoiced)='openCard($event)'
+                (onTaskDelete)='deleteTask($event)'
+            ></scroll>
         </FlexboxLayout>
         <menu></menu>
         <main-page-controls [date]='date' (onOpenCard)='openCard()'></main-page-controls>
-        <card-form #card (onTaskAdd)='addTask($event)'></card-form>
+        <card-form 
+            #card 
+            (onTaskAdd)='addTask($event)'
+            (onTaskChange)='changeTask($event)'
+        ></card-form>
     </AbsoluteLayout>
 </Page>

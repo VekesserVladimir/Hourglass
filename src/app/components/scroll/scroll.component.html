@@ -1,6 +1,6 @@
 <ScrollView class='scroll' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)">
     <StackLayout class='scroll__days-wrapper'>
-        <WrapLayout class='timeline' *ngFor="let day of days; trackBy: trackByFn">
+        <WrapLayout class='day' *ngFor="let day of days; trackBy: trackByFn" #days>
             <StackLayout class='times'>
                 <WrapLayout *ngFor="let time of times; trackBy: trackByFn">
                     <Label class='times__time' [text]='time'>
@@ -13,18 +13,15 @@
                     </Gradient>
                 </WrapLayout>
             </StackLayout>
-            <WrapLayout class='timeline__line'>
+            <WrapLayout class='day__line'>
             </WrapLayout>
-            <AbsoluteLayout class='task-list'>
-                <WrapLayout 
-                    class='task' 
-                    *ngFor='let task of day.taskList'
-                    [height]='task | duration' 
-                    [top]='task.offset' 
-                    [left]='task | offset'
-                    [backgroundColor]='task.category.color' 
-                    (tap)='openTaskInfo(task)'
-                ></WrapLayout>
+            <AbsoluteLayout (loaded)='taskListLoaded()' class='task-list' #taskList>
+                <task 
+                    *ngFor="let task of day.taskList; trackBy: trackByFn" 
+                    [task]='task'
+                    (onTaskSelected)='openTaskInfo($event)'
+                    (onTaskDelete)='deleteTask($event)'
+                ></task>
             </AbsoluteLayout>
         </WrapLayout>
     </StackLayout>

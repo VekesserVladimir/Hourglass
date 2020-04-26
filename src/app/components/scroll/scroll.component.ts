@@ -1,24 +1,29 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, AfterViewChecked } from "@angular/core"
+import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, AfterViewChecked, ViewChildren, QueryList } from "@angular/core"
 import TaskService from "~/app/services/taskService.service";
 import Day from "~/app/entities/Day";
 import { ScrollView, ScrollEventData } from "@nativescript/core/ui/scroll-view"
 import * as moment from "moment";
 import * as platformModule from "tns-core-modules/platform";
 import Task from "~/app/entities/Task";
+import { EventData } from "tns-core-modules/ui/page/page";
 
 @Component({
     selector: "scroll",
     templateUrl: "./scroll.component.html",
     styleUrls: ["./scroll.component.scss"]
 })
-export default class ScrollComponent implements OnInit, AfterViewChecked {
+export default class ScrollComponent implements OnInit, AfterViewInit, AfterViewChecked {
     private times: string[] = new Array<string>();
-    private firstRun = true;
+    private firstRun: boolean = true;
+    private canChangeDay: boolean = true;
 
     @Input() days: Day[];
     @ViewChild("scroll", { read: ElementRef, static: true }) scroll: ElementRef;
     @Output() onDayChange: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() onTaskChoiced: EventEmitter<Task> = new EventEmitter<Task>();
+    @Output() onTaskDelete: EventEmitter<Task> = new EventEmitter<Task>();
+    @ViewChild("taskList", { read: ElementRef, static: true }) taskList: ElementRef;
+    @ViewChildren("days") dayList: QueryList<any>;
 
     constructor(private taskService: TaskService) { }
 
@@ -29,29 +34,37 @@ export default class ScrollComponent implements OnInit, AfterViewChecked {
         this.scroll.nativeElement.height = platformModule.screen.mainScreen.heightDIPs - 196;
     }
 
+    ngAfterViewInit() {
+        this.dayList.changes.subscribe(res => {
+            // this.scrollToCurrentPosition();
+        })
+    }
+    
     ngAfterViewChecked() {
         if (this.firstRun) {
             setTimeout(() => {
                 this.scrollToCurrentPosition();
                 this.firstRun = false;
-            }, 0);
+            }, 100);
         }
     }
 
     onScroll(e: ScrollEventData): void {
         if (e.scrollY <= 4871) {
-            this.onDayChange.emit(this.days[0].date);
+            // this.canChangeDay = false;
             this.taskService.getDay(moment(this.days[0].date).startOf('day').subtract(1, 'day').toDate())
                 .subscribe(previosDay => {
+                    this.onDayChange.emit(this.days[0].date);
                     this.days.unshift(previosDay);
                     this.days.splice(3, 1);
                     (e.object as ScrollView).scrollToVerticalOffset(4872 + e.scrollY, false);
                 });
         }
         if (e.scrollY >= 9745) {
-            this.onDayChange.emit(this.days[2].date);
+            this.canChangeDay = false;
             this.taskService.getDay(moment(this.days[2].date).startOf('day').add(1, 'day').toDate())
                 .subscribe(nextDay => {
+                    this.onDayChange.emit(this.days[2].date);
                     this.days.push(nextDay);
                     this.days.splice(0, 1);
                     (e.object as ScrollView).scrollToVerticalOffset((e.scrollY - 9744) + 4872, false);
@@ -65,11 +78,22 @@ export default class ScrollComponent implements OnInit, AfterViewChecked {
         this.scroll.nativeElement.scrollToVerticalOffset(4872 + offset, false);
     }
 
-    openTaskInfo(task): void {
+    openTaskInfo(task: Task): void {
         this.onTaskChoiced.emit(task);
     }
 
+    deleteTask(task: Task) {
+        this.onTaskDelete.emit(task);
+    }
+
     trackByFn(index: number, el: any): number {
-        return el.id;
+        if(el.id) {
+            return el.id;
+        }
+        return el.name;
+    }
+
+    taskListLoaded() {
+
     }
 }

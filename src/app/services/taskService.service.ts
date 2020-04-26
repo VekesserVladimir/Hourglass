@@ -3,7 +3,7 @@ import Day from "../entities/Day";
 import Category from "../entities/Category";
 import Task from "../entities/Task";
 import { Couchbase } from "nativescript-couchbase-plugin";
-import { Observable, generate, from } from "rxjs";
+import { Observable, generate, from, of } from "rxjs";
 import { reduce, map, switchMap, take } from "rxjs/operators";
 import * as moment from "moment";
 import NotificationService from "./notificationService.service";
@@ -37,6 +37,7 @@ export default class TaskService {
                 select: [],
                 where: [{ property: "startDate", comparison: 'equalTo', value: date }]
             });
+            console.log(taskList);
             taskList = taskList.map(task => {
                 return new Task(
                     task.id, 
@@ -50,6 +51,7 @@ export default class TaskService {
                     new Category(task.category.name, task.category.color),
                     task.row);
             });
+            
             taskList = this.taskHelper.distributeRows(taskList);
             observer.next(new Day(date, taskList));
         }).pipe(
@@ -70,11 +72,17 @@ export default class TaskService {
             )
     }
 
-    deleteTask(): void {
-
+    deleteTask(task: Task): Observable<boolean> {
+        return of(this.database.deleteDocument(task.id))
+            .pipe(
+                take(1)
+            )
     }
 
-    changeTask(): void {
-
+    changeTask(task: Task): Observable<void> {
+        return of<void>(this.database.updateDocument(task.id, task))
+            .pipe(
+                take(1)
+            );
     }
 }

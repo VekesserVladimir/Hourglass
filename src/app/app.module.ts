@@ -12,8 +12,11 @@ import ScrollComponent from "./components/scroll/scroll.component";
 import MenuComponent from "./components/menu/menu.component";
 import MainPageControlsComponent from "./components/mainPageControls/mainPageControls.component";
 import DurationPipe from "./pipes/duration.pipe";
-import OffsetPipe from "./pipes/offset.pipe";
+import HorizontalOffsetPipe from "./pipes/horizontalOffset.pipe";
 import CardFormComponent from "./components/cardForm/cardForm.component";
+import SelectDialogComponent from "./components/selectDialog/selectDialog.component";
+import VerticalOffsetPipe from "./pipes/verticalOffset.pipe";
+import TaskComponent from "./components/task/task.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -37,8 +40,11 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         MenuComponent,
         MainPageControlsComponent,
         DurationPipe,
-        OffsetPipe,
-        CardFormComponent
+        HorizontalOffsetPipe,
+        CardFormComponent,
+        SelectDialogComponent,
+        VerticalOffsetPipe,
+        TaskComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

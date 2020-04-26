@@ -11,7 +11,6 @@ export default class Task {
     repeat: boolean;
     category: Category;
     row: number | null;
-    offset: number;
 
     constructor(id: string, scheduleId: number, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: boolean, category: Category, row: number) {
         this.id = id;
@@ -24,6 +23,5 @@ export default class Task {
         this.repeat = repeat;
         this.category = category;
         this.row = row;
-        this.offset = (startTime.getHours() + startTime.getMinutes() / 60) * 203 + 2;
     }
 }

@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from "@angular/core";
 import Task from "../entities/Task";
 
 @Pipe({
-    name: "offset"
+    name: "horizontaloffset"
 })
-export default class OffsetPipe implements PipeTransform {
+export default class HorizontalOffsetPipe implements PipeTransform {
     transform(task: Task) {
-        return (task.row - 1) * 60;
+        return (task.row - 1) * 50;
     }
 }

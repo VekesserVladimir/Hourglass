@@ -4,8 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import MainPageComponent from "./components/main/main.component";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/main", pathMatch: "full" },
-    { path: "main", component: MainPageComponent }
+    { path: "", component: MainPageComponent }
 ];
 
 @NgModule({

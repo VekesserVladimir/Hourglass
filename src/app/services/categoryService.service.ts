@@ -10,8 +10,8 @@ export class CategoryService {
 
   private standartCategories: Category[] = [
     new Category("Without category", "#555555"),
-    new Category("Home work", "#1FDA00"),
-    new Category("Work", "#0070DA"),
+    new Category("Home work", "#118cff"),
+    new Category("Work", "#70ff11")
 ];
 
   getAllCategories(): Category[] {
