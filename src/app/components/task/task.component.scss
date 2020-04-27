@@ -12,7 +12,7 @@
 
 .task-controls {
   width: 76;
-  height: 102;
+  height: 158;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
@@ -45,6 +45,13 @@
 
     Label {
       color: #ff6767;
+    }
+  }
+
+  &__complete {
+
+    Label {
+      color: #80ee7c;
     }
   }
 }

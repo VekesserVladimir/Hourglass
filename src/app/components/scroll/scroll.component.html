@@ -1,4 +1,4 @@
-<ScrollView class='scroll' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)">
+<ScrollView class='scroll' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)" id='scroll'>
     <StackLayout class='scroll__days-wrapper'>
         <WrapLayout class='day' *ngFor="let day of days; trackBy: trackByFn" #days>
             <StackLayout class='times'>
@@ -17,7 +17,7 @@
             </WrapLayout>
             <AbsoluteLayout (loaded)='taskListLoaded()' class='task-list' #taskList>
                 <task 
-                    *ngFor="let task of day.taskList; trackBy: trackByFn" 
+                    *ngFor="let task of day.taskList; let index = index; trackBy: trackByFn" 
                     [task]='task'
                     (onTaskSelected)='openTaskInfo($event)'
                     (onTaskDelete)='deleteTask($event)'

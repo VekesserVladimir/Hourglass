@@ -7,7 +7,7 @@ import { Observable, generate, from, of } from "rxjs";
 import { reduce, map, switchMap, take } from "rxjs/operators";
 import * as moment from "moment";
 import NotificationService from "./notificationService.service";
-import * as hash from "hash.js";
+import hash from "hash-it";
 import { TaskHelperService } from "./taskHelperService.service";
 
 @Injectable({
@@ -37,7 +37,6 @@ export default class TaskService {
                 select: [],
                 where: [{ property: "startDate", comparison: 'equalTo', value: date }]
             });
-            console.log(taskList);
             taskList = taskList.map(task => {
                 return new Task(
                     task.id, 
@@ -63,10 +62,10 @@ export default class TaskService {
         return from(this.notificationService.createNotification(task))
             .pipe(
                 map(scheduleId => {
-                    const id = hash.sha256().update(task).digest('hex');
+                    const id = hash(task).toString();
                     task.id = id;
                     task.scheduleId = scheduleId[0];
-                    return this.database.createDocument({...task}, id);
+                    return this.database.createDocument(task, id);
                 }),
                 take(1)
             )
