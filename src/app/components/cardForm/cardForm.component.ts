@@ -20,6 +20,7 @@ export default class CardFormComponent implements OnInit {
     private withoutDate: boolean;
     private cardForm: FormGroup;
     private task: Task;
+    private currentDate: Date = new Date();
 
     @Input() state: CardStates;
     @Output() onTaskAdd: EventEmitter<Task> = new EventEmitter<Task>();
@@ -48,7 +49,7 @@ export default class CardFormComponent implements OnInit {
                 endTime: new FormControl(null, {
                     validators: [Validators.required]
                 }),
-                selectedCategory: new FormControl(this.categoryList[0].name, {
+                selectedCategory: new FormControl(this.categoryList.find(category => category.name == 'Without category').name, {
                     validators: [Validators.required]
                 }),
                 repeat: new FormControl(false)
@@ -151,6 +152,7 @@ export default class CardFormComponent implements OnInit {
                 const task = new Task(
                     null,
                     null,
+                    false,
                     this.cardForm.get('name').value,
                     this.cardForm.get('startDate').value,
                     this.cardForm.get('endDate') != null ? this.cardForm.get('endDate').value : null,

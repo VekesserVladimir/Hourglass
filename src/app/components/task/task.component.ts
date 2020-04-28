@@ -69,9 +69,9 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
             });
             this.taskView.nativeElement.animate({
                 backgroundColor: darkerColor,
-                duration: 200,
+                duration: 500,
                 curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
-            })
+            });
             this.menuOpen = true;
         } else {
             this.closeTaskMenu();

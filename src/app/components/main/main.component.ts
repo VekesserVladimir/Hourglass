@@ -75,8 +75,4 @@ export default class MainPageComponent implements OnInit {
         //     findedTask[key] = task[key];
         // });
     }
-
-    onPageTap() {
-        console.log(123);
-    }
 }

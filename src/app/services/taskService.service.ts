@@ -41,6 +41,7 @@ export default class TaskService {
                 return new Task(
                     task.id, 
                     task.scheduleId, 
+                    false,
                     task.name, 
                     new Date(task.startDate), 
                     new Date(task.endDate),

@@ -19,12 +19,23 @@
         <FlexboxLayout class='card__row'>
             <StackLayout class='input input_short'>
                 <Label class='input__title' text='Start date'></Label>
-                <DatePickerField class='input__value' hint='Select date' formControlName="startDate"></DatePickerField>
+                <DatePickerField 
+                    class='input__value' 
+                    [minDate]='currentDate' 
+                    [maxDate]='cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
+                    hint='Select date' 
+                    formControlName="startDate">
+                </DatePickerField>
             </StackLayout>
             <ng-container *ngIf="!withoutDate">
                 <StackLayout class='input input_short'>
                     <Label class='input__title' text='End date'></Label>
-                    <DatePickerField class='input__value' hint='Select date' formControlName="endDate"></DatePickerField>
+                    <DatePickerField 
+                        class='input__value' 
+                        [minDate]='cardForm.get("startDate").value ? cardForm.get("startDate").value : currentDate' 
+                        hint='Select date' 
+                        formControlName="endDate">
+                    </DatePickerField>
                 </StackLayout>
             </ng-container>
         </FlexboxLayout>
@@ -32,11 +43,19 @@
             <FlexboxLayout class='card__row'>
                 <StackLayout class='input input_short'>
                     <Label class='input__title' text='Start time'></Label>
-                    <TimePickerField class='input__value' hint='Select time' formControlName="startTime"></TimePickerField>
+                    <TimePickerField 
+                        class='input__value' 
+                        hint='Select time' 
+                        formControlName="startTime">
+                    </TimePickerField>
                 </StackLayout>
                 <StackLayout class='input input_short'>
                     <Label class='input__title' text='End time'></Label>
-                    <TimePickerField class='input__value' hint='Select time' formControlName="endTime"></TimePickerField>
+                    <TimePickerField 
+                        class='input__value' 
+                        hint='Select time' 
+                        formControlName="endTime">
+                    </TimePickerField>
                 </StackLayout>
             </FlexboxLayout>
         </ng-container>
