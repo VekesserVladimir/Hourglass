@@ -3,10 +3,26 @@
   height: 251;
   left: 278;
   top: 53;
-
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  
   FlexboxLayout {
     justify-content: center;
     align-items: center;
+  }
+
+  &__item {
+    background-color: rgb(17, 140, 255);
+    border-radius: 50%;
+    height: 46;
+    width: 46;
+    z-index: 10;
+
+    Label {
+      font-size: 16;
+      color: white;
+    }
   }
 
   &__main-button {
@@ -14,107 +30,11 @@
     height: 62;
     background-color: rgb(17, 140, 255);
     border-radius: 50%;
-    z-index: 6;
+    z-index: 10;
 
     Label {
       font-size: 30;
       color: white;
     }
-  }
-
-  &__item1,
-  &__item2,
-  &__item3 {
-    background-color: rgb(17, 140, 255);
-    border-radius: 50%;
-    height: 46;
-    width: 46;
-
-    &_active,
-    &_active,
-    &_active {
-      background-color: rgb(17, 140, 255);
-      border-radius: 50%;
-      height: 46;
-      width: 46;
-      z-index: 6;
-    }
-  }
-
-  &__item Label {
-    font-size: 16;
-    color: white;
-  }
-
-  &__item1 {
-    animation-duration: 0.25;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-    animation-name: raiseItem1;
-
-    &_active {
-      animation-duration: 0.2;
-      animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-      animation-fill-mode: forwards;
-      animation-name: raiseItem1;
-      animation-direction: reverse;
-    }
-  }
-
-  &__item2 {
-    animation-duration: 0.25;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-    animation-name: raiseItem2;
-
-    &_active {
-      animation-duration: 0.2;
-      animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-      animation-fill-mode: forwards;
-      animation-name: raiseItem2;
-      animation-direction: reverse;
-    }
-  }
-
-  &__item3 {
-    animation-duration: 0.25;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-    animation-name: raiseItem3;
-
-    &_active {
-      animation-duration: 0.2;
-      animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-      animation-fill-mode: forwards;
-      animation-name: raiseItem3;
-      animation-direction: reverse;
-    }
-  }
-}
-
-@keyframes raiseItem1 {
-  from {
-    transform: translate(7, 30);
-  }
-  to {
-    transform: translate(7, -146);
-  }
-}
-
-@keyframes raiseItem2 {
-  from {
-    transform: translate(7, 20);
-  }
-  to {
-    transform: translate(7, -100);
-  }
-}
-
-@keyframes raiseItem3 {
-  from {
-    transform: translate(7, 10);
-  }
-  to {
-    transform: translate(7, -55);
   }
 }

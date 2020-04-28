@@ -1,11 +1,11 @@
-<FlexboxLayout flexDirection="column-reverse" justifyContent="flex-end" class='header__menu menu' #menu>
-    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item1_active]='isActive' [class.menu__item1]='!isActive'>
+<FlexboxLayout class='header__menu menu' #menu (loaded)='loaded()'>
+    <FlexboxLayout class='menu__item' #menuItem>
         <Label class='fas' text='&#xf013;'></Label>
     </FlexboxLayout>
-    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item2_active]='isActive' [class.menu__item2]='!isActive'>
+    <FlexboxLayout class='menu__item' #menuItem>
         <Label class='fas' text='&#xf080;'></Label>
     </FlexboxLayout>
-    <FlexboxLayout alignSelf="center" class='menu__item' [class.menu__item3_active]='isActive' [class.menu__item3]='!isActive'>
+    <FlexboxLayout class='menu__item' #menuItem>
         <Label class='fas' text='&#xf49e;'></Label>
     </FlexboxLayout>
     <FlexboxLayout class='menu__main-button' (tap)='toggleMenu()'>
