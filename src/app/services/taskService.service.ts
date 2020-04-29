@@ -85,4 +85,10 @@ export default class TaskService {
                 take(1)
             );
     }
+
+    getTasksCount(): number {
+        return this.database.query({
+            select: []
+        }).length;
+    }
 }

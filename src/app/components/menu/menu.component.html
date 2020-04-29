@@ -2,9 +2,10 @@
     <FlexboxLayout class='menu__item' #menuItem>
         <Label class='fas' text='&#xf013;'></Label>
     </FlexboxLayout>
-    <FlexboxLayout class='menu__item' #menuItem>
-        <Label class='fas' text='&#xf080;'></Label>
-    </FlexboxLayout>
+    <AbsoluteLayout class='menu__item' #menuItem>
+        <Label [text]='taskService.getTasksCount()' class='menu__task-count' (loaded)='taskCountLoaded($event)' #taskCount></Label>
+        <Label class='fas menu__icon' text='&#xf080;'></Label>
+    </AbsoluteLayout>
     <FlexboxLayout class='menu__item' #menuItem>
         <Label class='fas' text='&#xf49e;'></Label>
     </FlexboxLayout>
