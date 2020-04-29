@@ -1,5 +1,6 @@
 import { Component, ViewChildren, QueryList, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { Page } from "tns-core-modules/ui/page/page";
 
 @Component({
     selector: "menu",
@@ -12,8 +13,9 @@ export default class MenuComponent implements AfterViewInit {
     @ViewChild("menu", { read: ElementRef, static: false }) menu: ElementRef;
     @ViewChildren('menuItem') menuItems: QueryList<any>;
 
-    constructor() {
+    constructor(private page: Page) {
     }
+
 
     ngAfterViewInit() {
         this.menuItems.forEach((item, index) => {
@@ -22,7 +24,7 @@ export default class MenuComponent implements AfterViewInit {
     }
 
     toggleMenu(): void {
-        if(!this.isActive) {
+        if (!this.isActive) {
             this.menuItems.forEach((item, index) => {
                 item.nativeElement.animate({
                     translate: {

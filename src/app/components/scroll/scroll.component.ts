@@ -5,7 +5,8 @@ import { ScrollView, ScrollEventData } from "@nativescript/core/ui/scroll-view"
 import * as moment from "moment";
 import * as platformModule from "tns-core-modules/platform";
 import Task from "~/app/entities/Task";
-import { EventData } from "tns-core-modules/ui/page/page";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
 
 @Component({
     selector: "scroll",
@@ -22,8 +23,8 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
     @Output() onDayChange: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() onTaskChoiced: EventEmitter<Task> = new EventEmitter<Task>();
     @Output() onTaskDelete: EventEmitter<Task> = new EventEmitter<Task>();
-    @ViewChild("taskList", { read: ElementRef, static: true }) taskList: ElementRef;
     @ViewChildren("days") dayList: QueryList<any>;
+    @ViewChildren("taskComponent") taskList: QueryList<any>;
 
     constructor(private taskService: TaskService) { }
 
@@ -78,6 +79,22 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
         this.scroll.nativeElement.scrollToVerticalOffset(4872 + offset, false);
     }
 
+    moveTasks(task: Task) {
+        this.taskList.forEach(taskView => {
+            if(taskView.task.row > task.row) {
+                taskView.moveTask('forward');
+            }
+        });
+    }
+
+    moveTasksBack(task: Task) {
+        this.taskList.forEach(taskView => {
+            if(taskView.task.row > task.row) {
+                taskView.moveTask('back');
+            }
+        });
+    }
+
     openTaskInfo(task: Task): void {
         this.onTaskChoiced.emit(task);
     }
@@ -91,9 +108,5 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
             return el.id;
         }
         return el.name;
-    }
-
-    taskListLoaded() {
-
     }
 }

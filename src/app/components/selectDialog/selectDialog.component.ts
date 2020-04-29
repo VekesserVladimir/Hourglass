@@ -17,9 +17,9 @@ import Category from "~/app/entities/Category";
 export default class SelectDialogComponent implements ControlValueAccessor {
     private onChange = (value: any) => {}
     private onTouched = (value: any) => {}
+    private state: string;
 
     @Input() valueList: Category[];
-    private state: string;
 
     constructor(private categoryService: CategoryService) {
     }

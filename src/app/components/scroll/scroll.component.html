@@ -15,11 +15,14 @@
             </StackLayout>
             <WrapLayout class='day__line'>
             </WrapLayout>
-            <AbsoluteLayout (loaded)='taskListLoaded()' class='task-list' #taskList>
+            <AbsoluteLayout class='task-list'>
                 <task 
+                    #taskComponent
                     *ngFor="let task of day.taskList; let index = index; trackBy: trackByFn" 
                     [task]='task'
-                    (onTaskSelected)='openTaskInfo($event)'
+                    (onTaskSelected)='moveTasks($event)'
+                    (onTaskUnselected)='moveTasksBack($event)'
+                    (onTaskEdit)='openTaskInfo($event)'
                     (onTaskDelete)='deleteTask($event)'
                 ></task>
             </AbsoluteLayout>

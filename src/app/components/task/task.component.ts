@@ -20,6 +20,8 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
 
     @Input() task: Task;
     @Output() onTaskSelected: EventEmitter<Task> = new EventEmitter<Task>();
+    @Output() onTaskUnselected: EventEmitter<Task> = new EventEmitter<Task>();
+    @Output() onTaskEdit: EventEmitter<Task> = new EventEmitter<Task>();
     @Output() onTaskDelete: EventEmitter<Task> = new EventEmitter<Task>();
     @ViewChild("taskControls", { read: ElementRef, static: true }) taskControls: ElementRef;
     @ViewChild("taskView", { read: ElementRef, static: true }) taskView: ElementRef;
@@ -42,6 +44,8 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
 
     openTaskMenu(e: GestureEventData) {
         if(!this.menuOpen) {
+            this.onTaskSelected.emit(this.task);
+
             let topOffset = (e.android.getY() / 3);
             let taskHeight = this.taskView.nativeElement.height;
             let menuHeight = 158;
@@ -79,29 +83,33 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
     }
 
     closeTaskMenu() {
-        this.menuItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.nativeElement.animate({
-                    translate: {
-                        x: -22,
-                        y: 0
-                    },
-                    opacity: 0,
-                    duration: 100,
-                    curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
-                });
-            }, (2 - index) * 100)
-        });
-        this.taskView.nativeElement.animate({
-            backgroundColor: this.task.category.color,
-            duration: 200,
-            curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
-        })
-        this.menuOpen = false;
+        if(this.menuOpen) {
+            this.onTaskUnselected.emit(this.task);
+            
+            this.menuItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.nativeElement.animate({
+                        translate: {
+                            x: -22,
+                            y: 0
+                        },
+                        opacity: 0,
+                        duration: 100,
+                        curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
+                    });
+                }, (2 - index) * 100)
+            });
+            this.taskView.nativeElement.animate({
+                backgroundColor: this.task.category.color,
+                duration: 200,
+                curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
+            })
+            this.menuOpen = false;
+        }
     }
 
     openTaskInfo() {
-        this.onTaskSelected.emit(this.task);
+        this.onTaskEdit.emit(this.task);
     }
 
     deleteTask() {
@@ -113,10 +121,22 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
         });
     }
 
+    moveTask(mode: string) {
+        setTimeout(() => {
+            this.taskWrapper.nativeElement.animate({
+                translate: {
+                    x: mode == 'forward' ? 36 : 0,
+                    y: 0
+                },
+                duration: 200,
+                curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
+            });
+        }, mode == 'forward' ? 0 : 250,);
+    }
+
     loaded() {
         if (app.android && platform.device.sdkVersion >= "21") {
             this.taskControls.nativeElement.android.getParent().setClipChildren(false);
-            // this.taskView.nativeElement.android.getParent().setClipChildren(false);
             this.taskWrapper.nativeElement.android.getParent().setClipChildren(false);
         }
     }
