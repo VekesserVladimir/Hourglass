@@ -8,6 +8,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 import TaskService from "~/app/services/taskService.service";
 import { Page, ViewBase, Color } from "tns-core-modules/ui/page/page";
 import { ColorHelperService } from "~/app/services/colorHelper.service";
+import { TaskStates } from "../../entities/enums/TaskStates"
 
 @Component({
     selector: 'task',
@@ -134,10 +135,18 @@ export default class TaskComponent implements AfterContentInit, OnChanges {
         }, mode == 'forward' ? 0 : 250,);
     }
 
+    completeTask() {
+        this.task.status = TaskStates.Done;
+        this.taskService.changeTask(this.task).subscribe(res => {
+            this.closeTaskMenu();
+        });
+    }
+
     loaded() {
         if (app.android && platform.device.sdkVersion >= "21") {
             this.taskControls.nativeElement.android.getParent().setClipChildren(false);
             this.taskWrapper.nativeElement.android.getParent().setClipChildren(false);
+            this.taskWrapper.nativeElement.android.getParent().getParent().setClipChildren(false);
         }
     }
 }

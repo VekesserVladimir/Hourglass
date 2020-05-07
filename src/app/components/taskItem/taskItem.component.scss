@@ -1,0 +1,73 @@
+.task {
+    margin: 0 20 15 20;
+    padding: 20 20 10 20;
+    z-index: 6;
+    border-radius: 24;
+
+    &__status {
+        font-size: 18;
+    }
+
+    &__underline {
+        height: 1;
+        background-color: #DEDEDE;
+        margin: 10 0 15 0;
+    }
+
+    &__main-info {
+        margin-bottom: 30;
+    }
+
+    &__name {
+        font-size: 24;
+        margin-left: 10;
+        font-weight: 500;
+    }
+
+    &__description {
+        font-size: 16;
+        margin-left: 10;
+        color: #7c7c7c;
+    }
+
+    &__wrapper {
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__delete-button {
+        width: 30;
+        height: 30;
+        background-color: transparent;
+        z-index: 0;
+        font-size: 20;
+        padding: 0;
+        color: #7c7c7c;
+    }
+
+    &__row {
+        justify-content: space-between;
+        align-items: center;
+
+        &_margin {
+            margin-bottom: 10;
+        }
+    }
+
+    &__item {
+        align-items: center;
+        &-icon {
+            color: #7c7c7c;
+            font-size: 22;
+        }
+
+        &-value {
+            margin-left: 5;
+            font-size: 18;
+        }
+    }
+
+    &__hidden-info {
+        height: 1;
+    }
+}

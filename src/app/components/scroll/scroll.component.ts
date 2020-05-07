@@ -13,18 +13,18 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     templateUrl: "./scroll.component.html",
     styleUrls: ["./scroll.component.scss"]
 })
-export default class ScrollComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export default class ScrollComponent implements OnInit, AfterViewChecked {
     private times: string[] = new Array<string>();
     private firstRun: boolean = true;
-    private canChangeDay: boolean = true;
 
     @Input() days: Day[];
     @ViewChild("scroll", { read: ElementRef, static: true }) scroll: ElementRef;
+    @ViewChild("taskList", { read: ElementRef, static: true }) taskList: ElementRef;
     @Output() onDayChange: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() onTaskChoiced: EventEmitter<Task> = new EventEmitter<Task>();
     @Output() onTaskDelete: EventEmitter<Task> = new EventEmitter<Task>();
     @ViewChildren("days") dayList: QueryList<any>;
-    @ViewChildren("taskComponent") taskList: QueryList<any>;
+    @ViewChildren("taskComponent") tasks: QueryList<any>;
 
     constructor(private taskService: TaskService) { }
 
@@ -34,25 +34,18 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
         }
         this.scroll.nativeElement.height = platformModule.screen.mainScreen.heightDIPs - 196;
     }
-
-    ngAfterViewInit() {
-        this.dayList.changes.subscribe(res => {
-            // this.scrollToCurrentPosition();
-        })
-    }
     
     ngAfterViewChecked() {
         if (this.firstRun) {
             setTimeout(() => {
                 this.scrollToCurrentPosition();
                 this.firstRun = false;
-            }, 100);
+            }, 200);
         }
     }
 
     onScroll(e: ScrollEventData): void {
         if (e.scrollY <= 4871) {
-            // this.canChangeDay = false;
             this.taskService.getDay(moment(this.days[0].date).startOf('day').subtract(1, 'day').toDate())
                 .subscribe(previosDay => {
                     this.onDayChange.emit(this.days[0].date);
@@ -62,7 +55,6 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
                 });
         }
         if (e.scrollY >= 9745) {
-            this.canChangeDay = false;
             this.taskService.getDay(moment(this.days[2].date).startOf('day').add(1, 'day').toDate())
                 .subscribe(nextDay => {
                     this.onDayChange.emit(this.days[2].date);
@@ -80,7 +72,7 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
     }
 
     moveTasks(task: Task) {
-        this.taskList.forEach(taskView => {
+        this.tasks.forEach(taskView => {
             if(taskView.task.row > task.row) {
                 taskView.moveTask('forward');
             }
@@ -88,7 +80,7 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
     }
 
     moveTasksBack(task: Task) {
-        this.taskList.forEach(taskView => {
+        this.tasks.forEach(taskView => {
             if(taskView.task.row > task.row) {
                 taskView.moveTask('back');
             }
@@ -103,10 +95,7 @@ export default class ScrollComponent implements OnInit, AfterViewInit, AfterView
         this.onTaskDelete.emit(task);
     }
 
-    trackByFn(index: number, el: any): number {
-        if(el.id) {
-            return el.id;
-        }
-        return el.name;
+    trackByIndex(index: number, el: object): number {
+        return index;
     }
 }

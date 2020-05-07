@@ -1,0 +1,18 @@
+<Page>
+    <AbsoluteLayout class="task-list-page">
+        <FlexboxLayout class='task-list-page__close-button' (tap)='navigateBack()'>
+            <Label class='fas' text="&#xf060;"></Label>
+        </FlexboxLayout>
+        <ScrollView class='task-list' scrollBarIndicatorVisible='false'>
+            <StackLayout class='task-list__wrapper'>
+                <StackLayout class='task-list__day' *ngFor="let day of days;">
+                    <Label 
+                        [text]='day.date | date:"dd MMMM yyyy"' 
+                        class='task-list__date'
+                        *ngIf="day.taskList.length"></Label>
+                    <task-item *ngFor="let task of day.taskList" [task]='task'></task-item>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
+</Page>

@@ -17,6 +17,8 @@ import CardFormComponent from "./components/cardForm/cardForm.component";
 import SelectDialogComponent from "./components/selectDialog/selectDialog.component";
 import VerticalOffsetPipe from "./pipes/verticalOffset.pipe";
 import TaskComponent from "./components/task/task.component";
+import TaskListComponent from "./components/taskList/taskList.component";
+import { TaskItemComponent } from "./components/taskItem/taskItem.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -44,7 +46,9 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         CardFormComponent,
         SelectDialogComponent,
         VerticalOffsetPipe,
-        TaskComponent
+        TaskComponent,
+        TaskListComponent,
+        TaskItemComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

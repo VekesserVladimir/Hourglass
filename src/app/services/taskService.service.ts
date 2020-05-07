@@ -9,6 +9,7 @@ import * as moment from "moment";
 import NotificationService from "./notificationService.service";
 import hash from "hash-it";
 import { TaskHelperService } from "./taskHelperService.service";
+import { TaskStates } from "../entities/enums/TaskStates";
 
 @Injectable({
     providedIn: "root"
@@ -31,6 +32,23 @@ export default class TaskService {
             )
     }
 
+    getAllDays(): Observable<Day[]> {
+        return new Observable<Day[]>(observer => {
+            let taskList = this.database.query({
+                select: []
+            });
+            let dates = taskList.map(task => task.startDate);
+            dates = dates.filter((value, index, self) => self.indexOf(value) === index);
+            let days: Day[] = dates.map(date => {
+                let dayTasks = taskList.filter((first) => {
+                    return moment(first.startDate).isSame(moment(date))
+                }, []);
+                return new Day(new Date(date), dayTasks);
+            });
+            observer.next(days);
+        });
+    }
+
     getDay(date: Date): Observable<Day> {
         return new Observable<Day>(observer => {
             let taskList = this.database.query({
@@ -38,10 +56,18 @@ export default class TaskService {
                 where: [{ property: "startDate", comparison: 'equalTo', value: date }]
             });
             taskList = taskList.map(task => {
+                let status;
+                if(task.status != 1) {
+                    let time = moment(task.endTime)
+                    let date = moment(task.endDate).hour(time.hour()).minutes(time.minute());
+                    status = date.isBefore(moment()) ? 2 : 0
+                } else {
+                    status = 1;
+                }
                 return new Task(
                     task.id, 
                     task.scheduleId, 
-                    false,
+                    status,
                     task.name, 
                     new Date(task.startDate), 
                     new Date(task.endDate),

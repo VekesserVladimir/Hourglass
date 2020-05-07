@@ -8,6 +8,18 @@
     margin-right: 4;
     z-index: 0;
   }
+
+  &__state {
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 36;
+    height: 36;
+    border-radius: 50%;
+    z-index: 7;
+    left: -5;
+    top: -1;
+  }
 }
 
 .task-controls {

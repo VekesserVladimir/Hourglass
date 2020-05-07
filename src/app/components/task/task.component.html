@@ -5,6 +5,12 @@
     (loaded)='loaded()'
     #taskWrapper
     >
+    <FlexboxLayout class='task__state' *ngIf="task.status">
+        <Label 
+            class='fas'
+            [text]='task.status == 1 ? "&#xf00c;" : "&#xf00d;"' 
+            [color]='task.status == 1 ? "#80ee7c" : "#ff6767"'></Label>
+    </FlexboxLayout>
     <WrapLayout 
         class='task'
         [height]='task | duration'
@@ -16,7 +22,7 @@
         <FlexboxLayout
             class='task-controls__item task-controls__complete'
             #taskMenuItem
-            (tap)='openTaskInfo($event)'>
+            (tap)='completeTask($event)'>
             <Label class='fas' text="&#xf00c;"></Label>
         </FlexboxLayout>
         <FlexboxLayout

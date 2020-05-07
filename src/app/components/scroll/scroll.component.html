@@ -1,8 +1,8 @@
 <ScrollView class='scroll' scrollBarIndicatorVisible='false' #scroll (scroll)="onScroll($event)" id='scroll'>
     <StackLayout class='scroll__days-wrapper'>
-        <WrapLayout class='day' *ngFor="let day of days; trackBy: trackByFn" #days>
+        <WrapLayout class='day' *ngFor="let day of days; trackBy: trackByIndex" #days>
             <StackLayout class='times'>
-                <WrapLayout *ngFor="let time of times; trackBy: trackByFn">
+                <WrapLayout *ngFor="let time of times; trackBy: trackByIndex">
                     <Label class='times__time' [text]='time'>
                     </Label>
                     <Gradient direction="to right" class='times__quarter' borderRadius='5' colors="rgba(77, 77, 77, 0), #9A9A9A">
@@ -15,10 +15,10 @@
             </StackLayout>
             <WrapLayout class='day__line'>
             </WrapLayout>
-            <AbsoluteLayout class='task-list'>
+            <AbsoluteLayout class='task-list' #taskList>
                 <task 
                     #taskComponent
-                    *ngFor="let task of day.taskList; let index = index; trackBy: trackByFn" 
+                    *ngFor="let task of day.taskList; let index = index; trackBy: trackByIndex" 
                     [task]='task'
                     (onTaskSelected)='moveTasks($event)'
                     (onTaskUnselected)='moveTasksBack($event)'

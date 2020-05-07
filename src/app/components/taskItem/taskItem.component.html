@@ -1,0 +1,44 @@
+<StackLayout class='task'>
+    <FlexboxLayout class='task__row'>
+        <Label 
+            class='task__status' 
+            [text]='task.status == 0 ? "RUNNING" : task.status == 1 ? "DONE" : "EXPIRED"' 
+            [color]='task.status == 0 ? "#118cff" : task.status == 1 ? "#80ee7c" : "#ff6767"'>
+        </Label>
+        <FlexboxLayout class='task__wrapper' row='0' rowSpan='2' col='2'>
+            <Button class='fas task__delete-button' text='&#xf00d;'></Button>
+        </FlexboxLayout>
+    </FlexboxLayout>
+    <WrapLayout class='task__underline'></WrapLayout>
+    <GridLayout class='task__main-info' rows='40, 25' columns='5, *'>
+        <WrapLayout class='task__category-color' [backgroundColor]='task.category.color' col='0'
+        row='0' rowSpan='2'>
+        </WrapLayout>
+        <Label class='task__name' row='0' col='1' [text]='task.name'></Label>
+        <Label class='task__description' row='1' col='1' [text]='task.id'></Label>
+    </GridLayout>
+    <StackLayout class='task__info'>
+        <FlexboxLayout class='task__row task__row_margin'>
+            <FlexboxLayout class='task__item'>
+                <Label class='far task__item-icon' text='&#xf017;'></Label>
+                <Label class='task__item-value' [text]='(task.startTime | date:"HH:mm") + " - " + (task.endTime | date:"HH:mm")'></Label>
+            </FlexboxLayout>
+            <FlexboxLayout class='task__item' (tap)='openFullInfo()'>
+                <Label class='far task__item-icon' text='&#xf103;'></Label>
+                <Label class='task__item-value' [text]='isOpen ? "Less" : "More"'></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+        <StackLayout class='task__hidden-info' #info>
+            <FlexboxLayout class='task__row task__row_margin'>
+                <FlexboxLayout class='task__item'>
+                    <Label class='far task__item-icon' text='&#xf017;'></Label>
+                    <Label class='task__item-value' [text]='(task.startTime | date:"HH:mm") + " - " + (task.endTime | date:"HH:mm")'></Label>
+                </FlexboxLayout>
+                <FlexboxLayout class='task__item' (tap)='openFullInfo()'>
+                    <Label class='far task__item-icon' text='&#xf103;'></Label>
+                    <Label class='task__item-value' [text]='isOpen ? "Less" : "More"'></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+        </StackLayout>
+    </StackLayout>
+</StackLayout>

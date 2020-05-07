@@ -2,9 +2,11 @@ import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import MainPageComponent from "./components/main/main.component";
+import TaskListComponent from "./components/taskList/taskList.component";
 
 const routes: Routes = [
-    { path: "", component: MainPageComponent }
+    { path: "", component: MainPageComponent },
+    { path: "taskList", component: TaskListComponent }
 ];
 
 @NgModule({

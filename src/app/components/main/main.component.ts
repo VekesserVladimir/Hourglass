@@ -7,7 +7,7 @@ import Task from "~/app/entities/Task";
 import { TaskHelperService } from "~/app/services/taskHelperService.service";
 import * as moment from "moment";
 import * as equal from "deep-equal";
-import { EventData, Page } from "tns-core-modules/ui/page/page";
+import { Page } from "tns-core-modules/ui/page/page";
 
 @Component({
     selector: "main-page",
@@ -19,7 +19,6 @@ export default class MainPageComponent implements OnInit {
     private days: Day[];
 
     @ViewChild("card", { static: false }) card: CardFormComponent;
-
 
     constructor(private taskService: TaskService, private taskHelper: TaskHelperService, private _page: Page) {
         _page.actionBarHidden = true;

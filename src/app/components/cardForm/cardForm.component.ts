@@ -7,6 +7,7 @@ import Task from "~/app/entities/Task";
 import { CategoryService } from "~/app/services/categoryService.service";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Color } from "@nativescript/core/color"
+import { TaskStates } from "../../entities/enums/TaskStates";
 
 @Component({
     selector: "card-form",
@@ -152,7 +153,7 @@ export default class CardFormComponent implements OnInit {
                 const task = new Task(
                     null,
                     null,
-                    false,
+                    0,
                     this.cardForm.get('name').value,
                     this.cardForm.get('startDate').value,
                     this.cardForm.get('endDate') != null ? this.cardForm.get('endDate').value : null,
