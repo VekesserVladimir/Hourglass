@@ -1,5 +1,6 @@
 import Category from "./Category";
 import { TaskStates } from "./enums/TaskStates";
+import { Intervals } from "./enums/Intervals";
 
 export default class Task {
     id: string | null;
@@ -10,11 +11,14 @@ export default class Task {
     endDate: Date | null;
     startTime: Date | null;
     endTime: Date | null;
-    repeat: boolean;
+    repeat: {
+        amount: number,
+        interval: Intervals,
+    } | null;
     category: Category;
     row: number | null;
 
-    constructor(id: string, scheduleId: number, status: TaskStates, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: boolean, category: Category, row: number) {
+    constructor(id: string, scheduleId: number, status: TaskStates, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: {amount: number, interval: Intervals}, category: Category, row: number) {
         this.id = id;
         this.scheduleId = scheduleId;
         this.status = status;

@@ -19,6 +19,9 @@ import VerticalOffsetPipe from "./pipes/verticalOffset.pipe";
 import TaskComponent from "./components/task/task.component";
 import TaskListComponent from "./components/taskList/taskList.component";
 import { TaskItemComponent } from "./components/taskItem/taskItem.component";
+import { CategoryInputComponent } from "./components/categoryInput/categoryInput.component";
+import ContrastPipe from "./pipes/contrast.pipe";
+import IntervalNamePipe from "./pipes/intervalName.pipe";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -48,7 +51,10 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         VerticalOffsetPipe,
         TaskComponent,
         TaskListComponent,
-        TaskItemComponent
+        TaskItemComponent,
+        CategoryInputComponent,
+        ContrastPipe,
+        IntervalNamePipe
     ],
     schemas: [
         NO_ERRORS_SCHEMA

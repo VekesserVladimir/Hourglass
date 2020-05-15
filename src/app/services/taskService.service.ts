@@ -3,7 +3,7 @@ import Day from "../entities/Day";
 import Category from "../entities/Category";
 import Task from "../entities/Task";
 import { Couchbase } from "nativescript-couchbase-plugin";
-import { Observable, generate, from, of } from "rxjs";
+import { Observable, generate, from, of, scheduled } from "rxjs";
 import { reduce, map, switchMap, take } from "rxjs/operators";
 import * as moment from "moment";
 import NotificationService from "./notificationService.service";
@@ -98,18 +98,24 @@ export default class TaskService {
             )
     }
 
+    changeTask(task: Task): Observable<void> {
+        return this.notificationService.changeNotification(task)
+            .pipe(
+                map(scheduleId => {
+                    const id = hash(task).toString();
+                    task.id = id;
+                    task.scheduleId = scheduleId[0];
+                    return this.database.updateDocument(task.id, task)
+                }),
+                take(1)
+            )
+    }
+
     deleteTask(task: Task): Observable<boolean> {
         return of(this.database.deleteDocument(task.id))
             .pipe(
                 take(1)
             )
-    }
-
-    changeTask(task: Task): Observable<void> {
-        return of<void>(this.database.updateDocument(task.id, task))
-            .pipe(
-                take(1)
-            );
     }
 
     getTasksCount(): number {

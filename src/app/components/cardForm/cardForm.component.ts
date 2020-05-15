@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import Category from "~/app/entities/Category";
 import { CardStates } from "~/app/entities/enums/CardStates";
 import TaskService from "~/app/services/taskService.service";
@@ -7,7 +7,10 @@ import Task from "~/app/entities/Task";
 import { CategoryService } from "~/app/services/categoryService.service";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Color } from "@nativescript/core/color"
+import * as dialogs from "tns-core-modules/ui/dialogs";
 import { TaskStates } from "../../entities/enums/TaskStates";
+import { Intervals } from "../../entities/enums/Intervals";
+
 
 @Component({
     selector: "card-form",
@@ -17,11 +20,14 @@ import { TaskStates } from "../../entities/enums/TaskStates";
 export default class CardFormComponent implements OnInit {
     private previosY: number;
     private categoryList: Category[];
-    private selectedCategory: Category;
+    private category: Category;
     private withoutDate: boolean;
     private cardForm: FormGroup;
     private task: Task;
     private currentDate: Date = new Date();
+    private repeat: boolean;
+    private currentInterval = Intervals.Minute.toString();
+    private intervalAmount: number;
 
     @Input() state: CardStates;
     @Output() onTaskAdd: EventEmitter<Task> = new EventEmitter<Task>();
@@ -50,13 +56,13 @@ export default class CardFormComponent implements OnInit {
                 endTime: new FormControl(null, {
                     validators: [Validators.required]
                 }),
-                selectedCategory: new FormControl(this.categoryList.find(category => category.name == 'Without category').name, {
+                category: new FormControl(this.categoryList.find(category => category.name == 'Without category'), {
                     validators: [Validators.required]
-                }),
-                repeat: new FormControl(false)
+                })
             }
         );
         this.withoutDate = false;
+        this.repeat = false;
     }
 
     switchCardState(mode: CardStates, task?: Task) {
@@ -68,7 +74,7 @@ export default class CardFormComponent implements OnInit {
                 endDate: task.endDate,
                 startTime: task.startTime,
                 endTime: task.endTime,
-                selectedCategory: task.category.name,
+                category: task.category.name,
                 repeat: task.repeat,
             });
             this.task = task;
@@ -159,8 +165,8 @@ export default class CardFormComponent implements OnInit {
                     this.cardForm.get('endDate') != null ? this.cardForm.get('endDate').value : null,
                     this.cardForm.get('startTime') != null ? this.cardForm.get('startTime').value : null,
                     this.cardForm.get('endTime') != null ? this.cardForm.get('endTime').value : null,
-                    this.cardForm.get('repeat').value,
-                    this.cardForm.get('selectedCategory').value,
+                    this.cardForm.get('repeat') != null ? this.cardForm.get('repeat').value : null,
+                    this.cardForm.get('category').value,
                     null);
                 this.taskService.addTask(task).subscribe(res => {
                     this.onTaskAdd.emit(task);
@@ -172,7 +178,30 @@ export default class CardFormComponent implements OnInit {
 
     clearCard() {
         this.cardForm.reset();
-        this.cardForm.get('selectedCategory').setValue(this.categoryList[0].name);
+        this.cardForm.get('category').setValue(this.categoryList.find(category => category.name == 'Without category'), {
+            validators: [Validators.required]
+        });
+    }
+
+    openIntervalSelect() {
+        let actions = [];
+        for(let item in Intervals) {
+            if (isNaN(Number(item))) {
+                actions.push(item);
+            }
+        }
+        let options = {
+            title: "Choose category",
+            message: "Choose category",
+            cancelButtonText: "Cancel",
+            actions: actions
+        };
+        dialogs.action(options).then(result => {
+            if(result !== "Cancel") {
+                this.currentInterval = result;
+                this.cardForm.get('repeat').get('type').setValue(result);
+            }
+        });
     }
 
     onWithoutDateChange(e) {
@@ -190,6 +219,17 @@ export default class CardFormComponent implements OnInit {
             this.cardForm.addControl('endTime', new FormControl(null, {
                 validators: [Validators.required]
             }));
+        }
+    }
+
+    onRepeatChange(e) {
+        if(e.object.checked) {
+            this.cardForm.addControl("repeat", new FormGroup({
+                amount: new FormControl(null, Validators.required),
+                interval: new FormControl(Intervals.Minute, Validators.required)
+            }))
+        } else {
+            this.cardForm.removeControl('repeat')
         }
     }
 }

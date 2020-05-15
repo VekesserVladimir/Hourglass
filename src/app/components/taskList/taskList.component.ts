@@ -23,6 +23,10 @@ export default class TaskListComponent implements OnInit {
         })
     }
 
+    deleteTask(task: Task) {
+        this.ngOnInit();
+    }
+
     navigateBack() {
         this.router.backToPreviousPage();
     }

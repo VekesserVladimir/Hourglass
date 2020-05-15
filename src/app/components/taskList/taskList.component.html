@@ -10,7 +10,7 @@
                         [text]='day.date | date:"dd MMMM yyyy"' 
                         class='task-list__date'
                         *ngIf="day.taskList.length"></Label>
-                    <task-item *ngFor="let task of day.taskList" [task]='task'></task-item>
+                    <task-item *ngFor="let task of day.taskList" [task]='task' (onDelete)='deleteTask($event)'></task-item>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

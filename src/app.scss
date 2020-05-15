@@ -32,11 +32,9 @@ This is where the vast majority of your CSS code goes. */
   }
 
   &__value {
-    width: 100%;
     margin: 0;
     border-bottom-width: 1;
     border-color: transparent;
-    // background-color: red; 
     font-size: 16;
     placeholder-color: #dcdedf;
   }

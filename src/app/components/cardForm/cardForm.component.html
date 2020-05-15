@@ -13,14 +13,14 @@
         </FlexboxLayout>
         <StackLayout class='input'>
             <Label class='input__title' text='Name'></Label>
-            <TextField class='input__value' formControlName="name" hint='Task name'></TextField>
+            <TextField class='input__value card__input-value' formControlName="name" hint='Task name'></TextField>
         </StackLayout>
         <WrapLayout class='card__underline'></WrapLayout>
         <FlexboxLayout class='card__row'>
             <StackLayout class='input input_short'>
                 <Label class='input__title' text='Start date'></Label>
                 <DatePickerField 
-                    class='input__value' 
+                    class='input__value card__input-value' 
                     [minDate]='currentDate' 
                     [maxDate]='cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
                     hint='Select date' 
@@ -52,7 +52,7 @@
                 <StackLayout class='input input_short'>
                     <Label class='input__title' text='End time'></Label>
                     <TimePickerField 
-                        class='input__value' 
+                        class='input__value card__input-value' 
                         hint='Select time' 
                         formControlName="endTime">
                     </TimePickerField>
@@ -72,7 +72,7 @@
             <Label text='Without date' class='checkbox__title'></Label>
         </FlexboxLayout>
         <WrapLayout class='card__underline'></WrapLayout>
-        <select-dialog formControlName="selectedCategory" [valueList]='categoryList'></select-dialog>
+        <category-input formControlName="category" [categoryList]='categoryList'></category-input>
         <WrapLayout class='card__underline'></WrapLayout>
         <FlexboxLayout class='checkbox'>
             <Switch 
@@ -80,8 +80,18 @@
                 color='#EDEDED' 
                 backgroundColor='#9CF70B' 
                 offBackgroundColor='#B8B8B8' 
-                formControlName="repeat"></Switch>
+                (checkedChange)='onRepeatChange($event)'
+                [(ngModel)]="repeat"
+                [ngModelOptions]="{standalone: true}"></Switch>
             <Label text='Repeat' class='checkbox__title'></Label>
         </FlexboxLayout>
+        <ng-container *ngIf="repeat" formGroupName='repeat'>
+            <FlexboxLayout class='repeat-input'>
+                <Label text='Every' class='input__value'></Label>
+                <TextField hint='Amount' keyboardType='number' formControlName='amount' class='input__value' textAlignment='center'></TextField>
+                <Label class='repeat-input__value' [text]='currentInterval | lowercase | interval: cardForm.get("repeat") ? cardForm.get("repeat").get("amount").value : null' (tap)='openIntervalSelect()'></Label>
+            </FlexboxLayout>
+        </ng-container>
+        <WrapLayout class='card__underline'></WrapLayout>
     </WrapLayout>
 </WrapLayout>
