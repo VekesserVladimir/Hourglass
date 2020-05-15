@@ -92,6 +92,10 @@
                 <Label class='repeat-input__value' [text]='currentInterval | lowercase | interval: cardForm.get("repeat") ? cardForm.get("repeat").get("amount").value : null' (tap)='openIntervalSelect()'></Label>
             </FlexboxLayout>
         </ng-container>
-        <WrapLayout class='card__underline'></WrapLayout>
+        <TextView 
+            hint="Description" 
+            class='input__value card__description'
+            formControlName="description">
+        </TextView>
     </WrapLayout>
 </WrapLayout>

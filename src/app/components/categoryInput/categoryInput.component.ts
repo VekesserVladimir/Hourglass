@@ -39,9 +39,9 @@ export class CategoryInputComponent implements ControlValueAccessor {
     }
 
     checkedLoaded() {
-        // this.checked.nativeElement.android.getParent().setClipChildren(false);
-        // this.checked.nativeElement.android.getParent().getParent().setClipChildren(false);
-        // this.checked.nativeElement.android.getParent().getParent().getParent().setClipChildren(false);
-        // this.checked.nativeElement.android.getParent().getParent().getParent().getParent().setClipChildren(false);
+        this.checked.nativeElement.android.getParent().setClipChildren(false);
+        this.checked.nativeElement.android.getParent().getParent().setClipChildren(false);
+        this.checked.nativeElement.android.getParent().getParent().getParent().setClipChildren(false);
+        this.checked.nativeElement.android.getParent().getParent().getParent().getParent().setClipChildren(false);
     }
 }

@@ -75,5 +75,13 @@
         font-size: 16;
       }
     }
+
+    &__description {
+      width: 100%;
+      border-radius: 10;
+      border-width: 1;
+      border-color: #dcdedf;
+      margin-top: 10;
+    }
   }
 }

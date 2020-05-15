@@ -16,9 +16,10 @@ export default class Task {
         interval: Intervals,
     } | null;
     category: Category;
+    description: string;
     row: number | null;
 
-    constructor(id: string, scheduleId: number, status: TaskStates, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: {amount: number, interval: Intervals}, category: Category, row: number) {
+    constructor(id: string, scheduleId: number, status: TaskStates, name: string, startDate: Date, endDate: Date, startTime: Date, endTime: Date, repeat: {amount: number, interval: Intervals}, category: Category, description:string, row: number) {
         this.id = id;
         this.scheduleId = scheduleId;
         this.status = status;
@@ -29,6 +30,7 @@ export default class Task {
         this.endTime = endTime;
         this.repeat = repeat;
         this.category = category;
+        this.description = description;
         this.row = row;
     }
 }

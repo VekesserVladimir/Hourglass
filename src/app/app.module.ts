@@ -22,6 +22,7 @@ import { TaskItemComponent } from "./components/taskItem/taskItem.component";
 import { CategoryInputComponent } from "./components/categoryInput/categoryInput.component";
 import ContrastPipe from "./pipes/contrast.pipe";
 import IntervalNamePipe from "./pipes/intervalName.pipe";
+import CategoryItemComponent from "./components/categoryItem/categoryItem.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -54,7 +55,8 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         TaskItemComponent,
         CategoryInputComponent,
         ContrastPipe,
-        IntervalNamePipe
+        IntervalNamePipe,
+        CategoryItemComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

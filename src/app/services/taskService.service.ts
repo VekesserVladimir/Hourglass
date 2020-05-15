@@ -75,6 +75,7 @@ export default class TaskService {
                     new Date(task.endTime),
                     task.repeat,
                     new Category(task.category.name, task.category.color),
+                    task.description,
                     task.row);
             });
             

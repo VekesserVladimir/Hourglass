@@ -58,7 +58,8 @@ export default class CardFormComponent implements OnInit {
                 }),
                 category: new FormControl(this.categoryList.find(category => category.name == 'Without category'), {
                     validators: [Validators.required]
-                })
+                }),
+                description: new FormControl(null)
             }
         );
         this.withoutDate = false;
@@ -76,6 +77,7 @@ export default class CardFormComponent implements OnInit {
                 endTime: task.endTime,
                 category: task.category.name,
                 repeat: task.repeat,
+                description: task.description
             });
             this.task = task;
         }
@@ -167,6 +169,7 @@ export default class CardFormComponent implements OnInit {
                     this.cardForm.get('endTime') != null ? this.cardForm.get('endTime').value : null,
                     this.cardForm.get('repeat') != null ? this.cardForm.get('repeat').value : null,
                     this.cardForm.get('category').value,
+                    this.cardForm.get('desription').value,
                     null);
                 this.taskService.addTask(task).subscribe(res => {
                     this.onTaskAdd.emit(task);
