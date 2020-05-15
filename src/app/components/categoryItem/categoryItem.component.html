@@ -1,0 +1,11 @@
+<WrapLayout class='category-item__wrapper'>
+    <AbsoluteLayout class='category-item' (tap)='onCategorySelect.emit(category)'>
+        <FlexboxLayout class='category-item__name-wrapper' [backgroundColor]='category.color' #categoryView>
+            <Label class='category-item__name' [text]='category.name' [color]='category.color | contrast'></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class='category-item__checked' [opacity]="isSelected ? 1 : 0" #checked
+            (loaded)='checkedLoaded()'>
+            <Label class='fas' text='&#xf00c;'></Label>
+        </FlexboxLayout>
+    </AbsoluteLayout>
+</WrapLayout>

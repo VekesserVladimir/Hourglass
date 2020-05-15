@@ -18,7 +18,7 @@ export class CategoryInputComponent implements ControlValueAccessor {
     private state: Category;
 
     @Input() categoryList: Category[];
-    @ViewChild("checked", { read: ElementRef, static: false }) checked: ElementRef;
+    @ViewChild("wrapper", { read: ElementRef, static: false }) wrapper: ElementRef;
 
     writeValue(state: Category): void {
         this.state = state;
@@ -38,10 +38,13 @@ export class CategoryInputComponent implements ControlValueAccessor {
         this.onTouched(category);
     }
 
-    checkedLoaded() {
-        this.checked.nativeElement.android.getParent().setClipChildren(false);
-        this.checked.nativeElement.android.getParent().getParent().setClipChildren(false);
-        this.checked.nativeElement.android.getParent().getParent().getParent().setClipChildren(false);
-        this.checked.nativeElement.android.getParent().getParent().getParent().getParent().setClipChildren(false);
+    wrapperLoaded() {
+        this.wrapper.nativeElement.android.setClipChildren(false);
+        this.wrapper.nativeElement.android.getParent().setClipChildren(false);
+        this.wrapper.nativeElement.android.getParent().getParent().setClipChildren(false);
+    }
+
+    trackByIndex(index: number, el: object): number {
+        return index;
     }
 }

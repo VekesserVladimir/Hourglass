@@ -1,15 +1,13 @@
 <StackLayout class='input category-input'>
     <Label class='input__title' text='Category'></Label>
     <ScrollView orientation='horizontal' class="category-input__scroll">
-        <WrapLayout class='category-input__wrapper'>
-            <AbsoluteLayout class='category-item' *ngFor="let category of categoryList" (tap)='changeCategory(category)'>
-                <FlexboxLayout class='category-item__name-wrapper' [backgroundColor]='category.color'>
-                    <Label class='category-item__name' [text]='category.name' [color]='category.color | contrast'></Label>
-                </FlexboxLayout>
-                <FlexboxLayout class='category-item__checked' *ngIf="category.name == state.name" #checked (loaded)='checkedLoaded()'>
-                    <Label class='fas' text='&#xf00c;'></Label>
-                </FlexboxLayout>
-            </AbsoluteLayout>
+        <WrapLayout class='category-input__wrapper' #wrapper (loaded)='wrapperLoaded()'>
+            <category-item 
+                *ngFor="let category of categoryList; let index = index; trackBy: trackByIndex" 
+                [category]='category' 
+                [isSelected]='category.name == state.name ? true : false'
+                (onCategorySelect)='changeCategory($event)'
+            ></category-item>
         </WrapLayout>
     </ScrollView>
 </StackLayout>
