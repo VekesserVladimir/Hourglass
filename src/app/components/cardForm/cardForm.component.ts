@@ -69,14 +69,21 @@ export default class CardFormComponent implements OnInit {
     switchCardState(mode: CardStates, task?: Task) {
         let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
         if (task) {
+            if(task.repeat) {
+                this.cardForm.addControl("repeat", new FormGroup({
+                    amount: new FormControl(null, Validators.required),
+                    interval: new FormControl(Intervals.Minute, Validators.required)
+                }));
+                this.cardForm.get("repeat").get("amount").setValue(task.repeat.amount);
+                this.cardForm.get("repeat").get("interval").setValue(task.repeat.interval);
+            }
             this.cardForm.setValue({
                 name: task.name,
                 startDate: task.startDate,
                 endDate: task.endDate,
                 startTime: task.startTime,
                 endTime: task.endTime,
-                category: task.category.name,
-                repeat: task.repeat,
+                category: task.category,
                 description: task.description
             });
             this.task = task;
@@ -169,7 +176,7 @@ export default class CardFormComponent implements OnInit {
                     this.cardForm.get('endTime') != null ? this.cardForm.get('endTime').value : null,
                     this.cardForm.get('repeat') != null ? this.cardForm.get('repeat').value : null,
                     this.cardForm.get('category').value,
-                    this.cardForm.get('desription').value,
+                    this.cardForm.get('description').value,
                     null);
                 this.taskService.addTask(task).subscribe(res => {
                     this.onTaskAdd.emit(task);
@@ -230,9 +237,9 @@ export default class CardFormComponent implements OnInit {
             this.cardForm.addControl("repeat", new FormGroup({
                 amount: new FormControl(null, Validators.required),
                 interval: new FormControl(Intervals.Minute, Validators.required)
-            }))
+            }));
         } else {
-            this.cardForm.removeControl('repeat')
+            this.cardForm.removeControl('repeat');
         }
     }
 }

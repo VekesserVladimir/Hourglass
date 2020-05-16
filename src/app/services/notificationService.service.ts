@@ -13,18 +13,15 @@ export default class NotificationService {
 
   constructor() { }
 
-  createNotification(task: Task): Promise<number[]> | null {
-    if (task.repeat) {
-      return LocalNotifications.schedule([{
-        title: "Hourglass",
-        body: task.name + " в " + task.startTime.getHours() + ":" + task.startTime.getMinutes(),
-        ongoing: false,
-        interval: task.repeat.interval.toLowerCase() as ScheduleInterval,
-        // icon: './App_Resources/Android/src/main/res/drawable-xhdpi/icon.png',
-        at: task.startTime
-      }]);
-    }
-    return null;
+  createNotification(task: Task): Promise<number[]> {
+    return LocalNotifications.schedule([{
+      title: "Hourglass",
+      body: task.name + " в " + task.startTime.getHours() + ":" + task.startTime.getMinutes(),
+      ongoing: false,
+      interval: task.repeat.interval.toLowerCase() as ScheduleInterval,
+      // icon: './App_Resources/Android/src/main/res/drawable-xhdpi/icon.png',
+      at: task.startTime
+    }]);
   }
 
   changeNotification(task: Task): Observable<number[]> {

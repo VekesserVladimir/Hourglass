@@ -57,7 +57,7 @@ export default class TaskService {
             });
             taskList = taskList.map(task => {
                 let status;
-                if(task.status != 1) {
+                if (task.status != 1) {
                     let time = moment(task.endTime)
                     let date = moment(task.endDate).hour(time.hour()).minutes(time.minute());
                     status = date.isBefore(moment()) ? 2 : 0
@@ -65,11 +65,11 @@ export default class TaskService {
                     status = 1;
                 }
                 return new Task(
-                    task.id, 
-                    task.scheduleId, 
+                    task.id,
+                    task.scheduleId,
                     status,
-                    task.name, 
-                    new Date(task.startDate), 
+                    task.name,
+                    new Date(task.startDate),
                     new Date(task.endDate),
                     new Date(task.startTime),
                     new Date(task.endTime),
@@ -78,7 +78,7 @@ export default class TaskService {
                     task.description,
                     task.row);
             });
-            
+
             taskList = this.taskHelper.distributeRows(taskList);
             observer.next(new Day(date, taskList));
         }).pipe(
@@ -87,16 +87,21 @@ export default class TaskService {
     }
 
     addTask(task: Task): Observable<string> {
-        return from(this.notificationService.createNotification(task))
-            .pipe(
-                map(scheduleId => {
-                    const id = hash(task).toString();
-                    task.id = id;
-                    task.scheduleId = scheduleId[0];
-                    return this.database.createDocument(task, id);
-                }),
-                take(1)
-            )
+        const id = hash(task).toString();
+        task.id = id;
+        if (task.repeat) {
+            return from(this.notificationService.createNotification(task))
+                .pipe(
+                    map(scheduleId => {
+                        task.scheduleId = scheduleId[0];
+                        return this.database.createDocument(task, id);
+                    }),
+                    take(1)
+                );
+        } else {
+            return of(this.database.createDocument(task, id))
+                .pipe(take(1));
+        }
     }
 
     changeTask(task: Task): Observable<void> {

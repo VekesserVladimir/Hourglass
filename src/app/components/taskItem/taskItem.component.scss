@@ -1,13 +1,11 @@
 .task {
     margin: 0 20 15 20;
-    padding: 5 10 0 10;
-    // padding: 20 20 10 20;
+    padding: 5 20 0 20;
     z-index: 6;
     border-radius: 24;
 
     &__status {
         font-size: 16;
-        margin-left: 15;
     }
 
     &__underline {
@@ -27,7 +25,7 @@
     &__name {
         font-size: 20;
         margin-left: 10;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     &__description {
