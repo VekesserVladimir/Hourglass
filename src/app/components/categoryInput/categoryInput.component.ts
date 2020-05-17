@@ -1,6 +1,9 @@
-import { Component, forwardRef, Input, ViewChild, ElementRef } from "@angular/core";
+import { Component, forwardRef, Input, ViewChild, ElementRef, ViewContainerRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import Category from "~/app/entities/Category";
+import { CategoryService } from "~/app/services/categoryService.service";
+import { ModalDialogService } from "nativescript-angular";
+import CreateCategoryModal from "../createCategoryModal/createCategoryModal";
 
 @Component({
     selector: "category-input",
@@ -20,6 +23,8 @@ export class CategoryInputComponent implements ControlValueAccessor {
     @Input() categoryList: Category[];
     @ViewChild("wrapper", { read: ElementRef, static: false }) wrapper: ElementRef;
 
+    constructor(private categoryService: CategoryService, private modalDialog: ModalDialogService, private vcRef: ViewContainerRef) {}
+
     writeValue(state: Category): void {
         this.state = state;
     }
@@ -30,6 +35,17 @@ export class CategoryInputComponent implements ControlValueAccessor {
         this.onTouched = fn;
     }
     setDisabledState?(isDisabled: boolean): void {
+    }
+
+    createCategory() {
+        this.modalDialog.showModal(CreateCategoryModal, {
+            viewContainerRef: this.vcRef
+        }).then(category => {
+            this.categoryService.createCategory(category)
+                .subscribe(category => {
+                    this.categoryList.push(category)
+                });
+        });
     }
 
     changeCategory(category: Category) {

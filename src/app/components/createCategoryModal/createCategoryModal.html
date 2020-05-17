@@ -1,0 +1,12 @@
+<FlexboxLayout class='category-modal' [formGroup]='categoryForm'>
+    <Label text='Create category' class='modal__title'></Label>
+    <StackLayout class='input'>
+        <Label class='input__title' text='Name'></Label>
+        <TextField class='input__value' hint='Category name' formControlName="name"></TextField>
+    </StackLayout>
+    <StackLayout class='input'>
+        <Label class='input__title' text='Color'></Label>
+        <WrapLayout class='category-modal__color' [backgroundColor]='categoryForm.get("color").value.hex' (tap)='selectColor()'></WrapLayout>
+    </StackLayout>
+    <Button class="category-modal__button" text="Create" (tap)="submit()"></Button>
+</FlexboxLayout>

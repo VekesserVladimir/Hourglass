@@ -39,6 +39,7 @@ export default class TaskService {
             });
             let dates = taskList.map(task => task.startDate);
             dates = dates.filter((value, index, self) => self.indexOf(value) === index);
+            console.log(taskList);
             let days: Day[] = dates.map(date => {
                 let dayTasks = taskList.filter((first) => {
                     return moment(first.startDate).isSame(moment(date))
@@ -74,7 +75,7 @@ export default class TaskService {
                     new Date(task.startTime),
                     new Date(task.endTime),
                     task.repeat,
-                    new Category(task.category.name, task.category.color),
+                    new Category(task.category.id, task.category.name, task.category.color),
                     task.description,
                     task.row);
             });

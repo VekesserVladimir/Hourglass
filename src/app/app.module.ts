@@ -23,6 +23,7 @@ import { CategoryInputComponent } from "./components/categoryInput/categoryInput
 import ContrastPipe from "./pipes/contrast.pipe";
 import IntervalNamePipe from "./pipes/intervalName.pipe";
 import CategoryItemComponent from "./components/categoryItem/categoryItem.component";
+import CreateCategoryModal from "./components/createCategoryModal/createCategoryModal";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -56,10 +57,14 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         CategoryInputComponent,
         ContrastPipe,
         IntervalNamePipe,
-        CategoryItemComponent
+        CategoryItemComponent,
+        CreateCategoryModal
     ],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    entryComponents: [
+        CreateCategoryModal
     ]
 })
 export class AppModule { }

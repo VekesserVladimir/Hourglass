@@ -25,6 +25,7 @@
     "hash-it": "^4.0.5",
     "moment": "^2.24.0",
     "nativescript-angular": "^8.21.0",
+    "nativescript-color-picker": "^1.6.0",
     "nativescript-couchbase-plugin": "^0.9.6",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-gradient": "^2.0.1",

@@ -1,5 +1,8 @@
 <StackLayout class='input category-input'>
-    <Label class='input__title' text='Category'></Label>
+    <FlexboxLayout class='card__row'>
+        <Label class='input__title' text='Category'></Label>
+        <Label class='category-input__button' text='Create' (tap)='createCategory()'></Label>
+    </FlexboxLayout>
     <ScrollView orientation='horizontal' class="category-input__scroll">
         <WrapLayout class='category-input__wrapper' #wrapper (loaded)='wrapperLoaded()'>
             <category-item 

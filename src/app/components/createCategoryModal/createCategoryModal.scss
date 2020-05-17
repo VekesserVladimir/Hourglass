@@ -1,0 +1,27 @@
+.category-modal {
+    width: 300;
+    padding: 0 20 20 20;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .modal__title {
+        margin-top: 20;
+        font-size: 20;
+        font-weight: 500;
+    }
+
+    &__color {
+        margin-top: 10;
+        width: 50;
+        height: 20;
+        border-radius: 6;
+    }
+
+    &__button {
+        margin: 0;
+        padding: 0;
+        z-index: 0;
+        align-self: flex-end;
+        background-color: transparent;
+    }
+}
