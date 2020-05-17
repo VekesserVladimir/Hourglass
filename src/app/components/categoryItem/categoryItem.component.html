@@ -1,4 +1,4 @@
-<WrapLayout class='category-item__wrapper'>
+<WrapLayout class='category-item__wrapper' (longPress)='deleteCategory()'>
     <AbsoluteLayout class='category-item' (tap)='onCategorySelect.emit(category)'>
         <FlexboxLayout class='category-item__name-wrapper' [backgroundColor]='category.color' #categoryView>
             <Label class='category-item__name' [text]='category.name' [color]='category.color | contrast'></Label>

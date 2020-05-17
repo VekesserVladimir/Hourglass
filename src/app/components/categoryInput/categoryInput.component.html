@@ -3,13 +3,14 @@
         <Label class='input__title' text='Category'></Label>
         <Label class='category-input__button' text='Create' (tap)='createCategory()'></Label>
     </FlexboxLayout>
-    <ScrollView orientation='horizontal' class="category-input__scroll">
+    <ScrollView orientation='horizontal' class="category-input__scroll" scrollBarIndicatorVisible='false'>
         <WrapLayout class='category-input__wrapper' #wrapper (loaded)='wrapperLoaded()'>
             <category-item 
                 *ngFor="let category of categoryList; let index = index; trackBy: trackByIndex" 
                 [category]='category' 
                 [isSelected]='category.name == state.name ? true : false'
                 (onCategorySelect)='changeCategory($event)'
+                (onDelete)='onDelete.emit($event)'
             ></category-item>
         </WrapLayout>
     </ScrollView>

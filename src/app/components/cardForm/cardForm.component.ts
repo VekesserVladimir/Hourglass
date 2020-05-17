@@ -67,8 +67,7 @@ export default class CardFormComponent implements OnInit {
     }
 
     switchCardState(mode: CardStates, task?: Task) {
-        let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
-        if (task) {
+        if (task && mode != CardStates.Closed) {
             if(task.repeat) {
                 this.cardForm.addControl("repeat", new FormGroup({
                     amount: new FormControl(null, Validators.required),
@@ -88,7 +87,8 @@ export default class CardFormComponent implements OnInit {
             });
             this.task = task;
         }
-
+        
+        let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
         this.card.nativeElement.parent.animate({
             backgroundColor: backgroundColor,
             duration: 350,
@@ -104,6 +104,7 @@ export default class CardFormComponent implements OnInit {
             this.state = mode;
             if(mode == CardStates.Closed) {
                 this.task = null;
+                this.clearCard();
             }
         });
     }
@@ -127,7 +128,6 @@ export default class CardFormComponent implements OnInit {
                 if (currentOffset > CardStates.FullOpened + stateOffset) {
                     if (currentOffset > CardStates.HalfOpened + stateOffset) {
                         this.switchCardState(CardStates.Closed);
-                        this.clearCard();
                     } else {
                         this.switchCardState(CardStates.HalfOpened);
                     }
@@ -139,7 +139,6 @@ export default class CardFormComponent implements OnInit {
                     this.switchCardState(CardStates.FullOpened);
                 } else if (currentOffset > CardStates.HalfOpened + stateOffset) {
                     this.switchCardState(CardStates.Closed);
-                    this.clearCard();
                 } else {
                     this.switchCardState(CardStates.HalfOpened);
                 }
@@ -191,6 +190,10 @@ export default class CardFormComponent implements OnInit {
         this.cardForm.get('category').setValue(this.categoryList.find(category => category.name == 'Without category'), {
             validators: [Validators.required]
         });
+    }
+
+    deleteCategory(category: Category) {
+        this.categoryList.splice(this.categoryList.findIndex(item => category.name == item.name), 1);
     }
 
     openIntervalSelect() {

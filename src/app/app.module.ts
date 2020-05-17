@@ -64,7 +64,7 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         NO_ERRORS_SCHEMA
     ],
     entryComponents: [
-        CreateCategoryModal
+        CreateCategoryModal 
     ]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import Category from '../entities/Category';
 import { Couchbase } from 'nativescript-couchbase-plugin';
 import { of, Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import DBWrapper from '../entities/DBWrapper';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,16 +22,29 @@ export class CategoryService {
 	];
 
 	getAllCategories(): Category[] {
-		// return [];
-		return this.standartCategories;
+		let categoryList = this.database.query({
+			where: [
+				{ property: "type", comparison: "equalTo", value: "category"}
+			],
+			select: []
+		}).map(wrapper => wrapper.object);
+		return this.standartCategories.concat(categoryList);
 
 	}
 
 	createCategory(category: Category): Observable<Category> {
-		return of(this.database.createDocument(category, category.id))
+		let wrappedCategory = new DBWrapper("category", category);
+		return of(this.database.createDocument(wrappedCategory, category.id))
 			.pipe(
 				map(id => category),
 				take(1)
 			);
+	}
+
+	deleteCategory(category: Category): Observable<boolean> {
+		return of(this.database.deleteDocument(category.id))
+            .pipe(
+                take(1)
+            );
 	}
 }

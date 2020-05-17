@@ -3,13 +3,13 @@ import Day from "../entities/Day";
 import Category from "../entities/Category";
 import Task from "../entities/Task";
 import { Couchbase } from "nativescript-couchbase-plugin";
-import { Observable, generate, from, of, scheduled } from "rxjs";
+import { Observable, generate, from, of } from "rxjs";
 import { reduce, map, switchMap, take } from "rxjs/operators";
 import * as moment from "moment";
 import NotificationService from "./notificationService.service";
 import hash from "hash-it";
 import { TaskHelperService } from "./taskHelperService.service";
-import { TaskStates } from "../entities/enums/TaskStates";
+import DBWrapper from "../entities/DBWrapper";
 
 @Injectable({
     providedIn: "root"
@@ -35,11 +35,14 @@ export default class TaskService {
     getAllDays(): Observable<Day[]> {
         return new Observable<Day[]>(observer => {
             let taskList = this.database.query({
-                select: []
-            });
+                select: [],
+                where: [
+                    { property: "type", comparison: "equalTo", value: "task"}
+                ]
+            }).map(wrapper => wrapper.object);
+            
             let dates = taskList.map(task => task.startDate);
             dates = dates.filter((value, index, self) => self.indexOf(value) === index);
-            console.log(taskList);
             let days: Day[] = dates.map(date => {
                 let dayTasks = taskList.filter((first) => {
                     return moment(first.startDate).isSame(moment(date))
@@ -54,9 +57,12 @@ export default class TaskService {
         return new Observable<Day>(observer => {
             let taskList = this.database.query({
                 select: [],
-                where: [{ property: "startDate", comparison: 'equalTo', value: date }]
-            });
-            taskList = taskList.map(task => {
+                where: [
+                    { property: "type", comparison: "equalTo", value: "task"},
+                    { property: "startDate", comparison: 'equalTo', value: date }
+                ]
+            }).map(task => {
+                task = task.object;
                 let status;
                 if (task.status != 1) {
                     let time = moment(task.endTime)
@@ -95,12 +101,14 @@ export default class TaskService {
                 .pipe(
                     map(scheduleId => {
                         task.scheduleId = scheduleId[0];
-                        return this.database.createDocument(task, id);
+                        let wrapperTask = new DBWrapper("task", task)
+                        return this.database.createDocument(wrapperTask, id);
                     }),
                     take(1)
                 );
         } else {
-            return of(this.database.createDocument(task, id))
+            let wrapperTask = new DBWrapper("task", task)
+            return of(this.database.createDocument(wrapperTask, id))
                 .pipe(take(1));
         }
     }
@@ -109,10 +117,9 @@ export default class TaskService {
         return this.notificationService.changeNotification(task)
             .pipe(
                 map(scheduleId => {
-                    const id = hash(task).toString();
-                    task.id = id;
                     task.scheduleId = scheduleId[0];
-                    return this.database.updateDocument(task.id, task)
+                    let wrapperTask = new DBWrapper("task", task);
+                    return this.database.updateDocument(task.id, wrapperTask);
                 }),
                 take(1)
             )
@@ -122,12 +129,15 @@ export default class TaskService {
         return of(this.database.deleteDocument(task.id))
             .pipe(
                 take(1)
-            )
+            );
     }
 
     getTasksCount(): number {
         return this.database.query({
-            select: []
+            select: [],
+            where: [
+                { property: "type", comparison: "equalTo", value: "task"}
+            ],
         }).length;
     }
 }

@@ -72,7 +72,7 @@
             <Label text='Without date' class='checkbox__title'></Label>
         </FlexboxLayout>
         <WrapLayout class='card__underline'></WrapLayout>
-        <category-input formControlName="category" [categoryList]='categoryList'></category-input>
+        <category-input formControlName="category" (onDelete)='deleteCategory($event)' [categoryList]='categoryList'></category-input>
         <WrapLayout class='card__underline'></WrapLayout>
         <FlexboxLayout class='checkbox'>
             <Switch 

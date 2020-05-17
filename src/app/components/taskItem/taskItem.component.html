@@ -10,12 +10,12 @@
         </FlexboxLayout>
     </FlexboxLayout>
     <WrapLayout class='task__underline'></WrapLayout>
-    <GridLayout class='task__main-info' rows='30, 25' columns='5, *'>
+    <GridLayout class='task__main-info' [rows]='task.description ? "30, 25" : "30"' columns='5, *'>
         <WrapLayout class='task__category-color' [backgroundColor]='task.category.color' col='0'
         row='0' rowSpan='2'>
         </WrapLayout>
-        <Label class='task__name' row='0' col='1' [text]='task.name'></Label>
-        <Label class='task__description' row='1' col='1' [text]='task.id'></Label>
+        <Label class='task__name' row='0' col='1' [rowSpan]='task.description != "" ? 1 : 2' [text]='task.name'></Label>
+        <Label class='task__description' row='1' col='1' *ngIf="task.description" [text]='task.description'></Label>
     </GridLayout>
     <StackLayout class='task__info'>
         <FlexboxLayout class='task__row task__row_margin'>

@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, ViewChild, ElementRef, ViewContainerRef } from "@angular/core";
+import { Component, forwardRef, Input, ViewChild, ElementRef, ViewContainerRef, Output, EventEmitter } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import Category from "~/app/entities/Category";
 import { CategoryService } from "~/app/services/categoryService.service";
@@ -21,6 +21,7 @@ export class CategoryInputComponent implements ControlValueAccessor {
     private state: Category;
 
     @Input() categoryList: Category[];
+    @Output() onDelete: EventEmitter<Category> = new EventEmitter<Category>();
     @ViewChild("wrapper", { read: ElementRef, static: false }) wrapper: ElementRef;
 
     constructor(private categoryService: CategoryService, private modalDialog: ModalDialogService, private vcRef: ViewContainerRef) {}
@@ -55,6 +56,7 @@ export class CategoryInputComponent implements ControlValueAccessor {
     }
 
     wrapperLoaded() {
+        this.categoryList.sort((a, b) => (a.name == this.state.name && b.name != this.state.name) ? -1 : (a.name != this.state.name && b.name == this.state.name) ? 1 : 0);
         this.wrapper.nativeElement.android.setClipChildren(false);
         this.wrapper.nativeElement.android.getParent().setClipChildren(false);
         this.wrapper.nativeElement.android.getParent().getParent().setClipChildren(false);
