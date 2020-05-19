@@ -1,11 +1,11 @@
 <FlexboxLayout flexDirection="column" class='buttons-wrapper'>
-    <WrapLayout class='button calendar-button'>
+    <WrapLayout class='button calendar-button' (tap)='openCalendar()'>
         <StackLayout class='calendar-button__icon'>
             <FlexboxLayout class='calendar-button__upper'>
-                <Label [text]='date | date:"d"'></Label>
+                <Label [text]='currentDate | date:"d"'></Label>
             </FlexboxLayout>
             <FlexboxLayout class='calendar-button__bottom'>
-                <Label [text]='date | date:"EEE"'></Label>
+                <Label [text]='currentDate | date:"EEE"'></Label>
             </FlexboxLayout>
         </StackLayout>
     </WrapLayout>

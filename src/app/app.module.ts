@@ -24,6 +24,9 @@ import ContrastPipe from "./pipes/contrast.pipe";
 import IntervalNamePipe from "./pipes/intervalName.pipe";
 import CategoryItemComponent from "./components/categoryItem/categoryItem.component";
 import CreateCategoryModal from "./components/createCategoryModal/createCategoryModal";
+import CalendarModalComponent from "./components/calendarModal/calendarModal.component";
+import RowPipe from "./pipes/row.pipe";
+import DateEqualPipe from "./pipes/dateEqual.pipe";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -58,13 +61,17 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         ContrastPipe,
         IntervalNamePipe,
         CategoryItemComponent,
-        CreateCategoryModal
+        CreateCategoryModal,
+        CalendarModalComponent,
+        RowPipe,
+        DateEqualPipe
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ],
     entryComponents: [
-        CreateCategoryModal 
+        // CreateCategoryModal,
+        // CalendarModalComponent
     ]
 })
 export class AppModule { }

@@ -15,7 +15,7 @@ import { Page } from "tns-core-modules/ui/page/page";
     styleUrls: ["./main.component.scss"]
 })
 export default class MainPageComponent implements OnInit {
-    private date: Date = new Date();
+    private date: Date;
     private days: Day[];
 
     @ViewChild("card", { static: false }) card: CardFormComponent;
@@ -25,7 +25,8 @@ export default class MainPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.taskService.getSetupDays()
+        this.date = new Date();
+        this.taskService.getSetupDays(this.date)
             .subscribe(setupDays => {
                 this.days = setupDays;
             });
@@ -61,8 +62,16 @@ export default class MainPageComponent implements OnInit {
         this.days[dayIndex].taskList = this.taskHelper.distributeRows(this.days[dayIndex].taskList);
     }
 
+    changeDay(date: Date) {
+        this.taskService.getSetupDays(date)
+            .subscribe(setupDays => {
+                this.days = setupDays;
+                this.date = date;
+            });
+    }
+
     changeTask(task: Task) {
-        this.taskService.getSetupDays().subscribe(res => {
+        this.taskService.getSetupDays(this.date).subscribe(res => {
             this.days = res;
         });
         // let day = this.days.findIndex(day => {

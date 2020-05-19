@@ -1,0 +1,25 @@
+<StackLayout class='calendar-modal'>
+    <FlexboxLayout class='calendar-modal__row'>
+        <Label class='calendar-modal__control fas' text='&#xf104;' (tap)='previosMonth()'></Label>
+        <Label [text]="titleDate | date: 'MMMM yyyy'" class='calendar__title'></Label>
+        <Label class='calendar-modal__control fas' text='&#xf105;' (tap)='nextMonth()'></Label>
+    </FlexboxLayout>
+    <GridLayout class='calendar' columns='40, 40, 40, 40, 40, 40, 40' rows='20, 40, 40, 40, 40, 40, 40'>
+        <Label class='calendar__day-name' text='Sun' row='0' col='0'></Label>
+        <Label class='calendar__day-name' text='Mon' row='0' col='1'></Label>
+        <Label class='calendar__day-name' text='Tue' row='0' col='2'></Label>
+        <Label class='calendar__day-name' text='Wed' row='0' col='3'></Label>
+        <Label class='calendar__day-name' text='Thu' row='0' col='4'></Label>
+        <Label class='calendar__day-name' text='Fri' row='0' col='5'></Label>
+        <Label class='calendar__day-name' text='Sat' row='0' col='6'></Label>
+        <StackLayout 
+            class='calendar__day' 
+            [class.calendar__day_current]="day | dateequal: currentDate" 
+            *ngFor="let day of days; let index = index" 
+            [col]='day.getDay()' 
+            [row]='day | row: index'
+            (tap)='selectDay(day)'>
+            <Label [text]='day.getDate()'></Label>
+        </StackLayout>
+    </GridLayout>
+</StackLayout>

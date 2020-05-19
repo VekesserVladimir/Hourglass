@@ -21,9 +21,9 @@ export default class TaskService {
         this.database = new Couchbase('hourglass');
     }
 
-    getSetupDays(): Observable<Day[]> {
+    getSetupDays(startDate: Date): Observable<Day[]> {
         // this.database.destroyDatabase();
-        let date = moment().startOf('day').subtract(1, 'day');
+        let date = moment(startDate).startOf('day').subtract(1, 'day');
         return generate<moment.Moment>(date, x => x <= moment(date).add(2, 'day'), x => moment(x).add(1, 'day'))
             .pipe(
                 switchMap(date => this.getDay(date.toDate())),

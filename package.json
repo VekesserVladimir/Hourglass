@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.Hourglass",
+    "id": "org.nativescript.HourglassApplication",
     "tns-android": {
       "version": "6.5.0-2020-03-12-110223-01"
     },

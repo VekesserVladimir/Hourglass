@@ -1,0 +1,39 @@
+.calendar {
+    &__title {
+        font-size: 20;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &-modal {
+        padding: 0 20 10 20;
+
+        &__row {
+            justify-content: space-between;
+            align-items: center;
+            margin: 20 10 10 10;
+        }
+
+        &__control {
+            z-index: 0;
+            font-size: 20;
+        }
+    }
+
+    &__day {
+        border-radius: 4;
+
+        &_current {
+            border-width: 1;
+            border-color: rgb(17, 140, 255);
+        }
+
+        &-name {
+            text-align: center;
+        }
+
+        Label {
+            text-align: center;
+        }
+    }
+}

@@ -17,7 +17,7 @@
             ></scroll>
         </FlexboxLayout>
         <menu></menu>
-        <main-page-controls [date]='date' (onOpenCard)='openCard()'></main-page-controls>
+        <main-page-controls [date]='date' (onOpenCard)='openCard()' (onDateSelect)='changeDay($event)' [date]='date'></main-page-controls>
         <card-form 
             #card 
             (onTaskAdd)='addTask($event)'
