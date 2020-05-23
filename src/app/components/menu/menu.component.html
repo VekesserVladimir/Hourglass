@@ -2,7 +2,7 @@
     <FlexboxLayout class='menu__item' #menuItem (tap)='toggleMenu()'>
         <Label class='fas' text='&#xf013;'></Label>
     </FlexboxLayout>
-    <FlexboxLayout class='menu__item' #menuItem (tap)='toggleMenu()'>
+    <FlexboxLayout class='menu__item' #menuItem nsRouterLink='/statistic' pageTransition='slide' (tap)='toggleMenu()'>
         <Label class='fas' text='&#xf080;'></Label>
     </FlexboxLayout>
     <AbsoluteLayout class='menu__item' #menuItem nsRouterLink='/taskList' pageTransition='slide' (tap)='toggleMenu()'>

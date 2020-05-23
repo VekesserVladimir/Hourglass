@@ -1,0 +1,11 @@
+<StackLayout class='input category-input'>
+    <FlexboxLayout class='card__row'>
+        <Label class='input__title' text='Subtasks'></Label>
+        <Label class='category-input__button' text='Add subtask' (tap)='addSubtask()'></Label>
+    </FlexboxLayout>
+    <WrapLayout class='category-input__wrapper' #wrapper (loaded)='wrapperLoaded()'>
+        <category-item *ngFor="let category of categoryList; let index = index; trackBy: trackByIndex"
+            [category]='category' [isSelected]='category.name == state.name ? true : false'
+            (onCategorySelect)='changeCategory($event)' (onDelete)='onDelete.emit($event)'></category-item>
+    </WrapLayout>
+</StackLayout>

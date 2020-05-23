@@ -21,9 +21,9 @@
                 <Label class='input__title' text='Start date'></Label>
                 <DatePickerField 
                     class='input__value card__input-value' 
+                    hint='Select date' 
                     [minDate]='currentDate' 
                     [maxDate]='cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
-                    hint='Select date' 
                     formControlName="startDate">
                 </DatePickerField>
             </StackLayout>
@@ -97,5 +97,7 @@
             class='input__value card__description'
             formControlName="description">
         </TextView>
+        <WrapLayout class='card__underline'></WrapLayout>
+        <subtaskInput></subtaskInput>
     </WrapLayout>
 </WrapLayout>

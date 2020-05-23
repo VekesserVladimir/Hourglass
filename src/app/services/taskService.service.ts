@@ -40,6 +40,7 @@ export default class TaskService {
                     { property: "type", comparison: "equalTo", value: "task"}
                 ]
             }).map(wrapper => wrapper.object);
+            // taskList.forEach(task => console.log(task.startDate))
             
             let dates = taskList.map(task => task.startDate);
             dates = dates.filter((value, index, self) => self.indexOf(value) === index);
@@ -59,8 +60,8 @@ export default class TaskService {
                 select: [],
                 where: [
                     { property: "type", comparison: "equalTo", value: "task"},
-                    { property: "startDate", comparison: 'equalTo', value: date }
-                ]
+                    { property: "object.startDate", comparison: 'equalTo', value: date },
+                ],
             }).map(task => {
                 task = task.object;
                 let status;

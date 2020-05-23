@@ -1,0 +1,22 @@
+<Page>
+    <StackLayout class="statistic-page">
+        <Label text='Statistic' class="statistic-page__title"></Label>
+        <WrapLayout class='chart__wrapper'>
+            <RadCartesianChart class='chart' tkExampleTitle tkToggleNavButton>
+                <DateTimeContinuousAxis tkCartesianHorizontalAxis dateFormat="dd MMM" [majorStep]="step.interval"
+                    [majorStepUnit]="step.intervalName" labelFitMode="Rotate" labelRotationAngle='0.75' lineThickness="1"
+                    lineColor="#ddd" allowPan="true" allowZoom="true" ticksLength='3'>
+                </DateTimeContinuousAxis>
+                <LinearAxis tkCartesianVerticalAxis maximum='1' majorStep='0.25' lineHidden="true"></LinearAxis>
+                <SplineSeries tkCartesianSeries [items]="source" categoryProperty="date" valueProperty="sucсessPercent"
+                    class='chart__series' stackMode='Stack'></SplineSeries>
+            </RadCartesianChart>
+            <FlexboxLayout class='statistic-page__intervals intervals'>
+                <FlexboxLayout *ngFor="let interval of intervals" class='intervals__interval'
+                    [class.intervals__interval_active]="interval.isActive" (tap)='changeInterval(interval.name)'>
+                    <Label [text]='interval.name'></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+        </WrapLayout>
+    </StackLayout>
+</Page>

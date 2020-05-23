@@ -27,6 +27,9 @@ import CreateCategoryModal from "./components/createCategoryModal/createCategory
 import CalendarModalComponent from "./components/calendarModal/calendarModal.component";
 import RowPipe from "./pipes/row.pipe";
 import DateEqualPipe from "./pipes/dateEqual.pipe";
+import StatisticPageComponent from "./components/statisticPage/statisticPage.components";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
+import SubtaskInputComponent from "./components/subtaskInput/subtaskInput.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -41,7 +44,8 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         NativeScriptFormsModule,
         NativeScriptCommonModule,
         NativeScriptDateTimePickerModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NativeScriptUIChartModule
     ],
     declarations: [
         AppComponent,
@@ -64,7 +68,9 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         CreateCategoryModal,
         CalendarModalComponent,
         RowPipe,
-        DateEqualPipe
+        DateEqualPipe,
+        StatisticPageComponent,
+        SubtaskInputComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -33,6 +33,7 @@
     "nativescript-ng-shadow": "^2.1.0",
     "nativescript-orientation": "^2.2.4",
     "nativescript-ui-calendar": "^6.1.0",
+    "nativescript-ui-chart": "^7.1.1",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.5.5",
     "tns-core-modules": "^6.5.1",
