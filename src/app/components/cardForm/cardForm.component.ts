@@ -10,6 +10,7 @@ import { Color } from "@nativescript/core/color"
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { TaskStates } from "../../entities/enums/TaskStates";
 import { Intervals } from "../../entities/enums/Intervals";
+import Subtask from "~/app/entities/Subtask";
 
 
 @Component({
@@ -59,7 +60,8 @@ export default class CardFormComponent implements OnInit {
                 category: new FormControl(this.categoryList.find(category => category.name == 'Without category'), {
                     validators: [Validators.required]
                 }),
-                description: new FormControl(null)
+                description: new FormControl(null),
+                subtaskList: new FormControl(new Array<Subtask>())
             }
         );
         this.withoutDate = false;
@@ -83,7 +85,8 @@ export default class CardFormComponent implements OnInit {
                 startTime: task.startTime,
                 endTime: task.endTime,
                 category: task.category,
-                description: task.description
+                description: task.description,
+                subtaskList: task.subtaskList
             });
             this.task = task;
         }
@@ -176,6 +179,7 @@ export default class CardFormComponent implements OnInit {
                     this.cardForm.get('repeat') != null ? this.cardForm.get('repeat').value : null,
                     this.cardForm.get('category').value,
                     this.cardForm.get('description').value,
+                    this.cardForm.get('subtaskList').value,
                     null);
                 this.taskService.addTask(task).subscribe(res => {
                     this.onTaskAdd.emit(task);

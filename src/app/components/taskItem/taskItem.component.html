@@ -23,22 +23,17 @@
                 <Label class='far task__item-icon' text='&#xf017;'></Label>
                 <Label class='task__item-value' [text]='(task.startTime | date:"HH:mm") + " - " + (task.endTime | date:"HH:mm")'></Label>
             </FlexboxLayout>
-            <FlexboxLayout class='task__item' (tap)='openFullInfo()'>
+            <FlexboxLayout class='task__item' (tap)='openFullInfo()' *ngIf="task.subtaskList || task.repeat">
                 <Label class='far task__item-icon' text='&#xf103;'></Label>
                 <Label class='task__item-value hide-button' [text]='isOpen ? "Less" : "More"'></Label>
             </FlexboxLayout>
         </FlexboxLayout>
         <StackLayout class='task__hidden-info' #info>
-            <FlexboxLayout class='task__row task__row_margin'>
-                <FlexboxLayout class='task__item'>
-                    <Label class='far task__item-icon' text='&#xf017;'></Label>
-                    <Label class='task__item-value' [text]='(task.startTime | date:"HH:mm") + " - " + (task.endTime | date:"HH:mm")'></Label>
+            <StackLayout class='task__subtask-list'>
+                <FlexboxLayout *ngFor="let subtask of task.subtaskList" class='task__row subtask'>
+                    <Label [text]='subtask.name'></Label>
                 </FlexboxLayout>
-                <FlexboxLayout class='task__item' (tap)='openFullInfo()'>
-                    <Label class='far task__item-icon' text='&#xf103;'></Label>
-                    <Label class='task__item-value' [text]='isOpen ? "Less" : "More"'></Label>
-                </FlexboxLayout>
-            </FlexboxLayout>
+            </StackLayout>
         </StackLayout>
     </StackLayout>
 </StackLayout>

@@ -40,16 +40,20 @@ export default class TaskService {
                     { property: "type", comparison: "equalTo", value: "task"}
                 ]
             }).map(wrapper => wrapper.object);
-            // taskList.forEach(task => console.log(task.startDate))
-            
             let dates = taskList.map(task => task.startDate);
             dates = dates.filter((value, index, self) => self.indexOf(value) === index);
             let days: Day[] = dates.map(date => {
                 let dayTasks = taskList.filter((first) => {
                     return moment(first.startDate).isSame(moment(date))
-                }, []);
+                }, []).sort((first, second) => {
+                    let firstTime = new Date(first.startTime);
+                    let secondTime = new Date(second.startTime);
+                    return firstTime.getTime() > secondTime.getTime() ? 1 : firstTime.getTime() < secondTime.getTime() ? -1 : 0
+                });
+                
+                // dayTasks.forEach(item => console.log(item.startTime));
                 return new Day(new Date(date), dayTasks);
-            });
+            }).sort((first, second) => first.date.getTime() > second.date.getTime() ? -1 : first.date.getTime() < second.date.getTime() ? 1 : 0);
             observer.next(days);
         });
     }
@@ -84,6 +88,7 @@ export default class TaskService {
                     task.repeat,
                     new Category(task.category.id, task.category.name, task.category.color),
                     task.description,
+                    task.subtaskList,
                     task.row);
             });
 
@@ -97,6 +102,7 @@ export default class TaskService {
     addTask(task: Task): Observable<string> {
         const id = hash(task).toString();
         task.id = id;
+        console.log(task);
         if (task.repeat) {
             return from(this.notificationService.createNotification(task))
                 .pipe(

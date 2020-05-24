@@ -20,7 +20,7 @@ export class TaskItemComponent {
 
     openFullInfo() {
         this.info.nativeElement.animate({
-            height: this.isOpen ? 1 : 35,
+            height: this.isOpen ? 1 : (this.task.subtaskList.length * 25) + 10,
             duration: 200,
             curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
         });

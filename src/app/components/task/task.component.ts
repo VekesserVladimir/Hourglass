@@ -6,7 +6,7 @@ const platform = require('tns-core-modules/platform');
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import TaskService from "~/app/services/taskService.service";
-import { Page, ViewBase, Color } from "tns-core-modules/ui/page/page";
+import { Page } from "tns-core-modules/ui/page/page";
 import { ColorHelperService } from "~/app/services/colorHelper.service";
 import { TaskStates } from "../../entities/enums/TaskStates"
 

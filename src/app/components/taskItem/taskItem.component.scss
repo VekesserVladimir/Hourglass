@@ -78,5 +78,13 @@
 
     &__hidden-info {
         height: 1;
+
+        .subtask {
+            height: 25;
+
+            Label {
+                font-size: 16;
+            }
+        }
     }
 }

@@ -1,11 +1,15 @@
-<StackLayout class='input category-input'>
+<StackLayout class='input subtask-input'>
     <FlexboxLayout class='card__row'>
         <Label class='input__title' text='Subtasks'></Label>
-        <Label class='category-input__button' text='Add subtask' (tap)='addSubtask()'></Label>
+        <Label class='subtask-input__button' text='Add subtask' (tap)='addSubtask()'></Label>
     </FlexboxLayout>
-    <WrapLayout class='category-input__wrapper' #wrapper (loaded)='wrapperLoaded()'>
-        <category-item *ngFor="let category of categoryList; let index = index; trackBy: trackByIndex"
-            [category]='category' [isSelected]='category.name == state.name ? true : false'
-            (onCategorySelect)='changeCategory($event)' (onDelete)='onDelete.emit($event)'></category-item>
+    <WrapLayout class='subtask-list'>
+        <FlexboxLayout class='subtask-list__subtask' *ngFor="let subtask of subtaskList">
+            <Label class='subtask-list__empty' *ngIf="subtaskList.length == 0" text='Subtask list is empty'></Label>
+            <Label [text]='subtask.name' class='subtask-list__subtask-name'></Label>
+            <FlexboxLayout class='subtask-list__checkbox' [class.subtask-list__checkbox_active]='subtask.isDone' (tap)='check(subtask)'>
+                <Label *ngIf="subtask.isDone" class='fas subtask-list__checked' text='&#xf00c;'></Label>
+            </FlexboxLayout>>
+        </FlexboxLayout>
     </WrapLayout>
 </StackLayout>
