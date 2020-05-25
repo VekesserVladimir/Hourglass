@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit } from "@angular/core";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import Category from "~/app/entities/Category";
 import { CardStates } from "~/app/entities/enums/CardStates";
@@ -18,7 +18,7 @@ import Subtask from "~/app/entities/Subtask";
     templateUrl: "./cardForm.component.html",
     styleUrls: ["./cardForm.component.scss"]
 })
-export default class CardFormComponent implements OnInit {
+export default class CardFormComponent implements OnInit, AfterViewInit {
     private previosY: number;
     private categoryList: Category[];
     private category: Category;
@@ -34,6 +34,7 @@ export default class CardFormComponent implements OnInit {
     @Output() onTaskAdd: EventEmitter<Task> = new EventEmitter<Task>();
     @Output() onTaskChange: EventEmitter<Task> = new EventEmitter<Task>();
     @ViewChild("card", { read: ElementRef, static: false }) card: ElementRef;
+    @ViewChild("scroll", { read: ElementRef, static: false }) scroll: ElementRef;
 
     constructor(private taskService: TaskService, private categoryService: CategoryService) {
     }
@@ -68,6 +69,10 @@ export default class CardFormComponent implements OnInit {
         this.repeat = false;
     }
 
+    ngAfterViewInit() {
+        this.scroll.nativeElement.isScrollEnabled = false;
+    }
+
     switchCardState(mode: CardStates, task?: Task) {
         if (task && mode != CardStates.Closed) {
             if(task.repeat) {
@@ -89,6 +94,10 @@ export default class CardFormComponent implements OnInit {
                 subtaskList: task.subtaskList
             });
             this.task = task;
+        }
+
+        if(mode == CardStates.FullOpened) {
+            this.scroll.nativeElement.isScrollEnabled = true;
         }
         
         let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
@@ -152,6 +161,10 @@ export default class CardFormComponent implements OnInit {
     loaded() {
         this.card.nativeElement.style.translateY = CardStates.Closed;
         this.state = CardStates.Closed;
+    }
+
+    onScroll(e) {
+        // console.log(123);
     }
 
     complete() {

@@ -5,10 +5,22 @@
   .card {
     width: 100%;
     height: 100%;
-    padding: 20 20;
+    padding: 20 20 0 20;
     font-family: Archivo;
     background-color: white;
     border-radius: 24 24 0 0;
+
+    &__scroll {
+      height: 533;
+
+      &-wrapper {
+        padding-bottom: 10;
+      }
+    }
+
+    &__task-name {
+      margin: 0;
+    }
 
     &__input-value {
       width: 100%;
