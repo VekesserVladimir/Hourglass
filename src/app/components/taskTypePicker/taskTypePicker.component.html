@@ -1,0 +1,28 @@
+<ScrollView class='task-type-picker' orientation='horizontal'>
+    <FlexboxLayout class='task-type-picker__wrapper'>
+        <FlexboxLayout class='task-type' (tap)='changeTaskType("standart")'>
+            <FlexboxLayout class='task-type__icon'>
+                <Label class='fas' text='&#xf0ae;'></Label>
+            </FlexboxLayout>
+            <Label class='task-type__name' text='Standart'></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class='task-type' (tap)='changeTaskType("email")'>
+            <FlexboxLayout class='task-type__icon'>
+                <Label class='far' text='&#xf0e0;' color='#118cff'></Label>
+            </FlexboxLayout>
+            <Label class='task-type__name' text='Email'></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class='task-type'  (tap)='changeTaskType("call")'>
+            <FlexboxLayout class='task-type__icon'>
+                <Label class='fas' text='&#xf879;' color='#80ee7c'></Label>
+            </FlexboxLayout>
+            <Label class='task-type__name' text='Call'></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class='task-type'  (tap)='changeTaskType("shoppingTrip")'>
+            <FlexboxLayout class='task-type__icon'>
+                <Label class='fas' text='&#xf291;'color='#ff6767'></Label>
+            </FlexboxLayout>
+            <Label class='task-type__name' text='Shopping trip' textWrap="true"></Label>
+        </FlexboxLayout>
+    </FlexboxLayout>
+</ScrollView>

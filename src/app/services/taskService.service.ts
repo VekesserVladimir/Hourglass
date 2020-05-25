@@ -51,7 +51,6 @@ export default class TaskService {
                     return firstTime.getTime() > secondTime.getTime() ? 1 : firstTime.getTime() < secondTime.getTime() ? -1 : 0
                 });
                 
-                // dayTasks.forEach(item => console.log(item.startTime));
                 return new Day(new Date(date), dayTasks);
             }).sort((first, second) => first.date.getTime() > second.date.getTime() ? -1 : first.date.getTime() < second.date.getTime() ? 1 : 0);
             observer.next(days);
@@ -102,7 +101,6 @@ export default class TaskService {
     addTask(task: Task): Observable<string> {
         const id = hash(task).toString();
         task.id = id;
-        console.log(task);
         if (task.repeat) {
             return from(this.notificationService.createNotification(task))
                 .pipe(

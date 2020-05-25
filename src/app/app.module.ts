@@ -30,6 +30,7 @@ import DateEqualPipe from "./pipes/dateEqual.pipe";
 import StatisticPageComponent from "./components/statisticPage/statisticPage.components";
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import SubtaskInputComponent from "./components/subtaskInput/subtaskInput.component";
+import TaskTypePicker from "./components/taskTypePicker/taskTypePicker.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -70,7 +71,8 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         RowPipe,
         DateEqualPipe,
         StatisticPageComponent,
-        SubtaskInputComponent
+        SubtaskInputComponent,
+        TaskTypePicker
     ],
     schemas: [
         NO_ERRORS_SCHEMA

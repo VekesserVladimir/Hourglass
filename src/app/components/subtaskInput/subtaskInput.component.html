@@ -1,6 +1,6 @@
 <StackLayout class='input subtask-input'>
     <FlexboxLayout class='card__row'>
-        <Label class='input__title' text='Subtasks'></Label>
+        <Label class='input__title' [text]='inputTitle'></Label>
         <Label class='subtask-input__button' text='Add subtask' (tap)='addSubtask()'></Label>
     </FlexboxLayout>
     <WrapLayout class='subtask-list'>

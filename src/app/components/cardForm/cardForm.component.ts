@@ -8,10 +8,8 @@ import { CategoryService } from "~/app/services/categoryService.service";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Color } from "@nativescript/core/color"
 import * as dialogs from "tns-core-modules/ui/dialogs";
-import { TaskStates } from "../../entities/enums/TaskStates";
 import { Intervals } from "../../entities/enums/Intervals";
 import Subtask from "~/app/entities/Subtask";
-
 
 @Component({
     selector: "card-form",
@@ -29,6 +27,8 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
     private repeat: boolean;
     private currentInterval = Intervals.Minute.toString();
     private intervalAmount: number;
+    private taskType: string;
+    private cardTitle: string;
 
     @Input() state: CardStates;
     @Output() onTaskAdd: EventEmitter<Task> = new EventEmitter<Task>();
@@ -43,28 +43,19 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
         this.categoryList = this.categoryService.getAllCategories();
         this.cardForm = new FormGroup(
             {
-                name: new FormControl(null, {
-                    validators: [Validators.required]
-                }),
                 startDate: new FormControl(null, {
-                    validators: [Validators.required]
-                }),
-                endDate: new FormControl(null, {
                     validators: [Validators.required]
                 }),
                 startTime: new FormControl(null, {
                     validators: [Validators.required]
                 }),
-                endTime: new FormControl(null, {
-                    validators: [Validators.required]
-                }),
                 category: new FormControl(this.categoryList.find(category => category.name == 'Without category'), {
                     validators: [Validators.required]
                 }),
-                description: new FormControl(null),
-                subtaskList: new FormControl(new Array<Subtask>())
+                description: new FormControl(null)
             }
         );
+        this.changeTaskType("standart");
         this.withoutDate = false;
         this.repeat = false;
     }
@@ -75,7 +66,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
 
     switchCardState(mode: CardStates, task?: Task) {
         if (task && mode != CardStates.Closed) {
-            if(task.repeat) {
+            if (task.repeat) {
                 this.cardForm.addControl("repeat", new FormGroup({
                     amount: new FormControl(null, Validators.required),
                     interval: new FormControl(Intervals.Minute, Validators.required)
@@ -96,10 +87,10 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             this.task = task;
         }
 
-        if(mode == CardStates.FullOpened) {
+        if (mode == CardStates.FullOpened) {
             this.scroll.nativeElement.isScrollEnabled = true;
         }
-        
+
         let backgroundColor = mode == CardStates.FullOpened ? new Color(150, 0, 0, 0) : mode == CardStates.HalfOpened ? new Color(150, 0, 0, 0) : "transparent";
         this.card.nativeElement.parent.animate({
             backgroundColor: backgroundColor,
@@ -114,7 +105,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             curve: AnimationCurve.cubicBezier(0.165, 0.840, 0.440, 1.000)
         }).then(target => {
             this.state = mode;
-            if(mode == CardStates.Closed) {
+            if (mode == CardStates.Closed) {
                 this.task = null;
                 this.clearCard();
             }
@@ -167,11 +158,62 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
         // console.log(123);
     }
 
+    changeTaskType(type: string) {
+        this.taskType = type;
+        if (type == 'standart' || type == 'shoppingTrip') {
+            if(!this.cardForm.get('subtaskList')) {
+                this.cardForm.addControl("subtaskList", new FormControl(new Array<Subtask>()))
+            }
+            if(type == 'standart') {
+                this.cardTitle = 'Add task';
+                if (!this.cardForm.get("name")) {
+                    this.cardForm.addControl("name", new FormControl(null, {
+                        validators: [Validators.required]
+                    }));
+                }
+                if (!this.cardForm.get("endDate")) {
+                    this.cardForm.addControl("endDate", new FormControl(null, {
+                        validators: [Validators.required]
+                    }));
+                }
+                if (!this.cardForm.get("endTime")) {
+                    this.cardForm.addControl("endTime", new FormControl(null, {
+                        validators: [Validators.required]
+                    }));
+                }
+            }
+        } else {
+            if (type != 'shoppingTrip') {
+                if (!this.cardForm.get("name")) {
+                    this.cardForm.addControl("name", new FormControl(null, {
+                        validators: type != "shoppingTrip" ? [Validators.required] : null
+                    }));
+                }
+            }
+            if (this.cardForm.get("endDate")) {
+                this.cardForm.removeControl("endDate");
+            }
+            if (this.cardForm.get("endTime")) {
+                this.cardForm.removeControl("endTime");
+            }
+            if (this.cardForm.get("repeat")) {
+                this.cardForm.removeControl("repeat");
+            }
+            if (type == "email") {
+                this.cardTitle = 'Add email';
+            } else if (type == "call") {
+                this.cardTitle = 'Add call';
+            } else {
+                this.cardTitle = 'Add shopping trip';
+            }
+        }
+    }
+
     complete() {
-        if(this.cardForm.valid) {
-            if(this.task) {
-                for(let control in this.cardForm.controls) {
-                    if(this.cardForm.get(control).dirty) {
+        if (this.cardForm.valid) {
+            if (this.task) {
+                for (let control in this.cardForm.controls) {
+                    if (this.cardForm.get(control).dirty) {
                         this.task[control] = this.cardForm.get(control).value;
                     }
                 }
@@ -207,6 +249,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
         this.cardForm.get('category').setValue(this.categoryList.find(category => category.name == 'Without category'), {
             validators: [Validators.required]
         });
+        this.changeTaskType("standart");
     }
 
     deleteCategory(category: Category) {
@@ -215,7 +258,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
 
     openIntervalSelect() {
         let actions = [];
-        for(let item in Intervals) {
+        for (let item in Intervals) {
             if (isNaN(Number(item))) {
                 actions.push(item);
             }
@@ -227,7 +270,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             actions: actions
         };
         dialogs.action(options).then(result => {
-            if(result !== "Cancel") {
+            if (result !== "Cancel") {
                 this.currentInterval = result;
                 this.cardForm.get('repeat').get('type').setValue(result);
             }
@@ -253,7 +296,7 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
     }
 
     onRepeatChange(e) {
-        if(e.object.checked) {
+        if (e.object.checked) {
             this.cardForm.addControl("repeat", new FormGroup({
                 amount: new FormControl(null, Validators.required),
                 interval: new FormControl(Intervals.Minute, Validators.required)

@@ -6,31 +6,35 @@
         (pan)='touch($event)'
         [formGroup]="cardForm">
         <FlexboxLayout class='card__row'>
-            <Label [text]='task ? task.name : "Add task"' class='card__title'></Label>
+            <Label 
+                [text]='task ? task.name : cardTitle' 
+                class='card__title'></Label>
             <FlexboxLayout class='button card__complete-button' (tap)='complete()'>
                 <Label class='card__complete-button-text' text='SAVE'></Label>
             </FlexboxLayout>
         </FlexboxLayout>
-        <task-type-picker></task-type-picker>
+        <task-type-picker (onTypeSelected)='changeTaskType($event)'></task-type-picker>
         <ScrollView (scroll)="onScroll($event)" class='card__scroll' #scroll scrollBarIndicatorVisible='false'>
             <StackLayout class='card__scroll-wrapper'>
-                <StackLayout class='input card__task-name'>
-                    <Label class='input__title' text='Name'></Label>
-                    <TextField class='input__value card__input-value' formControlName="name" hint='Task name'></TextField>
-                </StackLayout>
-                <WrapLayout class='card__underline'></WrapLayout>
+                <ng-container *ngIf="taskType != 'shoppingTrip'">
+                    <StackLayout class='input card__task-name'>
+                        <Label class='input__title' [text]='taskType == "standart" ? "Name" : "To:"'></Label>
+                        <TextField class='input__value card__input-value' formControlName="name" hint='Task name'></TextField>
+                    </StackLayout>
+                    <WrapLayout class='card__underline'></WrapLayout>
+                </ng-container>
                 <FlexboxLayout class='card__row'>
-                    <StackLayout class='input input_short'>
+                    <StackLayout class='input input_short' [class.card__task-name]='taskType == "shoppingTrip"'>
                         <Label class='input__title' text='Start date'></Label>
                         <DatePickerField 
                             class='input__value card__input-value' 
                             hint='Select date' 
                             [minDate]='currentDate' 
-                            [maxDate]='cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
+                            [maxDate]='!cardForm.get("endDate") ? null : cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
                             formControlName="startDate">
                         </DatePickerField>
                     </StackLayout>
-                    <ng-container *ngIf="!withoutDate">
+                    <ng-container *ngIf="!withoutDate && taskType == 'standart'">
                         <StackLayout class='input input_short'>
                             <Label class='input__title' text='End date'></Label>
                             <DatePickerField 
@@ -52,7 +56,7 @@
                                 formControlName="startTime">
                             </TimePickerField>
                         </StackLayout>
-                        <StackLayout class='input input_short'>
+                        <StackLayout class='input input_short' *ngIf="taskType == 'standart'">
                             <Label class='input__title' text='End time'></Label>
                             <TimePickerField 
                                 class='input__value card__input-value' 
@@ -62,7 +66,7 @@
                         </StackLayout>
                     </FlexboxLayout>
                 </ng-container>
-                <FlexboxLayout class='checkbox'>
+                <FlexboxLayout class='checkbox' *ngIf="taskType == 'standart'">
                     <Switch 
                         class='checkbox__value checkbox_margin' 
                         color='#EDEDED' 
@@ -77,7 +81,7 @@
                 <WrapLayout class='card__underline'></WrapLayout>
                 <category-input formControlName="category" (onDelete)='deleteCategory($event)' [categoryList]='categoryList'></category-input>
                 <WrapLayout class='card__underline'></WrapLayout>
-                <FlexboxLayout class='checkbox'>
+                <FlexboxLayout class='checkbox' *ngIf="taskType == 'standart'">
                     <Switch 
                         class='checkbox__value' 
                         color='#EDEDED' 
@@ -100,7 +104,7 @@
                     class='input__value card__description'
                     formControlName="description">
                 </TextView>
-                <subtask-input formControlName="subtaskList"></subtask-input>
+                <subtask-input *ngIf="taskType == 'standart' || taskType == 'shoppingTrip'" formControlName="subtaskList" [inputTitle]='taskType == "standart" ? "Subtasks" : "Shopping list"'></subtask-input>
             </StackLayout>
         </ScrollView>
     </WrapLayout>

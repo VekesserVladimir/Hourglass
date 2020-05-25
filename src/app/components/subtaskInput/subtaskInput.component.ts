@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import Subtask from "~/app/entities/Subtask";
 import * as dialogs from "tns-core-modules/ui/dialogs";
@@ -17,6 +17,8 @@ export default class SubtaskInputComponent implements ControlValueAccessor {
     private subtaskList: Subtask[];
     private onTouched;
     private onChange;
+
+    @Input() inputTitle: string;
 
     writeValue(subtaskList: Subtask[]): void {
         this.subtaskList = subtaskList;
