@@ -1,0 +1,12 @@
+<FlexboxLayout class='birthdays-modal'>
+    <Label class='birthdays__title' [text]='title'></Label>
+    <StackLayout class='birthdays__list'>
+        <WrapLayout class='birthdays__friend' *ngFor="let friend of birthdays">
+            <Image [src]='friend.photo_50' class='birthdays__friend-photo'></Image>
+            <FlexboxLayout class='birthdays__friend-name' col='1' row='0'>
+                <Label [text]='friend.first_name + " " + friend.last_name'></Label>
+            </FlexboxLayout>
+        </WrapLayout>
+    </StackLayout>
+    <Button class="birthdays-modal__button" text="Close" (tap)="close()"></Button>
+</FlexboxLayout>

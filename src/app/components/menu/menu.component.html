@@ -1,5 +1,5 @@
 <FlexboxLayout class='header__menu menu' #menu (loaded)='loaded()'>
-    <FlexboxLayout class='menu__item' #menuItem (tap)='toggleMenu()'>
+    <FlexboxLayout class='menu__item' #menuItem nsRouterLink='/settings' pageTransition='slide' (tap)='toggleMenu()'>
         <Label class='fas' text='&#xf013;'></Label>
     </FlexboxLayout>
     <FlexboxLayout class='menu__item' #menuItem nsRouterLink='/statistic' pageTransition='slide' (tap)='toggleMenu()'>

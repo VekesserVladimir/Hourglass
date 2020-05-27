@@ -7,7 +7,7 @@
                     [majorStepUnit]="step.intervalName" labelFitMode="Rotate" labelRotationAngle='0.75' lineThickness="1"
                     lineColor="#ddd" allowPan="true" allowZoom="true" ticksLength='3'>
                 </DateTimeContinuousAxis>
-                <LinearAxis tkCartesianVerticalAxis maximum='1' majorStep='0.25' lineHidden="true"></LinearAxis>
+                <LinearAxis tkCartesianVerticalAxis maximum='100' majorStep='25' lineHidden="true" labelFormat='%.0f%%'></LinearAxis>
                 <SplineSeries tkCartesianSeries [items]="source" categoryProperty="date" valueProperty="sucсessPercent"
                     class='chart__series' stackMode='Stack'></SplineSeries>
             </RadCartesianChart>

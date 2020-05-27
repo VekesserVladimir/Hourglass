@@ -1,0 +1,42 @@
+.birthdays {
+    &-modal {
+        width: 300;
+        padding: 0 20;
+        flex-direction: column;
+
+        &__button {
+            margin: 0;
+            padding: 0;
+            z-index: 0;
+            align-self: flex-end;
+            background-color: transparent;
+            text-align: right;
+        }
+    }
+
+    &__title {
+        margin-top: 20;
+        font-size: 20;
+        font-weight: 500;
+    }
+
+    &__list {
+        margin-top: 10;
+    }
+
+    &__friend {
+        margin-bottom: 10;
+
+        &-photo {
+            width: 30;
+            height: 30;
+            border-radius: 50%;
+        }
+
+        &-name {
+            font-size: 16;
+            font-weight: 500;
+            margin: 4 0 0 10;
+        }
+    }
+}

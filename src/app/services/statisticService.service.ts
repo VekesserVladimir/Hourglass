@@ -38,7 +38,7 @@ export class StatisticService {
                 let successfulTasksAmount = day.taskList.reduce((sum, task) => {
                     return task.status == 1 ? sum + 1 : sum;
                 }, 0);
-                return new Statistic(day.date, +(successfulTasksAmount / taskAmount).toFixed(2));
+                return new Statistic(day.date, (+(successfulTasksAmount / taskAmount).toFixed(2)) * 100);
             }),
             reduce((setupDays: Statistic[], statistic) => setupDays.concat(statistic), new Array<Statistic>()),
             take(1)

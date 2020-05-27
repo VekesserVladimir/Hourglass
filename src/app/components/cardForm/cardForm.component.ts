@@ -155,7 +155,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
     }
 
     onScroll(e) {
-        // console.log(123);
     }
 
     changeTaskType(type: string) {

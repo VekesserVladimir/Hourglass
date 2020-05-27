@@ -10,6 +10,7 @@ import NotificationService from "./notificationService.service";
 import hash from "hash-it";
 import { TaskHelperService } from "./taskHelperService.service";
 import DBWrapper from "../entities/DBWrapper";
+import { VKService } from "./vkService.service";
 
 @Injectable({
     providedIn: "root"
@@ -17,7 +18,7 @@ import DBWrapper from "../entities/DBWrapper";
 export default class TaskService {
     private database: Couchbase;
 
-    constructor(private taskHelper: TaskHelperService, private notificationService: NotificationService) {
+    constructor(private taskHelper: TaskHelperService, private notificationService: NotificationService, private vkService: VKService) {
         this.database = new Couchbase('hourglass');
     }
 
@@ -50,8 +51,8 @@ export default class TaskService {
                     let secondTime = new Date(second.startTime);
                     return firstTime.getTime() > secondTime.getTime() ? 1 : firstTime.getTime() < secondTime.getTime() ? -1 : 0
                 });
-                
-                return new Day(new Date(date), dayTasks);
+                let birthdays = this.vkService.getDaysBirthdays(date);
+                return new Day(new Date(date), dayTasks, birthdays);
             }).sort((first, second) => first.date.getTime() > second.date.getTime() ? -1 : first.date.getTime() < second.date.getTime() ? 1 : 0);
             observer.next(days);
         });
@@ -90,9 +91,9 @@ export default class TaskService {
                     task.subtaskList,
                     task.row);
             });
-
             taskList = this.taskHelper.distributeRows(taskList);
-            observer.next(new Day(date, taskList));
+            let birthdays = this.vkService.getDaysBirthdays(date);
+            observer.next(new Day(date, taskList, birthdays));
         }).pipe(
             take(1)
         )

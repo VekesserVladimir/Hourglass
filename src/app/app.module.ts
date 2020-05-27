@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { registerElement, NativeScriptCommonModule, NativeScriptFormsModule } from "nativescript-angular";
+import { registerElement, NativeScriptCommonModule, NativeScriptFormsModule, NativeScriptHttpClientModule } from "nativescript-angular";
 import { NgShadowModule } from 'nativescript-ng-shadow';
 import { NativeScriptDateTimePickerModule } from "nativescript-datetimepicker/angular";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -31,6 +31,10 @@ import StatisticPageComponent from "./components/statisticPage/statisticPage.com
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import SubtaskInputComponent from "./components/subtaskInput/subtaskInput.component";
 import TaskTypePicker from "./components/taskTypePicker/taskTypePicker.component";
+import SettingsPageComponent from "./components/settingsPage/settingsPage.component";
+import AuthorizePage from "./components/authorizePage/authorizePage.components";
+import BirthdatePipe from "./pipes/birthdate.pipe";
+import BirthdaysModalComponent from "./components/birthdaysModal/birthdaysModal.component";
 
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -46,7 +50,8 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         NativeScriptCommonModule,
         NativeScriptDateTimePickerModule,
         ReactiveFormsModule,
-        NativeScriptUIChartModule
+        NativeScriptUIChartModule,
+        NativeScriptHttpClientModule
     ],
     declarations: [
         AppComponent,
@@ -72,14 +77,19 @@ registerElement("Gradient", () => require("nativescript-gradient").Gradient);
         DateEqualPipe,
         StatisticPageComponent,
         SubtaskInputComponent,
-        TaskTypePicker
+        TaskTypePicker,
+        SettingsPageComponent,
+        AuthorizePage,
+        BirthdatePipe,
+        BirthdaysModalComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ],
     entryComponents: [
-        // CreateCategoryModal,
-        // CalendarModalComponent
+        CreateCategoryModal,
+        CalendarModalComponent,
+        BirthdaysModalComponent
     ]
 })
 export class AppModule { }

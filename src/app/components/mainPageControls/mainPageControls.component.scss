@@ -1,10 +1,15 @@
 .buttons-wrapper {
   left: 294;
-  top: 551;
   font-size: 15;
+  flex-direction: column;
+
+  .gift-button {
+    width: 46;
+    height: 46;
+  }
 
   .calendar-button {
-    z-index: 4;
+    margin-top: 15;
 
     &__icon {
       width: 46;
@@ -39,7 +44,7 @@
       }
     }
   }
-  
+
   .add-button {
     margin-top: 15;
     z-index: 4;

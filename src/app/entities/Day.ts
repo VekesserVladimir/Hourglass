@@ -1,11 +1,8 @@
 import Task from "./Task";
+import Friend from "./Friend";
 
 export default class Day {
-    date: Date;
-    taskList: Array<Task>;
     
-    constructor(date: Date, taskList: Array<Task>) {
-        this.date = date;
-        this.taskList = taskList;
+    constructor(public date: Date, public taskList: Array<Task>, public birthdays?: Array<Friend>) {
     }
 }
