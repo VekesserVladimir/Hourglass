@@ -36,7 +36,7 @@ export default class MainPageComponent implements OnInit {
         this.card.switchCardState(CardStates.HalfOpened, task);
     }
 
-    changeDate(date) {
+    changeDate(date: Date) {
         this.date = date;
     }
 

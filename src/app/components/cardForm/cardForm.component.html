@@ -7,6 +7,7 @@
         [formGroup]="cardForm">
         <FlexboxLayout class='card__row'>
             <Label 
+                textWrap='true'
                 [text]='task ? task.name : cardTitle' 
                 class='card__title'></Label>
             <FlexboxLayout class='button card__complete-button' (tap)='complete()'>
@@ -29,10 +30,10 @@
                         <DatePickerField 
                             class='input__value card__input-value' 
                             hint='Select date' 
-                            [minDate]='currentDate' 
-                            [maxDate]='!cardForm.get("endDate") ? null : cardForm.get("endDate").value ? cardForm.get("endDate").value : null'
                             formControlName="startDate">
                         </DatePickerField>
+                        <!-- [minDate]='currentDate' 
+                        [maxDate]='!cardForm.get("endDate") ? null : cardForm.get("endDate").value ? cardForm.get("endDate").value : null' -->
                     </StackLayout>
                     <ng-container *ngIf="!withoutDate && taskType == 'standart'">
                         <StackLayout class='input input_short'>

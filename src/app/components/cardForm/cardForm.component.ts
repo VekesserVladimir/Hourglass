@@ -59,11 +59,9 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
         this.withoutDate = false;
         this.repeat = false;
     }
-
     ngAfterViewInit() {
         this.scroll.nativeElement.isScrollEnabled = false;
     }
-
     switchCardState(mode: CardStates, task?: Task) {
         if (task && mode != CardStates.Closed) {
             if (task.repeat) {
@@ -111,7 +109,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
     touch(e) {
         let currentOffset = this.card.nativeElement.translateY;
         let stateOffset = CardStates.Closed / 15;
@@ -148,15 +145,12 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
     loaded() {
         this.card.nativeElement.style.translateY = CardStates.Closed;
         this.state = CardStates.Closed;
     }
-
     onScroll(e) {
     }
-
     changeTaskType(type: string) {
         this.taskType = type;
         if (type == 'standart' || type == 'shoppingTrip') {
@@ -207,7 +201,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
     complete() {
         if (this.cardForm.valid) {
             if (this.task) {
@@ -242,7 +235,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
     clearCard() {
         this.cardForm.reset();
         this.cardForm.get('category').setValue(this.categoryList.find(category => category.name == 'Without category'), {
@@ -250,11 +242,9 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
         });
         this.changeTaskType("standart");
     }
-
     deleteCategory(category: Category) {
         this.categoryList.splice(this.categoryList.findIndex(item => category.name == item.name), 1);
     }
-
     openIntervalSelect() {
         let actions = [];
         for (let item in Intervals) {
@@ -275,7 +265,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
     onWithoutDateChange(e) {
         if (e.object.checked) {
             this.cardForm.removeControl('endDate');
@@ -293,7 +282,6 @@ export default class CardFormComponent implements OnInit, AfterViewInit {
             }));
         }
     }
-
     onRepeatChange(e) {
         if (e.object.checked) {
             this.cardForm.addControl("repeat", new FormGroup({

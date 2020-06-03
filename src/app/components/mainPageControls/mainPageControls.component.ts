@@ -20,6 +20,7 @@ export default class MainPageControlsComponent {
     }
 
     openCard(e): void {
+        console.log(this.birthdays);
         this.onOpenCard.emit();
     }
 

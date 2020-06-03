@@ -1,5 +1,5 @@
-<FlexboxLayout class='buttons-wrapper' [top]='birthdays ? 505 : 551'>
-    <Image src='~/app/assets/gift.png' class='gift-button' *ngIf="birthdays" (tap)="showBirthdays()"></Image>
+<FlexboxLayout class='buttons-wrapper' [top]='birthdays.length != 0 ? 505 : 551'>
+    <Image src='~/app/assets/gift.png' class='gift-button' *ngIf="birthdays.length != 0" (tap)="showBirthdays()"></Image>
     <WrapLayout class='button calendar-button' (tap)='openCalendar()'>
         <StackLayout class='calendar-button__icon'>
             <FlexboxLayout class='calendar-button__upper'>

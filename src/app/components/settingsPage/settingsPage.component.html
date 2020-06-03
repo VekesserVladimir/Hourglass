@@ -1,4 +1,7 @@
 <Page>
+    <ActionBar title="Settings" (loaded)='loaded()'>
+        <NavigationButton android.systemIcon="ic_menu_back" (tap)='navigateBack()'></NavigationButton>
+    </ActionBar> 
     <StackLayout class="settings-page">
         <FlexboxLayout class='settings-page__item'>
             <Label text='Clear database'></Label>
@@ -6,19 +9,21 @@
         <FlexboxLayout class='settings-page__item vk' (tap)='signInVk()'>
             <Label [text]='!isAuth ? "Sign in with VK" : "Sign out from VK"'></Label>
         </FlexboxLayout>
-        <Label text='Friends list' class='settings-page__title'></Label>
-        <ScrollView scrollBarIndicatorVisible='false' class='settings-page__scroll'>
-            <StackLayout class='friends-list'>
-                <GridLayout rows='*' columns='30, *, 120' class='friends-list__friend' *ngFor="let friend of friendsList">
-                    <Image [src]='friend.photo_50' class='friends-list__friend-photo' col='0' row='0'></Image>
-                    <FlexboxLayout class='friends-list__friend-name' col='1' row='0'>
-                        <Label [text]='friend.first_name + " " + friend.last_name'></Label>
-                    </FlexboxLayout>
-                    <FlexboxLayout class='friends-list__friend-birthdate' col='2' row='0'>
-                        <Label [text]='friend | birthdate | date: "dd MMMM"'></Label>
-                    </FlexboxLayout>
-                </GridLayout>
-            </StackLayout>
-        </ScrollView>
+        <ng-container *ngIf="isAuth">
+            <Label text='Friends list' class='settings-page__title'></Label>
+            <ScrollView scrollBarIndicatorVisible='false' class='settings-page__scroll'>
+                <StackLayout class='friends-list'>
+                    <GridLayout rows='*' columns='30, *, 120' class='friends-list__friend' *ngFor="let friend of friendsList">
+                        <Image [src]='friend.photo_50' class='friends-list__friend-photo' col='0' row='0'></Image>
+                        <FlexboxLayout class='friends-list__friend-name' col='1' row='0'>
+                            <Label [text]='friend.first_name + " " + friend.last_name'></Label>
+                        </FlexboxLayout>
+                        <FlexboxLayout class='friends-list__friend-birthdate' col='2' row='0'>
+                            <Label [text]='friend | birthdate | date: "dd MMMM"'></Label>
+                        </FlexboxLayout>
+                    </GridLayout>
+                </StackLayout>
+            </ScrollView>
+        </ng-container>
     </StackLayout>
 </Page>

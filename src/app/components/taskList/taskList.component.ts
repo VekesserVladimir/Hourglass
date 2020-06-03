@@ -14,7 +14,7 @@ export default class TaskListComponent implements OnInit {
     private days: Day[] = [];
 
     constructor(private taskService: TaskService, private page: Page, private router: RouterExtensions) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     ngOnInit() {
@@ -30,4 +30,6 @@ export default class TaskListComponent implements OnInit {
     navigateBack() {
         this.router.backToPreviousPage();
     }
+    
+    loaded() {}
 }

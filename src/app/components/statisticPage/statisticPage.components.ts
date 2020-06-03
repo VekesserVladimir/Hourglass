@@ -4,6 +4,7 @@ import { RouterExtensions } from "nativescript-angular";
 import { StatisticService } from "~/app/services/statisticService.service";
 import Statistic from "~/app/entities/Statistic";
 
+declare var android: any;
 @Component({
     selector: "statistic-page",
     templateUrl: "./statisticPage.component.html",
@@ -32,7 +33,7 @@ export default class StatisticPageComponent implements OnInit {
     private source: Statistic[];
 
     constructor(private statisticService: StatisticService, private page: Page, private router: RouterExtensions) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     ngOnInit() {
@@ -58,5 +59,9 @@ export default class StatisticPageComponent implements OnInit {
             }
             this.source = statistic;
         });
+    }
+
+    loaded() {
+        this.page.actionBar.nativeView.getNavigationIcon().setColorFilter(android.graphics.Color.parseColor('#020202'), (<any>android.graphics).PorterDuff.Mode.SRC_ATOP);
     }
 }

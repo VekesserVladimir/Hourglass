@@ -14,7 +14,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
     }]
 })
 export default class SubtaskInputComponent implements ControlValueAccessor {
-    private subtaskList: Subtask[];
+    private subtaskList: Subtask[] = [];
     private onTouched;
     private onChange;
 

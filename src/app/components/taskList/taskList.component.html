@@ -1,8 +1,11 @@
 <Page>
+    <ActionBar title="Settings" (loaded)='loaded()'>
+        <NavigationButton android.systemIcon="ic_menu_back" (tap)='navigateBack()'></NavigationButton>
+    </ActionBar> 
     <AbsoluteLayout class="task-list-page">
-        <FlexboxLayout class='task-list-page__close-button' (tap)='navigateBack()'>
+        <!-- <FlexboxLayout class='task-list-page__close-button' (tap)='navigateBack()'>
             <Label class='fas' text="&#xf060;"></Label>
-        </FlexboxLayout>
+        </FlexboxLayout> -->
         <ScrollView class='task-list' scrollBarIndicatorVisible='false'>
             <StackLayout class='task-list__wrapper'>
                 <StackLayout class='task-list__day' *ngFor="let day of days;">

@@ -1,4 +1,7 @@
 <Page>
+    <ActionBar title="Statistic" (loaded)='loaded()'>
+        <NavigationButton android.systemIcon="ic_menu_back" (tap)='navigateBack()'></NavigationButton>
+    </ActionBar> 
     <StackLayout class="statistic-page">
         <Label text='Statistic' class="statistic-page__title"></Label>
         <WrapLayout class='chart__wrapper'>

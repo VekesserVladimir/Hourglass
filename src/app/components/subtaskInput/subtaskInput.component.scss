@@ -1,4 +1,6 @@
 .subtask-input {
+    margin-bottom: 20;
+
     .card__row {
         width: 100%;
         justify-content: space-between;
@@ -15,6 +17,11 @@
             &-name {
                 font-size: 16;
             }
+        }
+
+        &__empty {
+            margin-top: 10;
+            font-size: 16;
         }
 
         &__empty {
